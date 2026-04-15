@@ -1,0 +1,1647 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexploria — Explorez la Science Interactive</title>
+  <meta name="description" content="Nexploria est un laboratoire scientifique interactif : fractales, automates cellulaires, physique des particules, ondes de Fourier, pendule chaotique et bien plus. Explorez la science par l'expérience.">
+  <meta name="keywords" content="fractales, Mandelbrot, science interactive, automate cellulaire, physique particules, ondes Fourier, pendule chaotique, diffusion réaction, mathématiques visuelles, nexploria">
+  <meta name="author" content="Nexploria">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://nexploria.science/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nexploria.science/">
+  <meta property="og:title" content="Nexploria — Explorez la Science Interactive">
+  <meta property="og:description" content="Un laboratoire de curiosités scientifiques interactives : fractales, particules, ondes et plus encore.">
+  <meta property="og:image" content="https://nexploria.science/og-image.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="Nexploria">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Nexploria — Explorez la Science Interactive">
+  <meta name="twitter:description" content="Laboratoire de science interactive : fractales, physique, mathématiques visuelles.">
+  <meta name="twitter:image" content="https://nexploria.science/og-image.png">
+
+  <!-- Schema.org structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Nexploria",
+    "url": "https://nexploria.science/",
+    "description": "Laboratoire scientifique interactif pour explorer les mathématiques, la physique et la biologie par l'expérience visuelle.",
+    "inLanguage": "fr",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://nexploria.science/?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Nexploria",
+      "url": "https://nexploria.science/"
+    }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --ink: #0a0a0f;
+      --paper: #f5f3ee;
+      --paper2: #eceae3;
+      --accent: #e8430a;
+      --accent2: #1a7c5e;
+      --accent3: #5c35d4;
+      --muted: #6b6760;
+      --border: #d4d0c8;
+      --card-bg: #faf9f6;
+      --glow: rgba(232, 67, 10, 0.15);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NOISE TEXTURE ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1000;
+      opacity: 0.4;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--ink);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+
+    nav { display: flex; gap: 1.5rem; align-items: center; }
+
+    nav a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    nav a:hover { color: var(--ink); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    #hero-canvas {
+      position: absolute;
+      inset: 0;
+      opacity: 0.15;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-eyebrow::before,
+    .hero-eyebrow::after {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    h1 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+      color: var(--ink);
+    }
+
+    h1 .accent-word {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: 1.15rem;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      font-weight: 300;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--paper);
+      padding: 0.85rem 2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .hero-cta:hover { background: var(--accent); transform: translateY(-2px); }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 3rem;
+      margin-top: 4rem;
+      padding-top: 2.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .stat {
+      text-align: center;
+    }
+
+    .stat-num {
+      font-family: 'Space Mono', monospace;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .section-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    h2 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+
+    /* ── EXPERIMENTS GRID ── */
+    #experiences {
+      background: var(--paper);
+    }
+
+    .experiments-intro {
+      max-width: 1200px;
+      margin: 0 auto 3rem;
+    }
+
+    .experiments-intro p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 560px;
+    }
+
+    .experiments-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .exp-card {
+      background: var(--card-bg);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      transition: background 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .exp-card:hover { background: white; }
+
+    .exp-card:hover .exp-canvas-preview { opacity: 1; }
+
+    .exp-canvas-preview {
+      width: 100%;
+      height: 180px;
+      display: block;
+      opacity: 0.85;
+      transition: opacity 0.3s;
+    }
+
+    .exp-body { padding: 1.25rem 1.5rem 1.5rem; flex: 1; display: flex; flex-direction: column; }
+
+    .exp-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-card h3 {
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .exp-card p {
+      font-size: 0.87rem;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .exp-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 1px;
+      width: fit-content;
+      transition: color 0.2s;
+    }
+
+    .exp-cta:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── MODAL OVERLAY ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10,10,15,0.85);
+      z-index: 500;
+      overflow-y: auto;
+      padding: 2rem 1rem;
+    }
+
+    .modal-overlay.active { display: flex; align-items: flex-start; justify-content: center; }
+
+    .modal {
+      background: var(--paper);
+      width: 100%;
+      max-width: 900px;
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 1.5rem 1.5rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title { font-weight: 800; font-size: 1.4rem; letter-spacing: -0.02em; }
+    .modal-tag { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; }
+
+    .modal-close {
+      background: none;
+      border: 1px solid var(--border);
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--ink);
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+
+    .modal-close:hover { background: var(--paper2); }
+
+    .modal-body { padding: 1.5rem; }
+
+    .modal-canvas-wrap {
+      background: #0a0a0f;
+      position: relative;
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-canvas-wrap canvas {
+      display: block;
+      width: 100%;
+      max-height: 480px;
+    }
+
+    .modal-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      align-items: center;
+    }
+
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ctrl-label {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .ctrl-btn {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      padding: 0.5rem 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .ctrl-btn:hover { background: var(--accent); }
+    .ctrl-btn.secondary { background: transparent; color: var(--ink); border: 1px solid var(--border); }
+    .ctrl-btn.secondary:hover { background: var(--paper2); }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      width: 100px;
+      height: 3px;
+      background: var(--border);
+      outline: none;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 14px;
+      height: 14px;
+      background: var(--ink);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    input[type="range"]:hover::-webkit-slider-thumb { background: var(--accent); }
+
+    .modal-info {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      border-left: 2px solid var(--accent);
+      padding-left: 1rem;
+    }
+
+    .modal-info strong { color: var(--ink); }
+
+    /* ── ABOUT ── */
+    #a-propos {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    #a-propos .section-label { color: rgba(245,243,238,0.4); }
+    #a-propos h2 { color: var(--paper); }
+
+    .about-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-text p {
+      color: rgba(245,243,238,0.7);
+      margin-bottom: 1rem;
+      font-size: 1.02rem;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .feature-item {
+      border: 1px solid rgba(245,243,238,0.12);
+      padding: 1.25rem;
+    }
+
+    .feature-icon {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .feature-item h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .feature-item p {
+      font-size: 0.8rem;
+      color: rgba(245,243,238,0.5);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--paper2);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .footer-logo {
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--ink);
+    }
+
+    footer p {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header { padding: 0 1rem; }
+      nav { display: none; }
+      .hero-stats { gap: 1.5rem; }
+      .experiments-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-features { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════
+     HEADER
+════════════════════════════════ -->
+<header>
+  <a href="#" class="logo">
+    <span class="logo-dot"></span>
+    Nexploria
+  </a>
+  <nav>
+    <a href="#experiences">Expériences</a>
+    <a href="#a-propos">À propos</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ════════════════════════════════
+     HERO
+════════════════════════════════ -->
+<main>
+  <section class="hero" aria-label="Introduction à Nexploria">
+    <div class="hero-bg" aria-hidden="true">
+      <canvas id="hero-canvas"></canvas>
+    </div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">Laboratoire Interactif</span>
+      <h1>
+        La science,<br>
+        <span class="accent-word">explorée</span><br>
+        par l'expérience.
+      </h1>
+      <p class="hero-sub">
+        Nexploria est un cabinet de curiosités numériques. Manipulez des fractales, observez l'émergence de la vie, jouez avec les ondes — tout se passe ici, en temps réel.
+      </p>
+      <a href="#experiences" class="hero-cta">
+        Commencer l'exploration
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <div class="hero-stats" role="list" aria-label="Statistiques Nexploria">
+        <div class="stat" role="listitem">
+          <div class="stat-num">8</div>
+          <div class="stat-label">Expériences</div>
+        </div>
+        <div class="stat" role="listitem">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Paramètres</div>
+        </div>
+        <div class="stat" role="listitem">
+          <div class="stat-num">0</div>
+          <div class="stat-label">Prérequis</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       EXPERIMENTS
+  ════════════════════════════════ -->
+  <section id="experiences" aria-labelledby="exp-heading">
+    <div class="experiments-intro">
+      <span class="section-label">// expériences</span>
+      <h2 id="exp-heading">Huit portails vers l'invisible</h2>
+      <p>Chaque expérience est un univers à part entière. Cliquez, glissez, modifiez les paramètres — et observez comment la complexité émerge de règles simples.</p>
+    </div>
+
+    <div class="experiments-grid" role="list" aria-label="Liste des expériences scientifiques">
+      <!-- Card 1: Mandelbrot -->
+      <article class="exp-card" role="listitem" onclick="openExp('mandelbrot')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('mandelbrot')" aria-label="Ouvrir l'expérience Fractale de Mandelbrot">
+        <canvas class="exp-canvas-preview" id="prev-mandelbrot" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Mathématiques — Fractales</div>
+          <h3>Ensemble de Mandelbrot</h3>
+          <p>Zoomez dans une frontière d'une complexité infinie. Chaque recoin révèle de nouveaux détails auto-similaires, à jamais répétés.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+
+      <!-- Card 2: Conway -->
+      <article class="exp-card" role="listitem" onclick="openExp('conway')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('conway')" aria-label="Ouvrir l'expérience Jeu de la Vie">
+        <canvas class="exp-canvas-preview" id="prev-conway" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Biologie — Automates</div>
+          <h3>Jeu de la Vie de Conway</h3>
+          <p>Quatre règles. Des milliers de comportements. Observez comment la vie, la mort et la reproduction font émerger des structures inattendues.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+
+      <!-- Card 3: Particles -->
+      <article class="exp-card" role="listitem" onclick="openExp('particles')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('particles')" aria-label="Ouvrir l'expérience Gravité & Particules">
+        <canvas class="exp-canvas-preview" id="prev-particles" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Physique — Mécanique</div>
+          <h3>Gravité & Particules</h3>
+          <p>Créez des amas de matière. Observez les orbites, les collisions et la formation spontanée de systèmes gravitationnels.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+
+      <!-- Card 4: Fourier -->
+      <article class="exp-card" role="listitem" onclick="openExp('fourier')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('fourier')" aria-label="Ouvrir l'expérience Synthèse de Fourier">
+        <canvas class="exp-canvas-preview" id="prev-fourier" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Physique — Ondes</div>
+          <h3>Synthèse de Fourier</h3>
+          <p>Superposez des ondes sinusoïdales pour reconstruire n'importe quelle forme. Découvrez pourquoi le son, la lumière et la chaleur obéissent aux mêmes mathématiques.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+
+      <!-- Card 5: Chaos -->
+      <article class="exp-card" role="listitem" onclick="openExp('chaos')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('chaos')" aria-label="Ouvrir l'expérience Pendule Chaotique">
+        <canvas class="exp-canvas-preview" id="prev-chaos" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Physique — Chaos</div>
+          <h3>Pendule Chaotique</h3>
+          <p>Deux pendules, une infime différence. Regardez comment deux trajectoires presque identiques divergent totalement — l'effet papillon en action.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+
+      <!-- Card 6: Reaction-Diffusion -->
+      <article class="exp-card" role="listitem" onclick="openExp('turing')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('turing')" aria-label="Ouvrir l'expérience Motifs de Turing">
+        <canvas class="exp-canvas-preview" id="prev-turing" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Biologie — Morphogenèse</div>
+          <h3>Motifs de Turing</h3>
+          <p>La réaction-diffusion qui explique les rayures des zèbres et les taches des léopards. La chimie génère des motifs complexes par elle-même.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+
+      <!-- Card 7: Sort -->
+      <article class="exp-card" role="listitem" onclick="openExp('sort')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('sort')" aria-label="Ouvrir l'expérience Algorithmes de Tri">
+        <canvas class="exp-canvas-preview" id="prev-sort" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Informatique — Algorithmes</div>
+          <h3>Algorithmes de Tri</h3>
+          <p>Visualisez comment bubble sort, quicksort et merge sort ordonnent le chaos. Comparez leur efficacité en temps réel.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+
+      <!-- Card 8: Lissajous -->
+      <article class="exp-card" role="listitem" onclick="openExp('lissajous')" tabindex="0" onkeydown="if(event.key==='Enter')openExp('lissajous')" aria-label="Ouvrir l'expérience Courbes de Lissajous">
+        <canvas class="exp-canvas-preview" id="prev-lissajous" aria-hidden="true"></canvas>
+        <div class="exp-body">
+          <div class="exp-tag">Mathématiques — Géométrie</div>
+          <h3>Courbes de Lissajous</h3>
+          <p>Deux oscillations perpendiculaires dessinent des figures hypnotiques. Modifiez les fréquences et regardez la géométrie danser.</p>
+          <span class="exp-cta" role="button">Explorer <span aria-hidden="true">→</span></span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════
+       ABOUT
+  ════════════════════════════════ -->
+  <section id="a-propos" aria-labelledby="about-heading">
+    <div class="about-grid">
+      <div class="about-text">
+        <span class="section-label">// à propos</span>
+        <h2 id="about-heading">Pourquoi Nexploria ?</h2>
+        <p>La science est souvent enseignée comme une liste de faits à mémoriser. Nexploria prend le parti inverse : ici, tout se comprend en jouant.</p>
+        <p>Chaque simulation tourne entièrement dans votre navigateur — aucune installation, aucune connexion serveur. Vos données restent chez vous.</p>
+        <p>Le nom est une fusion de <em>nexus</em> (connexion, réseau), d'<em>explore</em> et du suffixe <em>-oria</em> évoquant les laboratoires et observatoires.</p>
+      </div>
+      <div class="about-features" role="list" aria-label="Caractéristiques de Nexploria">
+        <div class="feature-item" role="listitem">
+          <div class="feature-icon" aria-hidden="true">⚡</div>
+          <h4>Temps réel</h4>
+          <p>60 images/seconde, calculs GPU quand possible.</p>
+        </div>
+        <div class="feature-item" role="listitem">
+          <div class="feature-icon" aria-hidden="true">🔓</div>
+          <h4>Open</h4>
+          <p>Aucun compte, aucune publicité, aucun tracking.</p>
+        </div>
+        <div class="feature-item" role="listitem">
+          <div class="feature-icon" aria-hidden="true">🧪</div>
+          <h4>Interactif</h4>
+          <p>Tous les paramètres sont modifiables en direct.</p>
+        </div>
+        <div class="feature-item" role="listitem">
+          <div class="feature-icon" aria-hidden="true">📱</div>
+          <h4>Universel</h4>
+          <p>Fonctionne sur mobile, tablette et bureau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- ════════════════════════════════
+     FOOTER
+════════════════════════════════ -->
+<footer id="contact" role="contentinfo">
+  <div class="footer-logo">Nexploria</div>
+  <p>© 2025 Nexploria. Tous les calculs s'effectuent dans votre navigateur.</p>
+  <p><a href="mailto:hello@nexploria.science">hello@nexploria.science</a></p>
+</footer>
+
+<!-- ════════════════════════════════
+     MODALS
+════════════════════════════════ -->
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-text" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag" id="modal-tag-text"></div>
+        <div class="modal-title" id="modal-title-text"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Fermer l'expérience">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-canvas-wrap">
+        <canvas id="main-canvas"></canvas>
+      </div>
+      <div class="modal-controls" id="modal-controls"></div>
+      <div class="modal-info" id="modal-info"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+//  NEXPLORIA — Science Interactive Engine
+// ═══════════════════════════════════════════════════
+
+const RAFHandle = { id: null };
+const canvas = document.getElementById('main-canvas');
+const ctx = canvas.getContext('2d');
+
+// ── Canvas sizing ──
+function resizeCanvas(w, h) {
+  canvas.width = w || Math.min(860, window.innerWidth - 48);
+  canvas.height = h || Math.min(480, (canvas.width * 9) / 16);
+}
+resizeCanvas();
+
+// ══════════════════════════════════════════════════
+//  HERO CANVAS — Animated particles background
+// ══════════════════════════════════════════════════
+(function() {
+  const c = document.getElementById('hero-canvas');
+  const g = c.getContext('2d');
+  let pts = [];
+  function resize() {
+    c.width = window.innerWidth;
+    c.height = document.querySelector('.hero').offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 80; i++) pts.push({
+    x: Math.random() * c.width, y: Math.random() * c.height,
+    vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4
+  });
+  function draw() {
+    g.clearRect(0,0,c.width,c.height);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > c.width) p.vx *= -1;
+      if (p.y < 0 || p.y > c.height) p.vy *= -1;
+    });
+    pts.forEach((a,i) => {
+      pts.slice(i+1).forEach(b => {
+        const d = Math.hypot(a.x-b.x, a.y-b.y);
+        if (d < 120) {
+          g.strokeStyle = `rgba(10,10,15,${(1-d/120)*0.3})`;
+          g.lineWidth = 0.5;
+          g.beginPath(); g.moveTo(a.x,a.y); g.lineTo(b.x,b.y); g.stroke();
+        }
+      });
+      g.fillStyle = 'rgba(10,10,15,0.4)';
+      g.beginPath(); g.arc(a.x,a.y,1.5,0,Math.PI*2); g.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ══════════════════════════════════════════════════
+//  PREVIEW THUMBNAILS — rendered on load
+// ══════════════════════════════════════════════════
+window.addEventListener('load', function() {
+  renderPreviews();
+});
+
+function renderPreviews() {
+  previewMandelbrot();
+  previewConway();
+  previewParticles();
+  previewFourier();
+  previewChaos();
+  previewTuring();
+  previewSort();
+  previewLissajous();
+}
+
+function getPreview(id) {
+  const c = document.getElementById('prev-' + id);
+  c.width = c.offsetWidth || 340;
+  c.height = 180;
+  return [c, c.getContext('2d')];
+}
+
+function previewMandelbrot() {
+  const [c, g] = getPreview('mandelbrot');
+  const W = c.width, H = c.height;
+  const img = g.createImageData(W, H);
+  const maxIter = 80;
+  for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
+    const x0 = (px/W) * 3.5 - 2.5, y0 = (py/H) * 2 - 1;
+    let x=0,y=0,i=0;
+    while (x*x+y*y<=4 && i<maxIter) { const t=x*x-y*y+x0; y=2*x*y+y0; x=t; i++; }
+    const t = i/maxIter;
+    const idx = (py*W+px)*4;
+    img.data[idx]   = Math.floor(9*(1-t)*t*t*t*255);
+    img.data[idx+1] = Math.floor(15*(1-t)*(1-t)*t*t*255);
+    img.data[idx+2] = Math.floor(8.5*(1-t)*(1-t)*(1-t)*t*255);
+    img.data[idx+3] = 255;
+  }
+  g.putImageData(img, 0, 0);
+}
+
+function previewConway() {
+  const [c, g] = getPreview('conway');
+  const W = c.width, H = c.height, S = 6;
+  const cols = Math.floor(W/S), rows = Math.floor(H/S);
+  let grid = Array.from({length:rows}, ()=>Array.from({length:cols}, ()=>Math.random()<0.3?1:0));
+  g.fillStyle = '#0a0a0f'; g.fillRect(0,0,W,H);
+  for (let r=0; r<rows; r++) for (let col=0; col<cols; col++)
+    if(grid[r][col]) { g.fillStyle='#1a7c5e'; g.fillRect(col*S,r*S,S-1,S-1); }
+}
+
+function previewParticles() {
+  const [c, g] = getPreview('particles');
+  g.fillStyle = '#0a0a0f'; g.fillRect(0,0,c.width,c.height);
+  const pts = Array.from({length:60}, ()=>({
+    x:Math.random()*c.width, y:Math.random()*c.height,
+    r:Math.random()*2+0.5
+  }));
+  pts.forEach(p => {
+    g.fillStyle = `rgba(232,67,10,${Math.random()*0.6+0.2})`;
+    g.beginPath(); g.arc(p.x,p.y,p.r,0,Math.PI*2); g.fill();
+  });
+}
+
+function previewFourier() {
+  const [c, g] = getPreview('fourier');
+  g.fillStyle = '#0a0a0f'; g.fillRect(0,0,c.width,c.height);
+  const colors = ['#e8430a','#1a7c5e','#5c35d4','rgba(245,243,238,0.3)'];
+  [1,3,5,7].forEach((h,i) => {
+    g.strokeStyle = colors[i]; g.lineWidth = i===3?2:1;
+    g.beginPath();
+    for (let x=0; x<c.width; x++) {
+      const y = c.height/2 - (Math.sin(x*h*0.04)/(i===3?1:h*0.7))*40;
+      i===0&&x===0 ? g.moveTo(x,y) : g.lineTo(x,y);
+    }
+    g.stroke();
+  });
+}
+
+function previewChaos() {
+  const [c, g] = getPreview('chaos');
+  g.fillStyle = '#0a0a0f'; g.fillRect(0,0,c.width,c.height);
+  // Lorenz attractor projection
+  let x=0.1,y=0,z=0, sx=10,ry=28,bz=8/3;
+  const dt=0.005;
+  g.strokeStyle='#5c35d4'; g.lineWidth=0.5; g.beginPath();
+  let first=true;
+  for(let i=0;i<8000;i++){
+    const dx=sx*(y-x), dy=x*(ry-z)-y, dz=x*y-bz*z;
+    x+=dx*dt; y+=dy*dt; z+=dz*dt;
+    const px = (x+25)/50*c.width, py=(z-5)/35*c.height;
+    first?(g.moveTo(px,py),first=false):g.lineTo(px,py);
+  }
+  g.stroke();
+}
+
+function previewTuring() {
+  const [c, g] = getPreview('turing');
+  const W=c.width,H=c.height;
+  const img = g.createImageData(W,H);
+  for(let y=0;y<H;y++) for(let x=0;x<W;x++){
+    const v = Math.sin(x*0.08)*Math.cos(y*0.08) + Math.sin(x*0.04+y*0.04)*0.5;
+    const n = (v+1.5)/3;
+    const idx=(y*W+x)*4;
+    img.data[idx]=Math.floor(n*232);
+    img.data[idx+1]=Math.floor(n*180);
+    img.data[idx+2]=Math.floor(n*60);
+    img.data[idx+3]=255;
+  }
+  g.putImageData(img,0,0);
+}
+
+function previewSort() {
+  const [c, g] = getPreview('sort');
+  g.fillStyle = '#0a0a0f'; g.fillRect(0,0,c.width,c.height);
+  const N=40;
+  const arr=Array.from({length:N},(_,i)=>i+1).sort(()=>Math.random()-0.5);
+  arr.forEach((v,i)=>{
+    const t=v/N;
+    g.fillStyle=`hsl(${t*60+10},80%,${40+t*30}%)`;
+    g.fillRect(i*(c.width/N),c.height*(1-v/N),c.width/N-1,c.height*(v/N));
+  });
+}
+
+function previewLissajous() {
+  const [c, g] = getPreview('lissajous');
+  g.fillStyle = '#0a0a0f'; g.fillRect(0,0,c.width,c.height);
+  g.strokeStyle='#e8430a'; g.lineWidth=1.5; g.beginPath();
+  const cx=c.width/2, cy=c.height/2, A=cx*0.8, B=cy*0.8;
+  for(let t=0;t<Math.PI*2*3;t+=0.01){
+    const x=cx+A*Math.sin(3*t+Math.PI/4), y=cy+B*Math.sin(2*t);
+    t===0?g.moveTo(x,y):g.lineTo(x,y);
+  }
+  g.stroke();
+}
+
+// ══════════════════════════════════════════════════
+//  MODAL SYSTEM
+// ══════════════════════════════════════════════════
+
+let currentExp = null;
+
+const experiments = {
+  mandelbrot: {
+    tag: 'Mathématiques — Fractales',
+    title: 'Ensemble de Mandelbrot',
+    info: '<strong>L\'ensemble de Mandelbrot</strong> est défini par les nombres complexes <em>c</em> pour lesquels la suite z → z² + c reste bornée. Sa frontière est d\'une complexité infinie : en zoomant, on découvre toujours de nouveaux détails. C\'est l\'objet le plus célèbre de la théorie du chaos et de la géométrie fractale.',
+    setup: setupMandelbrot
+  },
+  conway: {
+    tag: 'Biologie — Automates Cellulaires',
+    title: 'Jeu de la Vie de Conway',
+    info: '<strong>Le Jeu de la Vie</strong> (Conway, 1970) est un automate cellulaire à 4 règles : une cellule vivante avec 2 ou 3 voisins survit ; une cellule morte avec exactement 3 voisins naît. Ces règles minimales génèrent des comportements d\'une richesse stupéfiante : oscillateurs, vaisseaux, générateurs de gliders... un modèle fondamental en biologie théorique.',
+    setup: setupConway
+  },
+  particles: {
+    tag: 'Physique — Mécanique Newtonienne',
+    title: 'Gravité & Particules',
+    info: '<strong>Simulation n-corps</strong> : chaque particule attire toutes les autres selon la loi de Newton (F = Gm₁m₂/r²). Cliquez pour ajouter de la masse. Observez la formation de disques orbitaux, de binaires instables et d\'éjections hyperboliques. Ce type de simulation modélise la formation des galaxies.',
+    setup: setupParticles
+  },
+  fourier: {
+    tag: 'Physique — Analyse Spectrale',
+    title: 'Synthèse de Fourier',
+    info: '<strong>La série de Fourier</strong> (1822) montre que toute fonction périodique est la somme de sinusoïdes. En superposant des harmoniques (fréquences entières multiples), on peut approcher n\'importe quelle forme. C\'est le fondement du traitement du signal, de la musique numérique et de l\'imagerie médicale (IRM).',
+    setup: setupFourier
+  },
+  chaos: {
+    tag: 'Physique — Systèmes Chaotiques',
+    title: 'Pendule Chaotique',
+    info: '<strong>L\'attracteur de Lorenz</strong> (1963) illustre la sensibilité aux conditions initiales : deux trajectoires quasi-identiques divergent exponentiellement. Ce phénomène, appelé "effet papillon" par Lorenz, explique l\'impossibilité de la prévision météorologique au-delà de quelques semaines.',
+    setup: setupChaos
+  },
+  turing: {
+    tag: 'Biologie — Morphogenèse Chimique',
+    title: 'Motifs de Turing (Réaction-Diffusion)',
+    info: '<strong>Alan Turing</strong> (1952) proposa que les motifs biologiques (rayures, taches) émergent de la compétition entre deux substances chimiques : un activateur qui s\'amplifie et un inhibiteur qui le supprime à plus grande distance. Ce mécanisme "reaction-diffusion" explique les motifs des zèbres, guépards et poissons-globes.',
+    setup: setupTuring
+  },
+  sort: {
+    tag: 'Informatique — Algorithmique',
+    title: 'Visualisation des Algorithmes de Tri',
+    info: '<strong>Les algorithmes de tri</strong> illustrent des stratégies fondamentalement différentes : Bubble Sort (O(n²)) compare toujours des voisins ; Quicksort (O(n log n) moyen) divise et conquiert autour d\'un pivot ; Merge Sort (O(n log n) garanti) fusionne des sous-tableaux triés. La visualisation révèle leurs "empreintes" caractéristiques.',
+    setup: setupSort
+  },
+  lissajous: {
+    tag: 'Mathématiques — Géométrie Harmonique',
+    title: 'Courbes de Lissajous',
+    info: '<strong>Les figures de Lissajous</strong> (Jules Antoine Lissajous, 1857) sont les trajectoires d\'un point soumis à deux oscillations perpendiculaires. Quand le rapport des fréquences est rationnel, la courbe se ferme. Les physiciens les utilisent pour mesurer les fréquences sur oscilloscope. En musique, elles correspondent aux intervalles harmoniques.',
+    setup: setupLissajous
+  }
+};
+
+function openExp(id) {
+  cancelAnimationFrame(RAFHandle.id);
+  currentExp = id;
+  const exp = experiments[id];
+  document.getElementById('modal-tag-text').textContent = exp.tag;
+  document.getElementById('modal-title-text').textContent = exp.title;
+  document.getElementById('modal-info').innerHTML = exp.info;
+  document.getElementById('modal-controls').innerHTML = '';
+  document.getElementById('modal-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+  resizeCanvas();
+  exp.setup();
+}
+
+function closeModal() {
+  cancelAnimationFrame(RAFHandle.id);
+  document.getElementById('modal-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+  currentExp = null;
+}
+
+document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+function addBtn(label, fn, secondary) {
+  const b = document.createElement('button');
+  b.className = 'ctrl-btn' + (secondary?' secondary':'');
+  b.textContent = label;
+  b.onclick = fn;
+  document.getElementById('modal-controls').appendChild(b);
+  return b;
+}
+
+function addSlider(label, min, max, val, fn) {
+  const wrap = document.createElement('div');
+  wrap.className = 'ctrl-group';
+  const lbl = document.createElement('span');
+  lbl.className = 'ctrl-label';
+  lbl.textContent = label;
+  const inp = document.createElement('input');
+  inp.type='range'; inp.min=min; inp.max=max; inp.value=val; inp.step=1;
+  const out = document.createElement('span');
+  out.className = 'ctrl-label';
+  out.textContent = val;
+  inp.oninput = ()=>{ out.textContent=inp.value; fn(+inp.value); };
+  wrap.appendChild(lbl); wrap.appendChild(inp); wrap.appendChild(out);
+  document.getElementById('modal-controls').appendChild(wrap);
+  return inp;
+}
+
+// ══════════════════════════════════════════════════
+//  1. MANDELBROT
+// ══════════════════════════════════════════════════
+function setupMandelbrot() {
+  let zoom = 200, cx = -0.5, cy = 0, maxIter = 120;
+  let dragging = false, lastX, lastY;
+
+  canvas.style.cursor = 'crosshair';
+
+  canvas.onmousedown = e=>{ dragging=true; lastX=e.clientX; lastY=e.clientY; };
+  canvas.onmouseup = ()=>dragging=false;
+  canvas.onmousemove = e=>{
+    if(!dragging)return;
+    cx -= (e.clientX-lastX)/zoom;
+    cy -= (e.clientY-lastY)/zoom;
+    lastX=e.clientX; lastY=e.clientY;
+    drawMandelbrot();
+  };
+  canvas.onwheel = e=>{
+    e.preventDefault();
+    const factor = e.deltaY<0?1.3:0.77;
+    const mx=(e.offsetX-canvas.width/2)/zoom, my=(e.offsetY-canvas.height/2)/zoom;
+    zoom*=factor;
+    cx+=mx*(1-1/factor); cy+=my*(1-1/factor);
+    drawMandelbrot();
+  };
+
+  addBtn('Reset', ()=>{ zoom=200;cx=-0.5;cy=0; drawMandelbrot(); }, true);
+  addSlider('Iterations', 40, 400, maxIter, v=>{ maxIter=v; drawMandelbrot(); });
+  addBtn('Point d\'intérêt 1', ()=>{ cx=-0.745;cy=0.1;zoom=2000; drawMandelbrot(); }, true);
+  addBtn('Point d\'intérêt 2', ()=>{ cx=-0.156;cy=1.032;zoom=5000; drawMandelbrot(); }, true);
+
+  drawMandelbrot();
+
+  function drawMandelbrot() {
+    const W=canvas.width, H=canvas.height;
+    const img = ctx.createImageData(W,H);
+    for(let py=0;py<H;py++) for(let px=0;px<W;px++){
+      const x0=(px-W/2)/zoom+cx, y0=(py-H/2)/zoom+cy;
+      let x=0,y=0,i=0;
+      while(x*x+y*y<=4&&i<maxIter){const t=x*x-y*y+x0;y=2*x*y+y0;x=t;i++;}
+      const smooth = i<maxIter ? i+1-Math.log(Math.log(Math.sqrt(x*x+y*y)))/Math.log(2) : maxIter;
+      const t = smooth/maxIter;
+      const idx=(py*W+px)*4;
+      if(i>=maxIter){img.data[idx]=img.data[idx+1]=img.data[idx+2]=0;}
+      else {
+        img.data[idx]=Math.floor(Math.pow(Math.sin(t*Math.PI),2)*220+20);
+        img.data[idx+1]=Math.floor(Math.pow(Math.sin(t*Math.PI+1),2)*150);
+        img.data[idx+2]=Math.floor(Math.pow(Math.sin(t*Math.PI+2),2)*200+30);
+      }
+      img.data[idx+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+  }
+}
+
+// ══════════════════════════════════════════════════
+//  2. CONWAY
+// ══════════════════════════════════════════════════
+function setupConway() {
+  const S=8;
+  const cols=Math.floor(canvas.width/S), rows=Math.floor(canvas.height/S);
+  let grid=makeGrid(cols,rows,true), running=false, speed=100;
+
+  function makeGrid(c,r,rand){
+    return Array.from({length:r},()=>Array.from({length:c},()=>rand&&Math.random()<0.25?1:0));
+  }
+
+  canvas.onclick=e=>{
+    const col=Math.floor(e.offsetX/S*(cols/canvas.offsetWidth*canvas.width/cols*S/S)||e.offsetX/S);
+    const row=Math.floor(e.offsetY/S*(rows/canvas.offsetHeight*canvas.height/rows*S/S)||e.offsetY/S);
+    const c=Math.min(cols-1,Math.max(0,Math.floor(e.offsetX/canvas.offsetWidth*cols)));
+    const r=Math.min(rows-1,Math.max(0,Math.floor(e.offsetY/canvas.offsetHeight*rows)));
+    grid[r][c]=1-grid[r][c];
+    drawConway();
+  };
+
+  let playBtn=addBtn('▶ Play', ()=>{
+    running=!running;
+    playBtn.textContent=running?'⏸ Pause':'▶ Play';
+    if(running)loopConway();
+  });
+  addBtn('Réinitialiser', ()=>{ grid=makeGrid(cols,rows,true); drawConway(); }, true);
+  addBtn('Vider', ()=>{ grid=makeGrid(cols,rows,false); drawConway(); }, true);
+  addSlider('Vitesse', 1, 30, 10, v=>speed=Math.floor(1000/v));
+
+  // Glider pattern
+  addBtn('Glider', ()=>{
+    grid=makeGrid(cols,rows,false);
+    [[1,0],[2,1],[0,2],[1,2],[2,2]].forEach(([dc,dr])=>{ grid[10+dr][10+dc]=1; });
+    drawConway();
+  }, true);
+
+  drawConway();
+
+  function drawConway(){
+    ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+      if(grid[r][c]){
+        ctx.fillStyle='#1a7c5e';
+        ctx.fillRect(c*S+1,r*S+1,S-1,S-1);
+      }
+    }
+  }
+
+  function stepConway(){
+    const next=makeGrid(cols,rows,false);
+    for(let r=0;r<rows;r++) for(let c=0;c<cols;c++){
+      let n=0;
+      for(let dr=-1;dr<=1;dr++) for(let dc=-1;dc<=1;dc++){
+        if(dr===0&&dc===0)continue;
+        n+=grid[(r+dr+rows)%rows][(c+dc+cols)%cols];
+      }
+      next[r][c]=(grid[r][c]&&(n===2||n===3))||(!grid[r][c]&&n===3)?1:0;
+    }
+    grid=next;
+  }
+
+  let last=0;
+  function loopConway(ts=0){
+    if(!running)return;
+    if(ts-last>speed){ stepConway(); drawConway(); last=ts; }
+    RAFHandle.id=requestAnimationFrame(loopConway);
+  }
+}
+
+// ══════════════════════════════════════════════════
+//  3. PARTICLES
+// ══════════════════════════════════════════════════
+function setupParticles(){
+  const W=canvas.width, H=canvas.height;
+  let particles=[], G=500, DAMP=0.98;
+
+  function spawn(x,y,n=5){
+    for(let i=0;i<n;i++){
+      const angle=Math.random()*Math.PI*2, speed=Math.random()*0.5;
+      particles.push({ x:x+Math.random()*10-5, y:y+Math.random()*10-5,
+        vx:Math.cos(angle)*speed, vy:Math.sin(angle)*speed,
+        m:Math.random()*2+0.5, hue:Math.floor(Math.random()*60+10) });
+    }
+  }
+
+  for(let i=0;i<80;i++) spawn(W/2+Math.random()*200-100, H/2+Math.random()*200-100, 1);
+
+  canvas.onclick=e=>spawn(e.offsetX/canvas.offsetWidth*W, e.offsetY/canvas.offsetHeight*H, 8);
+
+  addBtn('+ Amas', ()=>spawn(Math.random()*W,Math.random()*H,15));
+  addBtn('Reset', ()=>{ particles=[]; for(let i=0;i<80;i++) spawn(W/2+Math.random()*200-100,H/2+Math.random()*200-100,1); }, true);
+  addSlider('Gravité', 100, 2000, 500, v=>G=v);
+
+  let trail=[];
+  function loop(){
+    ctx.fillStyle='rgba(10,10,15,0.15)'; ctx.fillRect(0,0,W,H);
+    for(let i=0;i<particles.length;i++){
+      let ax=0,ay=0;
+      for(let j=0;j<particles.length;j++){
+        if(i===j)continue;
+        const dx=particles[j].x-particles[i].x, dy=particles[j].y-particles[i].y;
+        const d=Math.max(Math.sqrt(dx*dx+dy*dy),5);
+        const f=G*particles[j].m/(d*d);
+        ax+=f*dx/d; ay+=f*dy/d;
+      }
+      particles[i].vx=(particles[i].vx+ax*0.016)*DAMP;
+      particles[i].vy=(particles[i].vy+ay*0.016)*DAMP;
+      particles[i].x+=particles[i].vx;
+      particles[i].y+=particles[i].vy;
+      if(particles[i].x<0)particles[i].x=W;
+      if(particles[i].x>W)particles[i].x=0;
+      if(particles[i].y<0)particles[i].y=H;
+      if(particles[i].y>H)particles[i].y=0;
+      const r=particles[i].m*1.5;
+      ctx.beginPath();
+      ctx.arc(particles[i].x,particles[i].y,r,0,Math.PI*2);
+      ctx.fillStyle=`hsl(${particles[i].hue},80%,60%)`;
+      ctx.fill();
+    }
+    if(particles.length>200)particles=particles.slice(-200);
+    RAFHandle.id=requestAnimationFrame(loop);
+  }
+  ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+  loop();
+}
+
+// ══════════════════════════════════════════════════
+//  4. FOURIER
+// ══════════════════════════════════════════════════
+function setupFourier(){
+  const W=canvas.width, H=canvas.height;
+  let harmonics=7, speed=1, showCircles=true;
+  let t=0;
+  const waveHistory=[];
+
+  addSlider('Harmoniques', 1, 30, 7, v=>{ harmonics=v; waveHistory.length=0; });
+  addSlider('Vitesse', 1, 10, 3, v=>speed=v*0.3);
+  addBtn(showCircles?'Cacher cercles':'Voir cercles', function(){ showCircles=!showCircles; this.textContent=showCircles?'Cacher cercles':'Voir cercles'; }, true);
+
+  function loop(){
+    ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+
+    // Draw wave target (square wave label)
+    ctx.strokeStyle='rgba(92,53,212,0.2)'; ctx.lineWidth=1; ctx.setLineDash([4,4]);
+    ctx.beginPath();
+    for(let x=0;x<W/2;x++){
+      const sq = Math.sign(Math.sin(x*0.04*speed));
+      const y=H/2-sq*80;
+      x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    }
+    ctx.stroke(); ctx.setLineDash([]);
+
+    // Compute Fourier sum at center
+    let cx2=W*0.25, cy2=H/2;
+    let tx=0, ty=0;
+    if(showCircles){
+      for(let k=0;k<harmonics;k++){
+        const n=2*k+1;
+        const radius=(4/Math.PI)*(1/n)*80;
+        const angle=n*t*speed;
+        const nx=cx2+radius*Math.cos(angle);
+        const ny=cy2+radius*Math.sin(angle);
+        ctx.strokeStyle=`rgba(232,67,10,${0.5-k*0.015})`;
+        ctx.lineWidth=0.8;
+        ctx.beginPath(); ctx.arc(cx2,cy2,radius,0,Math.PI*2); ctx.stroke();
+        ctx.strokeStyle='rgba(232,67,10,0.8)'; ctx.lineWidth=1;
+        ctx.beginPath(); ctx.moveTo(cx2,cy2); ctx.lineTo(nx,ny); ctx.stroke();
+        tx+=radius*Math.cos(angle); ty+=radius*Math.sin(angle);
+        cx2=nx; cy2=ny;
+      }
+    } else {
+      for(let k=0;k<harmonics;k++){
+        const n=2*k+1, r=(4/Math.PI)*(1/n)*80;
+        tx+=r*Math.cos(n*t*speed); ty+=r*Math.sin(n*t*speed);
+      }
+      cx2=W*0.25+tx; cy2=H/2+ty;
+    }
+
+    // Wave history
+    waveHistory.unshift(cy2);
+    if(waveHistory.length>W*0.6)waveHistory.pop();
+
+    // Connector line
+    ctx.strokeStyle='rgba(245,243,238,0.3)'; ctx.lineWidth=0.5;
+    ctx.beginPath(); ctx.moveTo(cx2,cy2); ctx.lineTo(W*0.4,waveHistory[0]); ctx.stroke();
+
+    // Draw wave
+    ctx.strokeStyle='#e8430a'; ctx.lineWidth=2;
+    ctx.beginPath();
+    waveHistory.forEach((y,i)=>{ const x=W*0.4+i; i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+    ctx.stroke();
+
+    t+=0.02;
+    RAFHandle.id=requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// ══════════════════════════════════════════════════
+//  5. CHAOS (Lorenz attractor)
+// ══════════════════════════════════════════════════
+function setupChaos(){
+  const W=canvas.width, H=canvas.height;
+  let sigma=10, rho=28, beta=8/3;
+  let pts1=[{x:0.1,y:0,z:0}], pts2=[{x:0.1001,y:0,z:0}];
+  let running=true, dt=0.005, step=0;
+
+  addSlider('σ (sigma)', 5, 20, 10, v=>{ sigma=v; reset(); });
+  addSlider('ρ (rho)', 10, 50, 28, v=>{ rho=v; reset(); });
+  addBtn('Reset', reset, true);
+
+  function reset(){
+    pts1=[{x:0.1,y:0,z:0}]; pts2=[{x:0.1001,y:0,z:0}]; step=0;
+    ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+  }
+
+  function lorenz(p){ return { x:sigma*(p.y-p.x), y:p.x*(rho-p.z)-p.y, z:p.x*p.y-beta*p.z }; }
+
+  function integrate(p){
+    const d=lorenz(p);
+    return { x:p.x+d.x*dt, y:p.y+d.y*dt, z:p.z+d.z*dt };
+  }
+
+  ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+
+  function project(p){ return { x:W*0.5+(p.x)*W*0.016, y:H*0.75-(p.z)*H*0.018 }; }
+
+  function loop(){
+    for(let s=0;s<3;s++){
+      const np1=integrate(pts1[pts1.length-1]);
+      const np2=integrate(pts2[pts2.length-1]);
+      pts1.push(np1); pts2.push(np2);
+
+      const a=project(pts1[pts1.length-2]), b=project(np1);
+      const c=project(pts2[pts2.length-2]), d=project(np2);
+
+      const divergence=Math.min(1,step/3000);
+      ctx.strokeStyle=`rgba(92,53,212,${0.6})`;
+      ctx.lineWidth=0.8;
+      ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+
+      ctx.strokeStyle=`rgba(232,${Math.floor(67+divergence*120)},10,0.6)`;
+      ctx.beginPath(); ctx.moveTo(c.x,c.y); ctx.lineTo(d.x,d.y); ctx.stroke();
+
+      step++;
+      if(pts1.length>6000){ pts1.shift(); pts2.shift(); }
+    }
+    RAFHandle.id=requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// ══════════════════════════════════════════════════
+//  6. TURING REACTION-DIFFUSION
+// ══════════════════════════════════════════════════
+function setupTuring(){
+  const W=Math.floor(canvas.width/2), H=Math.floor(canvas.height/2);
+  let A=new Float32Array(W*H).fill(1), B=new Float32Array(W*H);
+  let dA=1.0, dB=0.5, feed=0.055, kill=0.062;
+
+  // Seed
+  for(let i=0;i<20;i++){
+    const cx=Math.floor(Math.random()*W), cy=Math.floor(Math.random()*H);
+    for(let dy=-5;dy<=5;dy++) for(let dx=-5;dx<=5;dx++){
+      const idx=((cy+dy+H)%H)*W+((cx+dx+W)%W);
+      B[idx]=1; A[idx]=0;
+    }
+  }
+
+  addSlider('Feed', 1, 10, 5, v=>feed=v*0.011);
+  addSlider('Kill', 1, 10, 6, v=>kill=v*0.010+0.05);
+  addBtn('Réensemencer', ()=>{
+    A.fill(1); B.fill(0);
+    for(let i=0;i<20;i++){
+      const cx=Math.floor(Math.random()*W), cy=Math.floor(Math.random()*H);
+      for(let dy=-5;dy<=5;dy++) for(let dx=-5;dx<=5;dx++){
+        const idx=((cy+dy+H)%H)*W+((cx+dx+W)%W);
+        B[idx]=1; A[idx]=0;
+      }
+    }
+  }, true);
+
+  const NA=new Float32Array(W*H), NB=new Float32Array(W*H);
+  const img=ctx.createImageData(canvas.width,canvas.height);
+
+  function laplacian(grid,idx,x,y){
+    return grid[((y-1+H)%H)*W+x] + grid[((y+1)%H)*W+x] +
+           grid[y*W+(x-1+W)%W] + grid[y*W+(x+1)%W] - 4*grid[idx];
+  }
+
+  function loop(){
+    for(let step=0;step<8;step++){
+      for(let y=0;y<H;y++) for(let x=0;x<W;x++){
+        const idx=y*W+x;
+        const a=A[idx], b=B[idx], abb=a*b*b;
+        NA[idx]=a + (dA*laplacian(A,idx,x,y) - abb + feed*(1-a))*0.5;
+        NB[idx]=b + (dB*laplacian(B,idx,x,y) + abb - (kill+feed)*b)*0.5;
+        NA[idx]=Math.max(0,Math.min(1,NA[idx]));
+        NB[idx]=Math.max(0,Math.min(1,NB[idx]));
+      }
+      A.set(NA); B.set(NB);
+    }
+    // Upscale 2x to canvas
+    const CW=canvas.width, CH=canvas.height;
+    for(let y=0;y<CH;y++) for(let x=0;x<CW;x++){
+      const sx=Math.floor(x/2), sy=Math.floor(y/2);
+      const v=A[sy*W+sx];
+      const idx=(y*CW+x)*4;
+      img.data[idx]=Math.floor(v*232);
+      img.data[idx+1]=Math.floor(v*150+B[sy*W+sx]*50);
+      img.data[idx+2]=Math.floor(v*40+B[sy*W+sx]*100);
+      img.data[idx+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+    RAFHandle.id=requestAnimationFrame(loop);
+  }
+  loop();
+}
+
+// ══════════════════════════════════════════════════
+//  7. SORT VISUALIZATION
+// ══════════════════════════════════════════════════
+function setupSort(){
+  const W=canvas.width, H=canvas.height;
+  const N=80;
+  let arr=Array.from({length:N},(_,i)=>i+1).sort(()=>Math.random()-0.5);
+  let comparing=[], algorithm='bubble', running=false, stepGen=null;
+
+  addBtn('▶ Lancer', function(){
+    if(running)return;
+    arr=Array.from({length:N},(_,i)=>i+1).sort(()=>Math.random()-0.5);
+    running=true;
+    if(algorithm==='bubble') stepGen=bubbleSort([...arr]);
+    else if(algorithm==='quick') stepGen=quickSortGen([...arr],0,N-1);
+    else stepGen=mergeSortGen([...arr]);
+    runSort();
+  });
+  addBtn('Bubble Sort', ()=>algorithm='bubble', true);
+  addBtn('Quick Sort', ()=>algorithm='quick', true);
+  addBtn('Merge Sort', ()=>algorithm='merge', true);
+
+  function drawArr(a,hi=[]){
+    ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+    const bw=(W-20)/N;
+    a.forEach((v,i)=>{
+      const t=v/N;
+      ctx.fillStyle=hi.includes(i)?'#e8430a':`hsl(${t*60+10},70%,${40+t*30}%)`;
+      const bh=(v/N)*H*0.9;
+      ctx.fillRect(10+i*bw,H-bh,bw-1,bh);
+    });
+  }
+
+  function* bubbleSort(a){
+    for(let i=0;i<a.length;i++) for(let j=0;j<a.length-i-1;j++){
+      if(a[j]>a[j+1]){[a[j],a[j+1]]=[a[j+1],a[j]];}
+      yield {a:[...a],hi:[j,j+1]};
+    }
+  }
+
+  function* quickSortGen(a,lo,hi){
+    if(lo<hi){
+      let pivot=a[hi], i=lo-1;
+      for(let j=lo;j<hi;j++){
+        if(a[j]<=pivot){i++;[a[i],a[j]]=[a[j],a[i]];}
+        yield {a:[...a],hi:[i,j,hi]};
+      }
+      [a[i+1],a[hi]]=[a[hi],a[i+1]];
+      yield {a:[...a],hi:[i+1]};
+      yield* quickSortGen(a,lo,i); yield* quickSortGen(a,i+2,hi);
+    }
+  }
+
+  function* mergeSortGen(a,s=0){
+    if(a.length<=1){yield {a:[...arr],hi:[s]};return;}
+    const m=Math.floor(a.length/2), L=a.slice(0,m), R=a.slice(m);
+    yield* mergeSortGen(L,s); yield* mergeSortGen(R,s+m);
+    let i=0,j=0,k=s;
+    while(i<L.length&&j<R.length){
+      if(L[i]<=R[j]){arr[k]=L[i];i++;}else{arr[k]=R[j];j++;}
+      k++; yield {a:[...arr],hi:[k-1]};
+    }
+    while(i<L.length){arr[k]=L[i];i++;k++;yield {a:[...arr],hi:[k-1]};}
+    while(j<R.length){arr[k]=R[j];j++;k++;yield {a:[...arr],hi:[k-1]};}
+  }
+
+  function runSort(){
+    const delay=20;
+    function step(){
+      if(!stepGen)return;
+      let result;
+      for(let s=0;s<3;s++) result=stepGen.next();
+      if(!result.done){
+        drawArr(result.value.a, result.value.hi||[]);
+        RAFHandle.id=requestAnimationFrame(step);
+      } else { running=false; drawArr(algorithm==='bubble'?arr:result.value?.a||arr); }
+    }
+    step();
+  }
+
+  drawArr(arr);
+}
+
+// ══════════════════════════════════════════════════
+//  8. LISSAJOUS
+// ══════════════════════════════════════════════════
+function setupLissajous(){
+  const W=canvas.width, H=canvas.height;
+  let freqX=3, freqY=2, phase=Math.PI/4, speed=1, trailLen=800;
+  let t=0, trail=[], mode='trail';
+
+  addSlider('Fréq. X', 1, 10, freqX, v=>{ freqX=v; trail=[]; });
+  addSlider('Fréq. Y', 1, 10, freqY, v=>{ freqY=v; trail=[]; });
+  addBtn('Preset 3:2', ()=>{ freqX=3;freqY=2;phase=Math.PI/4;trail=[]; }, true);
+  addBtn('Preset 5:4', ()=>{ freqX=5;freqY=4;phase=Math.PI/3;trail=[]; }, true);
+  addBtn('Preset 7:5', ()=>{ freqX=7;freqY=5;phase=Math.PI/2;trail=[]; }, true);
+
+  function loop(){
+    ctx.fillStyle='rgba(10,10,15,0.08)'; ctx.fillRect(0,0,W,H);
+    const A=W*0.42, B=H*0.42;
+    const cx=W/2, cy=H/2;
+
+    t+=0.015*speed;
+    const x=cx+A*Math.sin(freqX*t+phase);
+    const y=cy+B*Math.sin(freqY*t);
+    trail.push({x,y});
+    if(trail.length>trailLen)trail.shift();
+
+    if(trail.length>1){
+      ctx.beginPath();
+      trail.forEach(({x:px,y:py},i)=>{
+        const alpha=i/trail.length;
+        ctx.strokeStyle=`hsl(${alpha*60+10},85%,${50+alpha*20}%)`;
+        ctx.lineWidth=alpha*2;
+        i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);
+      });
+      ctx.stroke();
+    }
+
+    // Current point
+    ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle='white'; ctx.fill();
+
+    // Axis helpers (faint)
+    ctx.strokeStyle='rgba(245,243,238,0.06)'; ctx.lineWidth=0.5;
+    ctx.beginPath(); ctx.moveTo(cx-A*1.1,cy); ctx.lineTo(cx+A*1.1,cy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(cx,cy-B*1.1); ctx.lineTo(cx,cy+B*1.1); ctx.stroke();
+
+    RAFHandle.id=requestAnimationFrame(loop);
+  }
+  ctx.fillStyle='#0a0a0f'; ctx.fillRect(0,0,W,H);
+  loop();
+}
+</script>
+
+<!-- Sitemap hint for search engines -->
+<!-- Sitemap: https://nexploria.science/sitemap.xml -->
+</body>
+</html>
