@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Disallow:
-
-Sitemap: https://nexploria-2.netlify.app/sitemap.xml
-
-# Nexploria — Laboratoire Scientifique Interactif
-# https://nexploria-2.netlify.app/
