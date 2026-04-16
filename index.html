@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: https://ogp.me/ns#">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexploria — Laboratoire de Science Interactive</title>
+<meta name="description" content="Nexploria : explorez 14 expériences scientifiques interactives — fractales de Mandelbrot, automates cellulaires, pendule chaotique, réaction-diffusion, ondes de Fourier, attracteur étrange et bien plus. Aucune installation requise.">
+<meta name="keywords" content="fractales Mandelbrot, science interactive, automate cellulaire Conway, pendule chaotique, ondes Fourier, réaction diffusion Turing, algorithmes tri, Lissajous, attracteur Lorenz, physique simulation, mathématiques visuelles, nexploria, laboratoire numérique">
+<meta name="author" content="Nexploria">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#0a0a0f">
+<link rel="canonical" href="https://nexploria.science/">
+<link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nexploria.science/">
+<meta property="og:title" content="Nexploria — Laboratoire de Science Interactive">
+<meta property="og:description" content="14 expériences scientifiques interactives : fractales, particules, ondes, chaos, morphogenèse. Tout dans votre navigateur, sans installation.">
+<meta property="og:image" content="https://nexploria.science/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Nexploria — Laboratoire de Science Interactive">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Nexploria">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nexploria_sci">
+<meta name="twitter:title" content="Nexploria — Laboratoire de Science Interactive">
+<meta name="twitter:description" content="14 expériences scientifiques interactives dans votre navigateur.">
+<meta name="twitter:image" content="https://nexploria.science/og.png">
+<!-- Structured data: FAQ pour les SERP rich results -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Qu'est-ce que Nexploria ?","acceptedAnswer":{"@type":"Answer","text":"Nexploria est un laboratoire scientifique interactif en ligne. Il propose 14 expériences visuelles et interactives couvrant les fractales, le chaos, la morphogenèse, les ondes et les algorithmes — toutes fonctionnant directement dans le navigateur sans installation."}},
+{"@type":"Question","name":"Faut-il installer quelque chose pour utiliser Nexploria ?","acceptedAnswer":{"@type":"Answer","text":"Non. Toutes les simulations de Nexploria s'exécutent entièrement dans votre navigateur en JavaScript pur. Aucune installation, aucun compte, aucun plugin requis."}},
+{"@type":"Question","name":"Quelles expériences scientifiques propose Nexploria ?","acceptedAnswer":{"@type":"Answer","text":"Nexploria propose 14 expériences : l'ensemble de Mandelbrot, les fractales de Julia, le Jeu de la Vie de Conway, la fourmi de Langton, la synthèse de Fourier, les interférences d'ondes, la gravité et particules, le pendule double chaotique, l'attracteur de Lorenz, les motifs de Turing, les algorithmes de tri, les courbes de Lissajous, la marche aléatoire brownienne et l'automate cellulaire Règle 110 de Wolfram."}},
+{"@type":"Question","name":"Nexploria est-il adapté à l'enseignement ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Chaque expérience inclut une explication scientifique accessible et des contrôles interactifs. Nexploria est conçu pour rendre la science compréhensible par l'expérimentation directe, idéal pour les lycéens, étudiants et curieux de tous niveaux."}}
+]}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+{"@type":"WebSite","@id":"https://nexploria.science/#website","name":"Nexploria","url":"https://nexploria.science/","description":"Laboratoire de science interactive","inLanguage":"fr","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://nexploria.science/?q={search_term_string}"},"query-input":"required name=search_term_string"}},
+{"@type":"Organization","@id":"https://nexploria.science/#org","name":"Nexploria","url":"https://nexploria.science/","logo":{"@type":"ImageObject","url":"https://nexploria.science/logo.png"}},
+{"@type":"ItemList","name":"Expériences Scientifiques Nexploria","numberOfItems":14,"itemListElement":[
+{"@type":"ListItem","position":1,"name":"Ensemble de Mandelbrot","description":"Explorez la frontière fractale infinie du plan complexe"},
+{"@type":"ListItem","position":2,"name":"Jeu de la Vie de Conway","description":"Automate cellulaire à 4 règles générant une complexité infinie"},
+{"@type":"ListItem","position":3,"name":"Gravité et Particules","description":"Simulation n-corps newtonienne interactive"},
+{"@type":"ListItem","position":4,"name":"Synthèse de Fourier","description":"Reconstruction de signaux par superposition de sinusoïdes"},
+{"@type":"ListItem","position":5,"name":"Attracteur de Lorenz","description":"Visualisation du chaos déterministe en 3D projeté"},
+{"@type":"ListItem","position":6,"name":"Réaction-Diffusion de Turing","description":"Morphogenèse chimique : origine des rayures et taches animales"},
+{"@type":"ListItem","position":7,"name":"Algorithmes de Tri","description":"Visualisation comparative de Bubble, Quick et Merge Sort"},
+{"@type":"ListItem","position":8,"name":"Courbes de Lissajous","description":"Figures harmoniques par deux oscillations perpendiculaires"},
+{"@type":"ListItem","position":9,"name":"Automate de Langton","description":"La fourmi de Langton : ordre émergent depuis le chaos"},
+{"@type":"ListItem","position":10,"name":"Marche Aléatoire","description":"Diffusion brownienne et loi des grands nombres"},
+{"@type":"ListItem","position":11,"name":"Fractale de Julia","description":"Ensemble de Julia : portraits du plan complexe"},
+{"@type":"ListItem","position":12,"name":"Pendule Double","description":"Le pendule double et la sensibilité aux conditions initiales"},
+{"@type":"ListItem","position":13,"name":"Vagues et Interférence","description":"Superposition d'ondes et phénomènes d'interférence"},
+{"@type":"ListItem","position":14,"name":"Automate Règle 110","description":"L'automate cellulaire universel de Wolfram"}
+]}]}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&family=Syne:wght@400;700;800&family=Instrument+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════
+   CSS VARIABLES & RESET
+══════════════════════════════════════ */
+:root {
+  --bg:        #f4f2ed;
+  --bg2:       #ece9e2;
+  --bg3:       #e3e0d8;
+  --surface:   #faf9f6;
+  --ink:       #111010;
+  --ink2:      #3a3835;
+  --muted:     #7a776f;
+  --border:    #d6d2c8;
+  --border2:   #c8c4ba;
+  --red:       #d63f0e;
+  --green:     #1a7a5a;
+  --purple:    #5230cc;
+  --amber:     #c47a15;
+  --blue:      #1456b0;
+  --radius:    4px;
+  --mono: 'IBM Plex Mono', monospace;
+  --sans: 'Instrument Sans', sans-serif;
+  --display: 'Syne', sans-serif;
+  --transition: 0.18s cubic-bezier(0.4,0,0.2,1);
+}
+[data-theme="dark"] {
+  --bg:      #0d0d0f;
+  --bg2:     #141416;
+  --bg3:     #1a1a1e;
+  --surface: #111113;
+  --ink:     #f0ede6;
+  --ink2:    #b8b4ac;
+  --muted:   #6a6760;
+  --border:  #2a2a2e;
+  --border2: #363638;
+  --red:     #f06040;
+  --green:   #2aaa7a;
+  --purple:  #8060f0;
+  --amber:   #e09030;
+  --blue:    #4080e0;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden;transition:background var(--transition),color var(--transition)}
+img{max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+canvas{display:block}
+
+/* ══════════════════════════════════════
+   SCROLLBAR
+══════════════════════════════════════ */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--muted)}
+
+/* ══════════════════════════════════════
+   HEADER
+══════════════════════════════════════ */
+#header{
+  position:sticky;top:0;z-index:200;
+  height:56px;padding:0 1.5rem;
+  display:flex;align-items:center;gap:1.5rem;
+  background:var(--bg);
+  border-bottom:1px solid var(--border);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+.logo{
+  display:flex;align-items:center;gap:8px;
+  font-family:var(--mono);font-weight:600;font-size:0.95rem;
+  color:var(--ink);white-space:nowrap;
+}
+.logo-mark{
+  width:22px;height:22px;border-radius:50%;
+  background:var(--red);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.logo-mark svg{width:10px;height:10px}
+.header-search{
+  flex:1;max-width:340px;position:relative;
+}
+.header-search input{
+  width:100%;height:34px;padding:0 0.75rem 0 2.25rem;
+  background:var(--bg2);border:1px solid var(--border);
+  border-radius:var(--radius);font-family:var(--sans);font-size:0.83rem;
+  color:var(--ink);outline:none;
+  transition:border-color var(--transition),background var(--transition);
+}
+.header-search input:focus{border-color:var(--red);background:var(--surface)}
+.header-search input::placeholder{color:var(--muted)}
+.header-search-icon{
+  position:absolute;left:0.6rem;top:50%;transform:translateY(-50%);
+  color:var(--muted);pointer-events:none;
+}
+.header-nav{display:flex;align-items:center;gap:0.25rem;margin-left:auto}
+.nav-link{
+  font-family:var(--mono);font-size:0.7rem;letter-spacing:0.06em;
+  text-transform:uppercase;color:var(--muted);padding:0.3rem 0.6rem;
+  border-radius:var(--radius);transition:color var(--transition),background var(--transition);
+}
+.nav-link:hover{color:var(--ink);background:var(--bg2)}
+.theme-btn{
+  width:34px;height:34px;border:1px solid var(--border);border-radius:var(--radius);
+  background:transparent;display:flex;align-items:center;justify-content:center;
+  color:var(--muted);transition:all var(--transition);font-size:0.95rem;
+}
+.theme-btn:hover{color:var(--ink);background:var(--bg2)}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.hero{
+  min-height:calc(90vh - 56px);
+  display:grid;place-items:center;
+  padding:5rem 1.5rem 4rem;
+  position:relative;overflow:hidden;
+}
+#hero-canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+  opacity:0.12;pointer-events:none;
+}
+.hero-inner{position:relative;z-index:1;text-align:center;max-width:860px}
+.hero-kicker{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--red);
+  display:inline-flex;align-items:center;gap:10px;margin-bottom:2rem;
+}
+.hero-kicker::before,.hero-kicker::after{
+  content:'';display:block;width:28px;height:1px;background:var(--red);
+}
+.hero-title{
+  font-family:var(--display);font-weight:800;
+  font-size:clamp(2.8rem,8vw,6.8rem);
+  line-height:0.92;letter-spacing:-0.03em;
+  color:var(--ink);margin-bottom:1.8rem;
+}
+.hero-title em{color:var(--red);font-style:italic}
+.hero-sub{
+  font-size:clamp(1rem,2vw,1.18rem);font-weight:300;
+  color:var(--muted);max-width:540px;margin:0 auto 3rem;
+}
+.hero-actions{display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--ink);color:var(--bg);
+  padding:0.7rem 1.6rem;border-radius:var(--radius);
+  font-family:var(--mono);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;
+  border:1px solid var(--ink);
+  transition:background var(--transition),color var(--transition),transform 0.12s;
+}
+.btn-primary:hover{background:var(--red);border-color:var(--red);transform:translateY(-2px)}
+.btn-ghost{
+  display:inline-flex;align-items:center;gap:8px;
+  background:transparent;color:var(--ink);
+  padding:0.7rem 1.6rem;border-radius:var(--radius);
+  font-family:var(--mono);font-size:0.75rem;letter-spacing:0.05em;text-transform:uppercase;
+  border:1px solid var(--border);
+  transition:background var(--transition),border-color var(--transition),transform 0.12s;
+}
+.btn-ghost:hover{background:var(--bg2);border-color:var(--border2);transform:translateY(-2px)}
+.hero-stats{
+  display:flex;justify-content:center;gap:3.5rem;
+  margin-top:4rem;padding-top:2.5rem;
+  border-top:1px solid var(--border);
+}
+.stat-val{
+  font-family:var(--mono);font-weight:600;font-size:2rem;
+  color:var(--ink);line-height:1;
+}
+.stat-key{font-size:0.72rem;color:var(--muted);margin-top:4px;letter-spacing:0.06em;text-transform:uppercase}
+
+/* ══════════════════════════════════════
+   FILTER BAR
+══════════════════════════════════════ */
+.filter-bar{
+  background:var(--bg2);border-bottom:1px solid var(--border);
+  padding:0.75rem 1.5rem;
+  display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;
+  position:sticky;top:56px;z-index:100;
+}
+.filter-label{
+  font-family:var(--mono);font-size:0.65rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--muted);margin-right:0.5rem;white-space:nowrap;
+}
+.filter-chip{
+  padding:0.3rem 0.8rem;border-radius:100px;
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.05em;
+  background:transparent;color:var(--muted);
+  border:1px solid var(--border);cursor:pointer;
+  transition:all var(--transition);white-space:nowrap;
+}
+.filter-chip:hover{background:var(--bg3);color:var(--ink);border-color:var(--border2)}
+.filter-chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* ══════════════════════════════════════
+   EXPERIMENTS GRID
+══════════════════════════════════════ */
+.experiments-section{padding:3rem 1.5rem 5rem;max-width:1360px;margin:0 auto}
+.section-head{display:flex;align-items:baseline;gap:1rem;margin-bottom:2.5rem}
+.section-head h2{font-family:var(--display);font-weight:800;font-size:1.6rem;letter-spacing:-0.02em}
+.section-count{
+  font-family:var(--mono);font-size:0.7rem;color:var(--muted);
+  background:var(--bg2);border:1px solid var(--border);
+  padding:0.15rem 0.5rem;border-radius:100px;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(300px,1fr));
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.card{
+  background:var(--surface);cursor:pointer;
+  display:flex;flex-direction:column;
+  transition:background var(--transition);
+  position:relative;overflow:hidden;
+}
+.card:hover{background:var(--bg)}
+.card:hover .card-preview{opacity:1;transform:scale(1.02)}
+.card-preview{
+  width:100%;height:170px;display:block;
+  opacity:0.88;
+  transition:opacity 0.3s,transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  transform-origin:center;
+}
+.card-badge{
+  position:absolute;top:10px;right:10px;
+  font-family:var(--mono);font-size:0.58rem;letter-spacing:0.12em;
+  text-transform:uppercase;padding:3px 8px;border-radius:2px;
+  background:var(--ink);color:var(--bg);opacity:0.75;
+}
+.card-body{padding:1.1rem 1.25rem 1.4rem;flex:1;display:flex;flex-direction:column}
+.card-tag{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--red);margin-bottom:0.35rem;
+}
+.card h3{
+  font-family:var(--display);font-weight:700;font-size:1.05rem;
+  letter-spacing:-0.01em;margin-bottom:0.35rem;
+}
+.card p{font-size:0.84rem;color:var(--muted);line-height:1.55;flex:1}
+.card-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:1rem;
+}
+.card-cta{
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.06em;
+  text-transform:uppercase;color:var(--ink);
+  display:flex;align-items:center;gap:5px;
+  border-bottom:1px solid var(--ink);padding-bottom:1px;
+  transition:color var(--transition),border-color var(--transition);
+}
+.card:hover .card-cta{color:var(--red);border-color:var(--red)}
+.card-diff{
+  font-family:var(--mono);font-size:0.6rem;letter-spacing:0.08em;
+  padding:2px 7px;border-radius:2px;border:1px solid var(--border);color:var(--muted);
+}
+.card-diff.easy{border-color:var(--green);color:var(--green)}
+.card-diff.medium{border-color:var(--amber);color:var(--amber)}
+.card-diff.hard{border-color:var(--red);color:var(--red)}
+
+/* no-results */
+.no-results{
+  grid-column:1/-1;padding:4rem 2rem;text-align:center;
+  font-family:var(--mono);font-size:0.85rem;color:var(--muted);
+}
+
+/* ══════════════════════════════════════
+   ABOUT STRIP
+══════════════════════════════════════ */
+.about{
+  background:var(--ink);color:var(--bg);
+  padding:5rem 1.5rem;
+}
+.about-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4vw,3rem);letter-spacing:-0.03em;margin-bottom:1.25rem}
+.about p{color:rgba(240,237,230,0.65);font-size:1rem;margin-bottom:0.9rem}
+.about-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.feat{
+  border:1px solid rgba(240,237,230,0.1);
+  padding:1.1rem 1.2rem;border-radius:var(--radius);
+  transition:border-color var(--transition);
+}
+.feat:hover{border-color:rgba(240,237,230,0.25)}
+.feat-icon{font-size:1.2rem;margin-bottom:0.55rem}
+.feat h4{font-size:0.9rem;font-weight:600;margin-bottom:0.25rem}
+.feat p{font-size:0.78rem;color:rgba(240,237,230,0.45);margin:0}
+
+/* ══════════════════════════════════════
+   FOOTER
+══════════════════════════════════════ */
+footer{
+  background:var(--bg2);border-top:1px solid var(--border);
+  padding:2rem 1.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1rem;
+}
+.footer-logo{font-family:var(--mono);font-weight:600;font-size:0.9rem}
+footer p{font-size:0.75rem;color:var(--muted)}
+footer a{color:var(--muted);transition:color var(--transition)}
+footer a:hover{color:var(--red)}
+.footer-links{display:flex;gap:1.25rem}
+
+/* ══════════════════════════════════════
+   MODAL
+══════════════════════════════════════ */
+.overlay{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,0.75);
+  overflow-y:auto;padding:1.5rem 1rem;
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+  animation:fadeIn 0.15s ease;
+}
+.overlay.open{display:flex;align-items:flex-start;justify-content:center}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  background:var(--bg);
+  width:100%;max-width:960px;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  overflow:hidden;
+  animation:slideUp 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-bar{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding:1.25rem 1.5rem 1rem;
+  border-bottom:1px solid var(--border);
+}
+.modal-meta .modal-tag{
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--red);margin-bottom:3px;
+}
+.modal-meta .modal-title{
+  font-family:var(--display);font-weight:700;font-size:1.35rem;letter-spacing:-0.02em;
+}
+.modal-actions{display:flex;gap:0.5rem;flex-shrink:0;margin-left:1rem}
+.icon-btn{
+  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+  background:transparent;border:1px solid var(--border);border-radius:var(--radius);
+  color:var(--muted);font-size:0.95rem;
+  transition:all var(--transition);
+}
+.icon-btn:hover{background:var(--bg2);color:var(--ink)}
+.modal-content{padding:1.25rem 1.5rem 1.5rem}
+.canvas-wrap{
+  background:#080810;border-radius:var(--radius);
+  overflow:hidden;margin-bottom:1.25rem;position:relative;
+}
+.canvas-wrap canvas{display:block;width:100%}
+.canvas-overlay-info{
+  position:absolute;bottom:8px;left:8px;
+  font-family:var(--mono);font-size:0.62rem;color:rgba(255,255,255,0.35);
+  pointer-events:none;letter-spacing:0.05em;
+}
+.controls{display:flex;flex-wrap:wrap;gap:0.6rem;align-items:center;margin-bottom:1.1rem}
+.ctrl-btn{
+  padding:0.45rem 0.9rem;border-radius:var(--radius);
+  font-family:var(--mono);font-size:0.68rem;letter-spacing:0.05em;text-transform:uppercase;
+  border:1px solid var(--border);background:var(--ink);color:var(--bg);
+  transition:background var(--transition),border-color var(--transition);
+}
+.ctrl-btn:hover{background:var(--red);border-color:var(--red)}
+.ctrl-btn.ghost{background:transparent;color:var(--ink)}
+.ctrl-btn.ghost:hover{background:var(--bg2);border-color:var(--border2);color:var(--ink)}
+.ctrl-group{display:flex;align-items:center;gap:6px}
+.ctrl-lbl{
+  font-family:var(--mono);font-size:0.62rem;letter-spacing:0.1em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+.ctrl-val{
+  font-family:var(--mono);font-size:0.7rem;color:var(--ink);min-width:28px;
+}
+input[type=range]{
+  -webkit-appearance:none;height:3px;background:var(--border);
+  border-radius:2px;outline:none;width:90px;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:13px;height:13px;
+  background:var(--ink);border-radius:50%;cursor:pointer;
+  transition:background var(--transition);
+}
+input[type=range]:hover::-webkit-slider-thumb{background:var(--red)}
+.info-box{
+  font-size:0.85rem;color:var(--muted);line-height:1.7;
+  border-left:2px solid var(--red);padding-left:1rem;
+}
+.info-box strong{color:var(--ink)}
+
+/* ══════════════════════════════════════
+   FULLSCREEN
+══════════════════════════════════════ */
+.fs-overlay{
+  display:none;position:fixed;inset:0;z-index:600;
+  background:#080810;
+}
+.fs-overlay.open{display:block}
+.fs-overlay canvas{position:absolute;inset:0;width:100%!important;height:100%!important}
+.fs-bar{
+  position:absolute;top:0;left:0;right:0;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.75rem 1rem;
+  background:linear-gradient(to bottom,rgba(8,8,16,0.9),transparent);
+}
+.fs-title{font-family:var(--mono);font-size:0.75rem;color:rgba(255,255,255,0.5);letter-spacing:0.1em}
+.fs-close{
+  background:rgba(255,255,255,0.1);border:none;color:white;
+  width:32px;height:32px;border-radius:50%;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background var(--transition);
+}
+.fs-close:hover{background:rgba(255,255,255,0.2)}
+.fs-controls{
+  position:absolute;bottom:0;left:0;right:0;z-index:10;
+  padding:0.75rem 1rem;
+  background:linear-gradient(to top,rgba(8,8,16,0.9),transparent);
+  display:flex;flex-wrap:wrap;align-items:center;gap:0.5rem;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:768px){
+  #header{padding:0 1rem}
+  .header-nav .nav-link{display:none}
+  .header-search{max-width:none;flex:1}
+  .hero-stats{gap:1.75rem}
+  .about-inner{grid-template-columns:1fr;gap:2.5rem}
+  .about-features{grid-template-columns:1fr}
+  footer{flex-direction:column;text-align:center}
+  .footer-links{justify-content:center}
+  .modal-bar{flex-direction:column;gap:0.75rem}
+  .modal-actions{margin-left:0}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header id="header" role="banner">
+  <a href="#" class="logo" aria-label="Nexploria accueil">
+    <div class="logo-mark" aria-hidden="true">
+      <svg viewBox="0 0 10 10" fill="none"><circle cx="5" cy="5" r="3.5" stroke="white" stroke-width="1.2"/><circle cx="5" cy="5" r="1" fill="white"/></svg>
+    </div>
+    Nexploria
+  </a>
+  <div class="header-search" role="search">
+    <svg class="header-search-icon" width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><circle cx="5.5" cy="5.5" r="4" stroke="currentColor" stroke-width="1.4"/><path d="M9 9l2.5 2.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    <input type="search" id="search-input" placeholder="Rechercher une expérience…" aria-label="Rechercher une expérience scientifique" autocomplete="off">
+  </div>
+  <nav class="header-nav" aria-label="Navigation principale">
+    <a href="#experiences" class="nav-link">Expériences</a>
+    <a href="#a-propos" class="nav-link">À propos</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </nav>
+  <button class="theme-btn" id="theme-btn" aria-label="Basculer thème sombre/clair" title="Thème">🌙</button>
+</header>
+
+<main>
+<!-- ══ HERO ══ -->
+<section class="hero" aria-label="Bienvenue sur Nexploria">
+  <canvas id="hero-canvas" aria-hidden="true"></canvas>
+  <div class="hero-inner">
+    <span class="hero-kicker" aria-hidden="true">Laboratoire numérique</span>
+    <h1 class="hero-title">
+      La curiosité<br>
+      comme<br>
+      <em>méthode.</em>
+    </h1>
+    <p class="hero-sub">
+      14 expériences scientifiques vivantes — fractales, chaos, morphogenèse, ondes.
+      Tout s'exécute dans votre navigateur, en temps réel, sans aucune installation.
+    </p>
+    <div class="hero-actions">
+      <a href="#experiences" class="btn-primary">
+        Commencer
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" aria-hidden="true"><path d="M2 6.5h9M7.5 3l3.5 3.5-3.5 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#a-propos" class="btn-ghost">En savoir plus</a>
+    </div>
+    <div class="hero-stats" role="list" aria-label="Statistiques">
+      <div role="listitem"><div class="stat-val">14</div><div class="stat-key">Expériences</div></div>
+      <div role="listitem"><div class="stat-val">60fps</div><div class="stat-key">Temps réel</div></div>
+      <div role="listitem"><div class="stat-val">∞</div><div class="stat-key">Paramètres</div></div>
+      <div role="listitem"><div class="stat-val">0</div><div class="stat-key">Installation</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FILTER BAR ══ -->
+<div class="filter-bar" role="toolbar" aria-label="Filtrer par catégorie">
+  <span class="filter-label">Catégorie :</span>
+  <button class="filter-chip active" data-filter="all">Toutes</button>
+  <button class="filter-chip" data-filter="math">Mathématiques</button>
+  <button class="filter-chip" data-filter="physics">Physique</button>
+  <button class="filter-chip" data-filter="biology">Biologie</button>
+  <button class="filter-chip" data-filter="cs">Informatique</button>
+  <button class="filter-chip" data-filter="chaos">Chaos</button>
+</div>
+
+<!-- ══ EXPERIMENTS ══ -->
+<section id="experiences" class="experiments-section" aria-labelledby="exp-h2">
+  <div class="section-head">
+    <h2 id="exp-h2">Expériences</h2>
+    <span class="section-count" id="exp-count">14 / 14</span>
+  </div>
+  <div class="grid" id="exp-grid" role="list" aria-label="Expériences scientifiques interactives">
+
+    <!-- 1 Mandelbrot -->
+    <article class="card" role="listitem" data-id="mandelbrot" data-cats="math chaos" tabindex="0">
+      <canvas class="card-preview" id="prev-mandelbrot" aria-hidden="true"></canvas>
+      <span class="card-badge" aria-hidden="true">Fractale</span>
+      <div class="card-body">
+        <div class="card-tag">Mathématiques · Fractales</div>
+        <h3>Ensemble de Mandelbrot</h3>
+        <p>Zoomez dans une frontière d'une complexité infinie. Chaque recoin révèle de nouveaux détails auto-similaires, répétés à toutes les échelles.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff medium" aria-label="Difficulté : intermédiaire">Intermédiaire</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 2 Julia -->
+    <article class="card" role="listitem" data-id="julia" data-cats="math chaos" tabindex="0">
+      <canvas class="card-preview" id="prev-julia" aria-hidden="true"></canvas>
+      <span class="card-badge" aria-hidden="true">Fractale</span>
+      <div class="card-body">
+        <div class="card-tag">Mathématiques · Fractales</div>
+        <h3>Ensemble de Julia</h3>
+        <p>Le portrait complexe de Mandelbrot : déplacez le paramètre <em>c</em> et regardez la fractale se transformer en temps réel.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff medium" aria-label="Difficulté : intermédiaire">Intermédiaire</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 3 Conway -->
+    <article class="card" role="listitem" data-id="conway" data-cats="biology cs" tabindex="0">
+      <canvas class="card-preview" id="prev-conway" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Biologie · Automates Cellulaires</div>
+        <h3>Jeu de la Vie de Conway</h3>
+        <p>Quatre règles. Des milliers de comportements. La vie, la mort et la reproduction émergent de l'interaction locale des cellules.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff easy" aria-label="Difficulté : débutant">Débutant</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 4 Langton -->
+    <article class="card" role="listitem" data-id="langton" data-cats="cs biology" tabindex="0">
+      <canvas class="card-preview" id="prev-langton" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Informatique · Automates</div>
+        <h3>Fourmi de Langton</h3>
+        <p>Une fourmi avec deux règles simples. Après ~10 000 pas dans le chaos, elle construit spontanément une autoroute périodique.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff easy" aria-label="Difficulté : débutant">Débutant</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 5 Fourier -->
+    <article class="card" role="listitem" data-id="fourier" data-cats="physics math" tabindex="0">
+      <canvas class="card-preview" id="prev-fourier" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Physique · Analyse Harmonique</div>
+        <h3>Synthèse de Fourier</h3>
+        <p>Superposez des sinusoïdes pour reconstruire n'importe quelle forme. Le fondement du son numérique, de l'IRM et des télécommunications.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff medium" aria-label="Difficulté : intermédiaire">Intermédiaire</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 6 Waves -->
+    <article class="card" role="listitem" data-id="waves" data-cats="physics" tabindex="0">
+      <canvas class="card-preview" id="prev-waves" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Physique · Optique et Acoustique</div>
+        <h3>Vagues et Interférence</h3>
+        <p>Deux sources d'ondes en eau peu profonde. Observez zones de renforcement et d'extinction — le principe de Huygens visualisé.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff easy" aria-label="Difficulté : débutant">Débutant</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 7 Particles -->
+    <article class="card" role="listitem" data-id="particles" data-cats="physics" tabindex="0">
+      <canvas class="card-preview" id="prev-particles" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Physique · Mécanique Newtonienne</div>
+        <h3>Gravité et Particules</h3>
+        <p>Simulation n-corps en temps réel. Cliquez pour ajouter de la masse et formez des orbites, des éjections et des systèmes binaires.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff medium" aria-label="Difficulté : intermédiaire">Intermédiaire</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 8 Double Pendulum -->
+    <article class="card" role="listitem" data-id="pendulum" data-cats="physics chaos" tabindex="0">
+      <canvas class="card-preview" id="prev-pendulum" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Physique · Systèmes Chaotiques</div>
+        <h3>Pendule Double</h3>
+        <p>Un pendule attaché à un autre. Deux trajectoires légèrement différentes divergent totalement. Le chaos déterministe en action directe.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff hard" aria-label="Difficulté : avancé">Avancé</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 9 Lorenz -->
+    <article class="card" role="listitem" data-id="lorenz" data-cats="physics chaos math" tabindex="0">
+      <canvas class="card-preview" id="prev-lorenz" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Physique · Attracteur Étrange</div>
+        <h3>Attracteur de Lorenz</h3>
+        <p>Le modèle météorologique de 1963 qui a fondé la théorie du chaos. Regardez deux trajectoires quasi-identiques diverger irrémédiablement.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff hard" aria-label="Difficulté : avancé">Avancé</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 10 Turing -->
+    <article class="card" role="listitem" data-id="turing" data-cats="biology physics" tabindex="0">
+      <canvas class="card-preview" id="prev-turing" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Biologie · Morphogenèse Chimique</div>
+        <h3>Motifs de Turing</h3>
+        <p>La réaction-diffusion qui explique les rayures du zèbre et les taches du guépard. La chimie seule génère de la structure complexe.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff hard" aria-label="Difficulté : avancé">Avancé</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 11 Sort -->
+    <article class="card" role="listitem" data-id="sort" data-cats="cs" tabindex="0">
+      <canvas class="card-preview" id="prev-sort" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Informatique · Algorithmique</div>
+        <h3>Algorithmes de Tri</h3>
+        <p>Bubble, Quick et Merge Sort visualisés en parallèle. Comparez leur efficacité et leurs "empreintes" caractéristiques sur les mêmes données.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff easy" aria-label="Difficulté : débutant">Débutant</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 12 Lissajous -->
+    <article class="card" role="listitem" data-id="lissajous" data-cats="math physics" tabindex="0">
+      <canvas class="card-preview" id="prev-lissajous" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Mathématiques · Géométrie Harmonique</div>
+        <h3>Courbes de Lissajous</h3>
+        <p>Deux oscillations perpendiculaires dessinent des figures hypnotiques. Chaque rapport de fréquences correspond à un intervalle musical.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff easy" aria-label="Difficulté : débutant">Débutant</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 13 Random Walk -->
+    <article class="card" role="listitem" data-id="walk" data-cats="math physics" tabindex="0">
+      <canvas class="card-preview" id="prev-walk" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Mathématiques · Probabilités</div>
+        <h3>Marche Aléatoire</h3>
+        <p>Des milliers de particules brownienne tracent le théorème central limite. Regardez l'ordre statistique émerger du hasard pur.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff easy" aria-label="Difficulté : débutant">Débutant</span>
+        </div>
+      </div>
+    </article>
+
+    <!-- 14 Wolfram Rule 110 -->
+    <article class="card" role="listitem" data-id="wolfram" data-cats="cs math" tabindex="0">
+      <canvas class="card-preview" id="prev-wolfram" aria-hidden="true"></canvas>
+      <div class="card-body">
+        <div class="card-tag">Informatique · Automates 1D</div>
+        <h3>Automate de Wolfram — Règle 110</h3>
+        <p>Un automate cellulaire unidimensionnel prouvé Turing-complet. Des motifs fractals complexes naissent d'une règle à 8 bits.</p>
+        <div class="card-footer">
+          <span class="card-cta">Explorer <span aria-hidden="true">→</span></span>
+          <span class="card-diff medium" aria-label="Difficulté : intermédiaire">Intermédiaire</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="a-propos" class="about" aria-labelledby="about-h2">
+  <div class="about-inner">
+    <div>
+      <h2 id="about-h2">Pourquoi<br>Nexploria ?</h2>
+      <p>La science est souvent enseignée comme une liste de faits figés. Nexploria prend le parti opposé : chaque phénomène devient une chose à manipuler, à casser, à reconfigurer.</p>
+      <p>Toutes les simulations s'exécutent en JavaScript pur dans votre navigateur. Aucune donnée ne quitte votre machine. Aucune publicité, aucun compte requis.</p>
+      <p>Le nom fusionne <em>nexus</em> (connexion), <em>explore</em> et le suffixe <em>-oria</em> des laboratoires et observatoires.</p>
+    </div>
+    <div class="about-features" role="list" aria-label="Caractéristiques">
+      <div class="feat" role="listitem"><div class="feat-icon" aria-hidden="true">⚡</div><h4>Temps réel</h4><p>60 fps, calculs optimisés pour chaque expérience.</p></div>
+      <div class="feat" role="listitem"><div class="feat-icon" aria-hidden="true">🔒</div><h4>Privé</h4><p>Tout s'exécute localement. Aucune donnée envoyée.</p></div>
+      <div class="feat" role="listitem"><div class="feat-icon" aria-hidden="true">🎛️</div><h4>Paramétrable</h4><p>Chaque variable est modifiable en direct.</p></div>
+      <div class="feat" role="listitem"><div class="feat-icon" aria-hidden="true">📐</div><h4>Pédagogique</h4><p>Chaque expérience explique la science sous-jacente.</p></div>
+      <div class="feat" role="listitem"><div class="feat-icon" aria-hidden="true">🌙</div><h4>Thème sombre</h4><p>Interface adaptée à tous les environnements.</p></div>
+      <div class="feat" role="listitem"><div class="feat-icon" aria-hidden="true">📱</div><h4>Universel</h4><p>Optimisé mobile, tablette et desktop.</p></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ══ FOOTER ══ -->
+<footer id="contact" role="contentinfo">
+  <div class="footer-logo">Nexploria</div>
+  <p>© 2025 Nexploria — Tous les calculs s'effectuent dans votre navigateur.</p>
+  <div class="footer-links">
+    <a href="mailto:hello@nexploria.science">Contact</a>
+    <a href="/sitemap.xml">Sitemap</a>
+    <a href="/robots.txt">Robots</a>
+  </div>
+</footer>
+
+<!-- ══ MODAL ══ -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title-el">
+  <div class="modal" role="document">
+    <div class="modal-bar">
+      <div class="modal-meta">
+        <div class="modal-tag" id="modal-tag-el"></div>
+        <div class="modal-title" id="modal-title-el"></div>
+      </div>
+      <div class="modal-actions">
+        <button class="icon-btn" id="fs-btn" title="Plein écran" aria-label="Ouvrir en plein écran">⛶</button>
+        <button class="icon-btn" id="close-btn" title="Fermer" aria-label="Fermer l'expérience">✕</button>
+      </div>
+    </div>
+    <div class="modal-content">
+      <div class="canvas-wrap">
+        <canvas id="exp-canvas"></canvas>
+        <div class="canvas-overlay-info" id="canvas-info"></div>
+      </div>
+      <div class="controls" id="exp-controls"></div>
+      <div class="info-box" id="exp-info"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FULLSCREEN ══ -->
+<div class="fs-overlay" id="fs-overlay">
+  <div class="fs-bar">
+    <span class="fs-title" id="fs-title"></span>
+    <button class="fs-close" id="fs-close-btn" aria-label="Quitter le plein écran">✕</button>
+  </div>
+  <canvas id="fs-canvas"></canvas>
+  <div class="fs-controls" id="fs-controls-clone"></div>
+</div>
+
+<script>
+/* ══════════════════════════════════════════════════════════
+   NEXPLORIA v2  —  Science Interactive Engine
+══════════════════════════════════════════════════════════ */
+
+// ── Theme toggle ──
+const themeBtn = document.getElementById('theme-btn');
+let dark = false;
+themeBtn.onclick = () => {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  themeBtn.textContent = dark ? '☀️' : '🌙';
+};
+
+// ── Hero canvas — animated dot network ──
+(function () {
+  const c = document.getElementById('hero-canvas');
+  const g = c.getContext('2d');
+  let pts = [];
+  const resize = () => { c.width = window.innerWidth; c.height = document.querySelector('.hero').offsetHeight; };
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 90; i++) pts.push({ x: Math.random() * c.width, y: Math.random() * c.height, vx: (Math.random() - .5) * .35, vy: (Math.random() - .5) * .35 });
+  (function draw() {
+    g.clearRect(0, 0, c.width, c.height);
+    pts.forEach(p => { p.x += p.vx; p.y += p.vy; if (p.x < 0 || p.x > c.width) p.vx *= -1; if (p.y < 0 || p.y > c.height) p.vy *= -1; });
+    pts.forEach((a, i) => {
+      pts.slice(i + 1).forEach(b => {
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (d < 110) { g.strokeStyle = `rgba(17,16,16,${(1 - d / 110) * .25})`; g.lineWidth = .5; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+      });
+      g.fillStyle = 'rgba(17,16,16,.35)'; g.beginPath(); g.arc(a.x, a.y, 1.5, 0, Math.PI * 2); g.fill();
+    });
+    requestAnimationFrame(draw);
+  })();
+})();
+
+// ── Search & filter ──
+const searchInput = document.getElementById('search-input');
+const chips = document.querySelectorAll('.filter-chip');
+const cards = document.querySelectorAll('.card');
+const countEl = document.getElementById('exp-count');
+let activeFilter = 'all', searchQ = '';
+
+function applyFilters() {
+  let vis = 0;
+  cards.forEach(c => {
+    const cats = c.dataset.cats || '';
+    const title = c.querySelector('h3').textContent.toLowerCase();
+    const desc = c.querySelector('p').textContent.toLowerCase();
+    const tag = (c.querySelector('.card-tag') || {}).textContent?.toLowerCase() || '';
+    const matchFilter = activeFilter === 'all' || cats.includes(activeFilter);
+    const matchSearch = !searchQ || title.includes(searchQ) || desc.includes(searchQ) || tag.includes(searchQ);
+    const show = matchFilter && matchSearch;
+    c.style.display = show ? '' : 'none';
+    if (show) vis++;
+  });
+  countEl.textContent = `${vis} / 14`;
+  const noRes = document.getElementById('no-results');
+  if (vis === 0 && !noRes) {
+    const d = document.createElement('div'); d.id = 'no-results'; d.className = 'no-results';
+    d.textContent = 'Aucune expérience ne correspond à cette recherche.';
+    document.getElementById('exp-grid').appendChild(d);
+  } else if (vis > 0 && noRes) noRes.remove();
+}
+
+chips.forEach(ch => ch.addEventListener('click', () => {
+  chips.forEach(c => c.classList.remove('active')); ch.classList.add('active');
+  activeFilter = ch.dataset.filter; applyFilters();
+}));
+searchInput.addEventListener('input', e => { searchQ = e.target.value.toLowerCase().trim(); applyFilters(); });
+
+// ── Card click / keyboard ──
+cards.forEach(c => {
+  c.addEventListener('click', () => openExp(c.dataset.id));
+  c.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openExp(c.dataset.id); } });
+});
+
+// ══════════════════════════════════════
+//  PREVIEW THUMBNAILS
+// ══════════════════════════════════════
+window.addEventListener('load', () => {
+  const previews = { mandelbrot, julia, conway, langton, fourier, waves, particles, pendulum, lorenz, turing, sort, lissajous, walk, wolfram };
+  Object.entries(previews).forEach(([id, fn]) => {
+    const c = document.getElementById('prev-' + id);
+    if (!c) return;
+    c.width = c.offsetWidth || 300; c.height = 170;
+    fn.preview(c, c.getContext('2d'));
+  });
+});
+
+// ══════════════════════════════════════
+//  MODAL SYSTEM
+// ══════════════════════════════════════
+const overlay = document.getElementById('overlay');
+const expCanvas = document.getElementById('exp-canvas');
+const expCtx = expCanvas.getContext('2d');
+const fsOverlay = document.getElementById('fs-overlay');
+const fsCanvas = document.getElementById('fs-canvas');
+const fsCtx = fsCanvas.getContext('2d');
+let raf = null, currentExp = null, currentSetup = null;
+
+function openExp(id) {
+  if (!EXPS[id]) return;
+  cancelAnimationFrame(raf);
+  currentExp = id;
+  const e = EXPS[id];
+  document.getElementById('modal-tag-el').textContent = e.tag;
+  document.getElementById('modal-title-el').textContent = e.title;
+  document.getElementById('exp-info').innerHTML = e.info;
+  document.getElementById('exp-controls').innerHTML = '';
+  document.getElementById('canvas-info').textContent = e.hint || '';
+  document.getElementById('fs-title').textContent = e.title;
+  expCanvas.width = Math.min(900, window.innerWidth - 80);
+  expCanvas.height = Math.round(expCanvas.width * 9 / 16);
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  currentSetup = e.setup;
+  e.setup(expCanvas, expCtx, addCtrl);
+}
+
+function closeModal() {
+  cancelAnimationFrame(raf);
+  overlay.classList.remove('open');
+  fsOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  currentExp = null;
+}
+
+document.getElementById('close-btn').onclick = closeModal;
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// Fullscreen
+document.getElementById('fs-btn').onclick = () => {
+  if (!currentExp) return;
+  fsCanvas.width = window.innerWidth; fsCanvas.height = window.innerHeight;
+  document.getElementById('fs-controls-clone').innerHTML = document.getElementById('exp-controls').innerHTML;
+  fsOverlay.classList.add('open');
+  cancelAnimationFrame(raf);
+  EXPS[currentExp].setup(fsCanvas, fsCtx, () => {});
+};
+document.getElementById('fs-close-btn').onclick = () => {
+  fsOverlay.classList.remove('open');
+  if (currentExp) { cancelAnimationFrame(raf); EXPS[currentExp].setup(expCanvas, expCtx, addCtrl); }
+};
+
+// ── Control helpers ──
+function addCtrl(type, opts) {
+  const bar = document.getElementById('exp-controls');
+  if (type === 'btn') {
+    const b = document.createElement('button');
+    b.className = 'ctrl-btn' + (opts.ghost ? ' ghost' : '');
+    b.textContent = opts.label;
+    b.onclick = opts.fn;
+    if (opts.id) b.id = opts.id;
+    bar.appendChild(b); return b;
+  }
+  if (type === 'slider') {
+    const wrap = document.createElement('div'); wrap.className = 'ctrl-group';
+    const lbl = document.createElement('span'); lbl.className = 'ctrl-lbl'; lbl.textContent = opts.label;
+    const inp = document.createElement('input'); inp.type = 'range'; inp.min = opts.min; inp.max = opts.max; inp.value = opts.val; inp.step = opts.step || 1;
+    const val = document.createElement('span'); val.className = 'ctrl-val'; val.textContent = opts.val;
+    inp.oninput = () => { val.textContent = inp.value; opts.fn(+inp.value); };
+    wrap.append(lbl, inp, val); bar.appendChild(wrap); return inp;
+  }
+}
+
+// ══════════════════════════════════════
+//  EXPERIMENT DEFINITIONS
+// ══════════════════════════════════════
+const EXPS = {};
+
+/* ─────────────────────────────────────
+   1. MANDELBROT
+───────────────────────────────────── */
+const mandelbrot = {
+  preview(c, g) {
+    const W = c.width, H = c.height, img = g.createImageData(W, H);
+    for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
+      const x0 = px / W * 3.5 - 2.5, y0 = py / H * 2 - 1;
+      let x = 0, y = 0, i = 0;
+      while (x * x + y * y <= 4 && i < 80) { const t = x * x - y * y + x0; y = 2 * x * y + y0; x = t; i++; }
+      const t = i / 80, idx = (py * W + px) * 4;
+      img.data[idx] = Math.floor(9 * (1 - t) * t * t * t * 255);
+      img.data[idx + 1] = Math.floor(15 * (1 - t) ** 2 * t * t * 255);
+      img.data[idx + 2] = Math.floor(8.5 * (1 - t) ** 3 * t * 255);
+      img.data[idx + 3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+  },
+  setup(canvas, ctx, add) {
+    let zoom = 200, cx = -0.5, cy = 0, maxIter = 120, dragging = false, lx, ly;
+    canvas.style.cursor = 'crosshair';
+    canvas.onmousedown = e => { dragging = true; lx = e.clientX; ly = e.clientY; };
+    canvas.onmouseup = () => dragging = false;
+    canvas.onmousemove = e => { if (!dragging) return; cx -= (e.clientX - lx) / zoom; cy -= (e.clientY - ly) / zoom; lx = e.clientX; ly = e.clientY; draw(); };
+    canvas.onwheel = e => { e.preventDefault(); const f = e.deltaY < 0 ? 1.3 : 0.77; const mx = (e.offsetX - canvas.width / 2) / zoom, my = (e.offsetY - canvas.height / 2) / zoom; zoom *= f; cx += mx * (1 - 1 / f); cy += my * (1 - 1 / f); draw(); };
+    add('btn', { label: 'Reset', ghost: true, fn: () => { zoom = 200; cx = -0.5; cy = 0; draw(); } });
+    add('slider', { label: 'Itérations', min: 40, max: 500, val: maxIter, fn: v => { maxIter = v; draw(); } });
+    add('btn', { label: 'Mini Mandelbrot', ghost: true, fn: () => { cx = -1.749; cy = 0; zoom = 4000; draw(); } });
+    add('btn', { label: 'Spirale', ghost: true, fn: () => { cx = -0.7269; cy = 0.1889; zoom = 8000; draw(); } });
+    function draw() {
+      const W = canvas.width, H = canvas.height, img = ctx.createImageData(W, H);
+      for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
+        const x0 = (px - W / 2) / zoom + cx, y0 = (py - H / 2) / zoom + cy;
+        let x = 0, y = 0, i = 0;
+        while (x * x + y * y <= 4 && i < maxIter) { const t = x * x - y * y + x0; y = 2 * x * y + y0; x = t; i++; }
+        const smooth = i < maxIter ? i + 1 - Math.log(Math.log(Math.sqrt(x * x + y * y))) / Math.log(2) : maxIter;
+        const t = smooth / maxIter, idx = (py * W + px) * 4;
+        if (i >= maxIter) { img.data[idx] = img.data[idx + 1] = img.data[idx + 2] = 0; }
+        else { img.data[idx] = Math.floor(Math.sin(t * Math.PI) ** 2 * 220 + 20); img.data[idx + 1] = Math.floor(Math.sin(t * Math.PI + 1) ** 2 * 150); img.data[idx + 2] = Math.floor(Math.sin(t * Math.PI + 2) ** 2 * 200 + 30); }
+        img.data[idx + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    draw();
+  }
+};
+EXPS.mandelbrot = { tag: 'Mathématiques · Fractales', title: 'Ensemble de Mandelbrot', hint: 'Scroll pour zoomer · Drag pour déplacer', info: '<strong>L\'ensemble de Mandelbrot</strong> regroupe les nombres complexes <em>c</em> pour lesquels la suite z → z² + c reste bornée. Sa frontière est un fractal de dimension ~2 dont la complexité est infinie : chaque zoom révèle de nouveaux détails auto-similaires. Inventé par Benoît Mandelbrot en 1980, il est devenu l\'icône de la géométrie fractale.', setup: mandelbrot.setup };
+
+/* ─────────────────────────────────────
+   2. JULIA
+───────────────────────────────────── */
+const julia = {
+  preview(c, g) {
+    const W = c.width, H = c.height, img = g.createImageData(W, H);
+    const cr = -0.7, ci = 0.27;
+    for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
+      let x = (px / W) * 3.2 - 1.6, y = (py / H) * 2 - 1, i = 0;
+      while (x * x + y * y <= 4 && i < 80) { const t = x * x - y * y + cr; y = 2 * x * y + ci; x = t; i++; }
+      const t = i / 80, idx = (py * W + px) * 4;
+      img.data[idx] = Math.floor(t * 180 + 40); img.data[idx + 1] = Math.floor((1 - t) * 120); img.data[idx + 2] = Math.floor(t * 220); img.data[idx + 3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+  },
+  setup(canvas, ctx, add) {
+    let cr = -0.7, ci = 0.27, maxIter = 100, zoom = 1;
+    canvas.style.cursor = 'crosshair';
+    canvas.onmousemove = e => {
+      cr = (e.offsetX / canvas.offsetWidth) * 4 - 2;
+      ci = (e.offsetY / canvas.offsetHeight) * 4 - 2;
+      draw();
+    };
+    add('slider', { label: 'Itérations', min: 30, max: 300, val: maxIter, fn: v => { maxIter = v; draw(); } });
+    add('btn', { label: 'Dragon', ghost: true, fn: () => { cr = -0.7; ci = 0.27; draw(); } });
+    add('btn', { label: 'Dentelle', ghost: true, fn: () => { cr = -0.4; ci = 0.6; draw(); } });
+    add('btn', { label: 'Lapin', ghost: true, fn: () => { cr = -0.123; ci = 0.745; draw(); } });
+    function draw() {
+      const W = canvas.width, H = canvas.height, img = ctx.createImageData(W, H);
+      for (let py = 0; py < H; py++) for (let px = 0; px < W; px++) {
+        let x = (px / W) * 3.5 / zoom - 1.75 / zoom, y = (py / H) * 3.5 * H / W / zoom - 1.75 * H / W / zoom, i = 0;
+        while (x * x + y * y <= 4 && i < maxIter) { const t = x * x - y * y + cr; y = 2 * x * y + ci; x = t; i++; }
+        const t = i / maxIter, idx = (py * W + px) * 4;
+        img.data[idx] = Math.floor(Math.sin(t * 6) ** 2 * 200 + 30);
+        img.data[idx + 1] = Math.floor(Math.sin(t * 6 + 2) ** 2 * 180);
+        img.data[idx + 2] = Math.floor(Math.sin(t * 6 + 4) ** 2 * 240);
+        img.data[idx + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    draw();
+  }
+};
+EXPS.julia = { tag: 'Mathématiques · Fractales', title: 'Ensemble de Julia', hint: 'Déplacez la souris sur le canvas pour changer le paramètre c', info: '<strong>Les ensembles de Julia</strong> sont les compagnons de Mandelbrot : pour chaque point <em>c</em> du plan complexe, il existe un ensemble de Julia. Bougez la souris sur le canvas pour faire varier <em>c</em> et observer la métamorphose du fractal en temps réel. Lorsque <em>c</em> est dans l\'ensemble de Mandelbrot, Julia est connexe ; sinon, il se fragmente en poussière de Cantor.', setup: julia.setup };
+
+/* ─────────────────────────────────────
+   3. CONWAY
+───────────────────────────────────── */
+const conway = {
+  preview(c, g) {
+    const S = 6, cols = Math.floor(c.width / S), rows = Math.floor(c.height / S);
+    g.fillStyle = '#080810'; g.fillRect(0, 0, c.width, c.height);
+    for (let r = 0; r < rows; r++) for (let col = 0; col < cols; col++)
+      if (Math.random() < 0.28) { g.fillStyle = '#2aaa7a'; g.fillRect(col * S, r * S, S - 1, S - 1); }
+  },
+  setup(canvas, ctx, add) {
+    const S = 8, cols = Math.floor(canvas.width / S), rows = Math.floor(canvas.height / S);
+    let grid = rand(), running = false, interval = 80;
+    function rand() { return Array.from({ length: rows }, () => Array.from({ length: cols }, () => Math.random() < .25 ? 1 : 0)); }
+    function empty() { return Array.from({ length: rows }, () => new Array(cols).fill(0)); }
+    canvas.onclick = e => { const col = Math.min(cols - 1, Math.floor(e.offsetX / canvas.offsetWidth * cols)), row = Math.min(rows - 1, Math.floor(e.offsetY / canvas.offsetHeight * rows)); grid[row][col] ^= 1; draw(); };
+    const playBtn = add('btn', { label: '▶ Play', fn: () => { running = !running; playBtn.textContent = running ? '⏸ Pause' : '▶ Play'; if (running) loop(); } });
+    add('btn', { label: 'Reset', ghost: true, fn: () => { grid = rand(); draw(); } });
+    add('btn', { label: 'Vider', ghost: true, fn: () => { grid = empty(); draw(); } });
+    add('btn', { label: 'Glider', ghost: true, fn: () => { grid = empty(); [[1,0],[2,1],[0,2],[1,2],[2,2]].forEach(([dc,dr]) => { grid[10+dr][10+dc] = 1; }); draw(); } });
+    add('btn', { label: 'Pulsar', ghost: true, fn: () => { grid = empty(); const p=[[2,4],[3,4],[4,4],[8,4],[9,4],[10,4],[2,9],[3,9],[4,9],[8,9],[9,9],[10,9],[2,14],[3,14],[4,14],[8,14],[9,14],[10,14]]; p.forEach(([r,c])=>{ if(r<rows&&c<cols) grid[r][c]=1; }); draw(); } });
+    add('slider', { label: 'Vitesse', min: 1, max: 60, val: 12, fn: v => interval = Math.floor(1000 / v) });
+    function step() {
+      const next = empty();
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+        let n = 0;
+        for (let dr = -1; dr <= 1; dr++) for (let dc = -1; dc <= 1; dc++) { if (dr === 0 && dc === 0) continue; n += grid[(r + dr + rows) % rows][(c + dc + cols) % cols]; }
+        next[r][c] = (grid[r][c] && (n === 2 || n === 3)) || (!grid[r][c] && n === 3) ? 1 : 0;
+      }
+      grid = next;
+    }
+    function draw() {
+      ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++)
+        if (grid[r][c]) { ctx.fillStyle = '#2aaa7a'; ctx.fillRect(c * S + 1, r * S + 1, S - 1, S - 1); }
+    }
+    let last = 0;
+    function loop(ts = 0) { if (!running) return; if (ts - last > interval) { step(); draw(); last = ts; } raf = requestAnimationFrame(loop); }
+    draw();
+  }
+};
+EXPS.conway = { tag: 'Biologie · Automates Cellulaires', title: 'Jeu de la Vie de Conway', hint: 'Cliquez sur le canvas pour dessiner des cellules', info: '<strong>Le Jeu de la Vie</strong> (John H. Conway, 1970) est un automate cellulaire à 4 règles : une cellule vivante avec 2 ou 3 voisins survit ; avec moins de 2 elle meurt d\'isolement ; avec plus de 3 elle meurt de surpopulation ; une cellule morte avec exactement 3 voisins naît. Ces règles minimales génèrent des oscillateurs, des vaisseaux, des générateurs de gliders — un modèle fondamental en biologie théorique et en théorie de la computation.', setup: conway.setup };
+
+/* ─────────────────────────────────────
+   4. LANGTON ANT
+───────────────────────────────────── */
+const langton = {
+  preview(c, g) {
+    g.fillStyle = '#080810'; g.fillRect(0, 0, c.width, c.height);
+    const cx = c.width / 2, cy = c.height / 2;
+    g.fillStyle = '#e09030'; g.fillRect(cx - 20, cy - 2, 40, 4); g.fillRect(cx - 2, cy - 20, 4, 40);
+    for (let i = 0; i < 200; i++) { g.fillStyle = `rgba(224,144,48,${Math.random() * .4})`; g.fillRect(Math.random() * c.width, Math.random() * c.height, 4, 4); }
+  },
+  setup(canvas, ctx, add) {
+    const S = 4, cols = Math.floor(canvas.width / S), rows = Math.floor(canvas.height / S);
+    const grid = new Uint8Array(cols * rows);
+    let ax = Math.floor(cols / 2), ay = Math.floor(rows / 2), dir = 0, running = false, steps = 0, speed = 100;
+    const DIRS = [[0,-1],[1,0],[0,1],[-1,0]];
+    function step(n=1) {
+      for (let i = 0; i < n; i++) {
+        const idx = ay * cols + ax;
+        if (grid[idx] === 0) { dir = (dir + 1) % 4; grid[idx] = 1; }
+        else { dir = (dir + 3) % 4; grid[idx] = 0; }
+        ax = (ax + DIRS[dir][0] + cols) % cols;
+        ay = (ay + DIRS[dir][1] + rows) % rows;
+        steps++;
+      }
+    }
+    function draw() {
+      ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+      for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++)
+        if (grid[r * cols + c]) { ctx.fillStyle = '#e09030'; ctx.fillRect(c * S, r * S, S, S); }
+      ctx.fillStyle = '#ff4040'; ctx.fillRect(ax * S - 1, ay * S - 1, S + 2, S + 2);
+      document.getElementById('canvas-info') && (document.getElementById('canvas-info').textContent = `Étape : ${steps.toLocaleString()}`);
+    }
+    const playBtn = add('btn', { label: '▶ Play', fn: () => { running = !running; playBtn.textContent = running ? '⏸ Pause' : '▶ Play'; if (running) loop(); } });
+    add('btn', { label: 'Reset', ghost: true, fn: () => { grid.fill(0); ax = Math.floor(cols/2); ay = Math.floor(rows/2); dir = 0; steps = 0; draw(); } });
+    add('btn', { label: '+1000 étapes', ghost: true, fn: () => { step(1000); draw(); } });
+    add('slider', { label: 'Vitesse', min: 1, max: 50, val: 10, fn: v => speed = v });
+    function loop() { if (!running) return; step(speed); draw(); raf = requestAnimationFrame(loop); }
+    draw();
+  }
+};
+EXPS.langton = { tag: 'Informatique · Automates', title: 'Fourmi de Langton', hint: 'La fourmi rouge suit ses règles simples', info: '<strong>La fourmi de Langton</strong> (1986) obéit à deux règles : sur une case blanche, tourner à droite, la peindre en noir et avancer ; sur une case noire, tourner à gauche, la peindre en blanc et avancer. Après ~10 000 pas de chaos apparent, la fourmi construit spontanément une <em>autoroute</em> périodique se prolongeant indéfiniment. Ce comportement émergent est un des plus étonnants exemples d\'ordre naissant du désordre.', setup: langton.setup };
+
+/* ─────────────────────────────────────
+   5. FOURIER
+───────────────────────────────────── */
+const fourier = {
+  preview(c, g) {
+    g.fillStyle = '#080810'; g.fillRect(0, 0, c.width, c.height);
+    const colors = ['#d63f0e','#1a7a5a','#5230cc','rgba(240,237,230,.25)'];
+    [1, 3, 5, 0].forEach((h, i) => {
+      g.strokeStyle = colors[i]; g.lineWidth = i === 3 ? 2 : 1; g.beginPath();
+      for (let x = 0; x < c.width; x++) {
+        const n = h || [1,3,5].reduce((a, k) => a + Math.sin(x * k * .04) / k, 0);
+        const y = c.height / 2 - (h ? Math.sin(x * h * .04) / (h * .7) : n) * 50;
+        x === 0 ? g.moveTo(x, y) : g.lineTo(x, y);
+      }
+      g.stroke();
+    });
+  },
+  setup(canvas, ctx, add) {
+    let harmonics = 7, speed = .6, t = 0; const history = [];
+    add('slider', { label: 'Harmoniques', min: 1, max: 25, val: harmonics, fn: v => { harmonics = v; history.length = 0; } });
+    add('slider', { label: 'Vitesse', min: 1, max: 10, val: 3, fn: v => speed = v * .2 });
+    function loop() {
+      const W = canvas.width, H = canvas.height;
+      ctx.fillStyle = 'rgba(8,8,16,.12)'; ctx.fillRect(0, 0, W, H);
+      let cx = W * .22, cy = H / 2;
+      for (let k = 0; k < harmonics; k++) {
+        const n = 2 * k + 1, r = (4 / Math.PI) * (1 / n) * H * .35;
+        const angle = n * t * speed;
+        const nx = cx + r * Math.cos(angle), ny = cy + r * Math.sin(angle);
+        ctx.strokeStyle = `rgba(214,63,14,${.55 - k * .015})`; ctx.lineWidth = .7;
+        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = 'rgba(214,63,14,.8)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(nx, ny); ctx.stroke();
+        cx = nx; cy = ny;
+      }
+      history.unshift(cy); if (history.length > W * .6) history.pop();
+      ctx.strokeStyle = 'rgba(240,237,230,.2)'; ctx.lineWidth = .5;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(W * .38, history[0]); ctx.stroke();
+      ctx.strokeStyle = '#d63f0e'; ctx.lineWidth = 2; ctx.beginPath();
+      history.forEach((y, i) => { const x = W * .38 + i; i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }); ctx.stroke();
+      t += .016; raf = requestAnimationFrame(loop);
+    }
+    ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height); loop();
+  }
+};
+EXPS.fourier = { tag: 'Physique · Analyse Harmonique', title: 'Synthèse de Fourier', hint: 'Augmentez les harmoniques pour approcher une onde carrée parfaite', info: '<strong>La série de Fourier</strong> (Joseph Fourier, 1822) montre que toute fonction périodique est une somme infinie de sinusoïdes. En ajoutant des harmoniques impaires (fréquences 1, 3, 5…), on approche progressivement une onde carrée. Plus on ajoute de termes, plus la forme est précise — mais les oscillations de Gibbs persistent aux discontinuités. Ce théorème fonde le traitement du signal, la musique numérique et l\'analyse spectrale.', setup: fourier.setup };
+
+/* ─────────────────────────────────────
+   6. WAVE INTERFERENCE
+───────────────────────────────────── */
+const waves = {
+  preview(c, g) {
+    const W = c.width, H = c.height, img = g.createImageData(W, H);
+    const s1x = W * .35, s1y = H * .5, s2x = W * .65, s2y = H * .5;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+      const d1 = Math.sqrt((x-s1x)**2+(y-s1y)**2), d2 = Math.sqrt((x-s2x)**2+(y-s2y)**2);
+      const v = Math.sin(d1*.25)*Math.sin(d2*.25);
+      const n = (v+1)/2, idx = (y*W+x)*4;
+      img.data[idx] = Math.floor(n*20); img.data[idx+1] = Math.floor(n*130); img.data[idx+2] = Math.floor(n*180); img.data[idx+3] = 255;
+    }
+    g.putImageData(img, 0, 0);
+  },
+  setup(canvas, ctx, add) {
+    let t = 0, f1 = 1, f2 = 1, sources = [{ x: canvas.width*.35, y: canvas.height*.5 }, { x: canvas.width*.65, y: canvas.height*.5 }];
+    canvas.onclick = e => { if (sources.length < 4) { sources.push({ x: e.offsetX / canvas.offsetWidth * canvas.width, y: e.offsetY / canvas.offsetHeight * canvas.height }); } else { sources = sources.slice(1); sources.push({ x: e.offsetX / canvas.offsetWidth * canvas.width, y: e.offsetY / canvas.offsetHeight * canvas.height }); } };
+    add('slider', { label: 'Fréq. 1', min: 1, max: 5, val: 1, fn: v => f1 = v });
+    add('slider', { label: 'Fréq. 2', min: 1, max: 5, val: 1, fn: v => f2 = v });
+    add('btn', { label: 'Reset sources', ghost: true, fn: () => { sources = [{ x: canvas.width*.35, y: canvas.height*.5 }, { x: canvas.width*.65, y: canvas.height*.5 }]; } });
+    const img = ctx.createImageData(canvas.width, canvas.height);
+    function loop() {
+      const W = canvas.width, H = canvas.height, k = .1;
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
+        let v = 0;
+        sources.forEach((s, i) => { const d = Math.sqrt((x-s.x)**2+(y-s.y)**2); v += Math.sin(d*k - t * (i%2===0?f1:f2)); });
+        const n = (v/sources.length + 1)/2, idx = (y*W+x)*4;
+        img.data[idx] = Math.floor(n*20); img.data[idx+1] = Math.floor(n*140); img.data[idx+2] = Math.floor(n*200); img.data[idx+3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+      sources.forEach(s => { ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(s.x, s.y, 5, 0, Math.PI*2); ctx.fill(); });
+      t += .12; raf = requestAnimationFrame(loop);
+    }
+    loop();
+  }
+};
+EXPS.waves = { tag: 'Physique · Optique et Acoustique', title: 'Vagues et Interférence', hint: 'Cliquez pour ajouter des sources (max 4)', info: '<strong>Les interférences</strong> se produisent lorsque deux ou plusieurs ondes se superposent. Les zones brillantes (crêtes + crêtes) sont des interférences constructives ; les zones sombres (crêtes + creux) sont des interférences destructives. Ce principe, expliqué par Huygens et Young (1801), fonde l\'optique ondulatoire, l\'acoustique architecturale, le sonar et les antennes à réseau phasé.', setup: waves.setup };
+
+/* ─────────────────────────────────────
+   7. PARTICLES
+───────────────────────────────────── */
+const particles = {
+  preview(c, g) {
+    g.fillStyle = '#080810'; g.fillRect(0, 0, c.width, c.height);
+    for (let i = 0; i < 60; i++) { g.fillStyle = `rgba(214,63,14,${Math.random()*.7+.2})`; g.beginPath(); g.arc(Math.random()*c.width, Math.random()*c.height, Math.random()*2.5+.5, 0, Math.PI*2); g.fill(); }
+  },
+  setup(canvas, ctx, add) {
+    const W = canvas.width, H = canvas.height;
+    let pts = [], G = 500;
+    function spawn(x, y, n=5) { for (let i=0;i<n;i++) { const a=Math.random()*Math.PI*2, s=Math.random()*.6; pts.push({x:x+Math.random()*12-6,y:y+Math.random()*12-6,vx:Math.cos(a)*s,vy:Math.sin(a)*s,m:Math.random()*2+.5,hue:Math.random()*60+10}); } }
+    for (let i=0;i<80;i++) spawn(W/2+Math.random()*180-90,H/2+Math.random()*180-90,1);
+    canvas.onclick = e => spawn(e.offsetX/canvas.offsetWidth*W,e.offsetY/canvas.offsetHeight*H,8);
+    add('btn', { label: 'Big Bang', fn: () => { pts=[]; for(let i=0;i<120;i++) spawn(W/2+Math.random()*20-10,H/2+Math.random()*20-10,1); } });
+    add('btn', { label: 'Reset', ghost: true, fn: () => { pts=[]; for(let i=0;i<80;i++) spawn(W/2+Math.random()*180-90,H/2+Math.random()*180-90,1); } });
+    add('slider', { label: 'Gravité', min: 100, max: 2000, val: 500, fn: v => G=v });
+    function loop() {
+      ctx.fillStyle = 'rgba(8,8,16,.14)'; ctx.fillRect(0,0,W,H);
+      for (let i=0;i<pts.length;i++) {
+        let ax=0,ay=0;
+        for (let j=0;j<pts.length;j++) { if(i===j) continue; const dx=pts[j].x-pts[i].x,dy=pts[j].y-pts[i].y,d=Math.max(Math.sqrt(dx*dx+dy*dy),5),f=G*pts[j].m/(d*d); ax+=f*dx/d; ay+=f*dy/d; }
+        pts[i].vx=(pts[i].vx+ax*.016)*.985; pts[i].vy=(pts[i].vy+ay*.016)*.985;
+        pts[i].x+=pts[i].vx; pts[i].y+=pts[i].vy;
+        if(pts[i].x<0)pts[i].x=W; if(pts[i].x>W)pts[i].x=0;
+        if(pts[i].y<0)pts[i].y=H; if(pts[i].y>H)pts[i].y=0;
+        ctx.fillStyle=`hsl(${pts[i].hue},80%,60%)`; ctx.beginPath(); ctx.arc(pts[i].x,pts[i].y,pts[i].m*1.4,0,Math.PI*2); ctx.fill();
+      }
+      if(pts.length>250) pts=pts.slice(-250);
+      raf = requestAnimationFrame(loop);
+    }
+    ctx.fillStyle='#080810'; ctx.fillRect(0,0,W,H); loop();
+  }
+};
+EXPS.particles = { tag: 'Physique · Mécanique Newtonienne', title: 'Gravité et Particules', hint: 'Cliquez sur le canvas pour ajouter un amas de masse', info: '<strong>La simulation n-corps</strong> calcule l\'attraction gravitationnelle de chaque particule sur toutes les autres (F = Gm₁m₂/r²). Cette méthode exacte, dite de force brute O(n²), est identique aux simulations utilisées pour modéliser la formation des galaxies. À grande échelle, on l\'optimise avec l\'algorithme de Barnes-Hut.', setup: particles.setup };
+
+/* ─────────────────────────────────────
+   8. DOUBLE PENDULUM
+───────────────────────────────────── */
+const pendulum = {
+  preview(c, g) {
+    g.fillStyle = '#080810'; g.fillRect(0, 0, c.width, c.height);
+    g.strokeStyle = '#5230cc'; g.lineWidth = 1.5;
+    const cx = c.width/2, cy = 40;
+    [[1,0],[.7,.5],[.3,.9]].forEach(([a,b]) => {
+      g.beginPath(); g.moveTo(cx,cy); g.lineTo(cx+Math.sin(a)*60,cy+Math.cos(a)*60);
+      g.lineTo(cx+Math.sin(a)*60+Math.sin(b)*50,cy+Math.cos(a)*60+Math.cos(b)*50); g.stroke();
+    });
+  },
+  setup(canvas, ctx, add) {
+    const W = canvas.width, H = canvas.height;
+    let L1=H*.28,L2=H*.22,M1=10,M2=8,g_=9.81,dt=.016;
+    let pends = [
+      {a1:Math.PI/2,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#5230cc'},
+      {a1:Math.PI/2+.001,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#d63f0e'}
+    ];
+    function step(p) {
+      const num1=-(g_*(2*M1+M2)*Math.sin(p.a1)-M2*g_*Math.sin(p.a1-2*p.a2)-2*Math.sin(p.a1-p.a2)*M2*(p.v2*p.v2*L2+p.v1*p.v1*L1*Math.cos(p.a1-p.a2)));
+      const den1=L1*(2*M1+M2-M2*Math.cos(2*p.a1-2*p.a2));
+      const num2=2*Math.sin(p.a1-p.a2)*((M1+M2)*p.v1*p.v1*L1+g_*(M1+M2)*Math.cos(p.a1)+M2*p.v2*p.v2*L2*Math.cos(p.a1-p.a2));
+      const den2=L2*(2*M1+M2-M2*Math.cos(2*p.a1-2*p.a2));
+      p.v1+=dt*(num1/den1); p.v2+=dt*(num2/den2); p.a1+=dt*p.v1; p.a2+=dt*p.v2;
+    }
+    const cx=W/2,cy=H*.22;
+    function loop() {
+      ctx.fillStyle='rgba(8,8,16,.08)'; ctx.fillRect(0,0,W,H);
+      pends.forEach(p => {
+        for(let i=0;i<3;i++) step(p);
+        const x1=cx+L1*Math.sin(p.a1),y1=cy+L1*Math.cos(p.a1);
+        const x2=x1+L2*Math.sin(p.a2),y2=y1+L2*Math.cos(p.a2);
+        p.trail.push({x:x2,y:y2}); if(p.trail.length>800) p.trail.shift();
+        if(p.trail.length>1){
+          ctx.strokeStyle=p.color; ctx.lineWidth=0.8; ctx.beginPath();
+          p.trail.forEach(({x,y},i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)); ctx.stroke();
+        }
+        ctx.strokeStyle='rgba(240,237,230,.4)'; ctx.lineWidth=1.5;
+        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+        ctx.fillStyle='rgba(240,237,230,.8)'; ctx.beginPath(); ctx.arc(x1,y1,5,0,Math.PI*2); ctx.fill();
+        ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(x2,y2,7,0,Math.PI*2); ctx.fill();
+      });
+      raf = requestAnimationFrame(loop);
+    }
+    add('btn', { label: 'Reset', fn: () => { pends = [{a1:Math.PI/2,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#5230cc'},{a1:Math.PI/2+.001,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#d63f0e'}]; } });
+    add('slider', { label: 'Gravité', min: 1, max: 20, val: 9, fn: v => g_=v });
+    ctx.fillStyle='#080810'; ctx.fillRect(0,0,W,H); loop();
+  }
+};
+EXPS.pendulum = { tag: 'Physique · Systèmes Chaotiques', title: 'Pendule Double', hint: 'Les deux couleurs représentent des conditions initiales quasi-identiques', info: '<strong>Le pendule double</strong> est l\'exemple le plus pédagogique du chaos déterministe. Les deux pendules (violet et rouge) partagent des conditions initiales différant de 0.001 radian. Leurs trajectoires, d\'abord identiques, divergent exponentiellement — leur séparation croit selon e^(λt), où λ est l\'exposant de Lyapunov. Ce modèle illustre pourquoi les prédictions à long terme sont impossibles en présence de chaos.', setup: pendulum.setup };
+
+/* ─────────────────────────────────────
+   9. LORENZ
+───────────────────────────────────── */
+const lorenz = {
+  preview(c, g) {
+    g.fillStyle='#080810'; g.fillRect(0,0,c.width,c.height);
+    let x=.1,y=0,z=0; g.strokeStyle='#5230cc'; g.lineWidth=.5; g.beginPath(); let f=true;
+    for(let i=0;i<8000;i++){const dx=10*(y-x),dy=x*(28-z)-y,dz=x*y-(8/3)*z;x+=dx*.005;y+=dy*.005;z+=dz*.005;const px=(x+25)/50*c.width,py=(z-5)/35*c.height;f?(g.moveTo(px,py),f=false):g.lineTo(px,py);}
+    g.stroke();
+  },
+  setup(canvas, ctx, add) {
+    const W=canvas.width,H=canvas.height;
+    let sigma=10,rho=28,beta=8/3,dt=.005;
+    let p1={x:.1,y:0,z:0},p2={x:.1001,y:0,z:0},step=0;
+    function lz(p){return{x:sigma*(p.y-p.x),y:p.x*(rho-p.z)-p.y,z:p.x*p.y-beta*p.z}}
+    function int_(p){const d=lz(p);return{x:p.x+d.x*dt,y:p.y+d.y*dt,z:p.z+d.z*dt}}
+    const proj=p=>({x:W*.5+p.x*W*.016,y:H*.75-p.z*H*.018});
+    ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);
+    add('slider',{label:'σ',min:5,max:20,val:10,fn:v=>{sigma=v;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);step=0;}});
+    add('slider',{label:'ρ',min:10,max:50,val:28,fn:v=>{rho=v;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);step=0;}});
+    add('btn',{label:'Reset',ghost:true,fn:()=>{p1={x:.1,y:0,z:0};p2={x:.1001,y:0,z:0};step=0;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);}});
+    function loop(){
+      for(let s=0;s<3;s++){
+        const n1=int_(p1),n2=int_(p2);
+        const a=proj(p1),b=proj(n1),c2=proj(p2),d=proj(n2);
+        ctx.strokeStyle='rgba(82,48,204,.55)';ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+        const div=Math.min(1,step/4000);
+        ctx.strokeStyle=`rgba(214,${Math.floor(63+div*130)},14,.55)`;ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(c2.x,c2.y);ctx.lineTo(d.x,d.y);ctx.stroke();
+        p1=n1;p2=n2;step++;
+        if(step>12000){ctx.fillStyle='rgba(8,8,16,.003)';ctx.fillRect(0,0,W,H);}
+      }
+      raf=requestAnimationFrame(loop);
+    }
+    loop();
+  }
+};
+EXPS.lorenz={tag:'Physique · Attracteur Étrange',title:'Attracteur de Lorenz',hint:'Violet et rouge partagent des conditions initiales quasi-identiques',info:'<strong>L\'attracteur de Lorenz</strong> (Edward Lorenz, 1963) est un système de 3 équations différentielles non-linéaires modélisant la convection atmosphérique. Sa solution trace une figure en forme de papillon : les deux "ailes" représentent les deux états possibles du système. Lorenz découvrit qu\'une différence de 0.0001 dans les conditions initiales suffisait à transformer totalement la trajectoire — naissance de la théorie du chaos et de l\'"effet papillon".',setup:lorenz.setup};
+
+/* ─────────────────────────────────────
+   10. TURING
+───────────────────────────────────── */
+const turing = {
+  preview(c,g) {
+    const W=c.width,H=c.height,img=g.createImageData(W,H);
+    for(let y=0;y<H;y++)for(let x=0;x<W;x++){const v=Math.sin(x*.08)*Math.cos(y*.08)+Math.sin(x*.04+y*.04)*.5;const n=(v+1.5)/3,idx=(y*W+x)*4;img.data[idx]=Math.floor(n*232);img.data[idx+1]=Math.floor(n*180);img.data[idx+2]=Math.floor(n*60);img.data[idx+3]=255;}
+    g.putImageData(img,0,0);
+  },
+  setup(canvas,ctx,add){
+    const W=Math.floor(canvas.width/2),H=Math.floor(canvas.height/2);
+    let A=new Float32Array(W*H).fill(1),B=new Float32Array(W*H);
+    let dA=1.0,dB=.5,feed=.055,kill=.062;
+    function seed(){A.fill(1);B.fill(0);for(let i=0;i<25;i++){const cx=Math.floor(Math.random()*W),cy=Math.floor(Math.random()*H);for(let dy=-5;dy<=5;dy++)for(let dx=-5;dx<=5;dx++){const idx=((cy+dy+H)%H)*W+((cx+dx+W)%W);B[idx]=1;A[idx]=0;}}}
+    seed();
+    const NA=new Float32Array(W*H),NB=new Float32Array(W*H);
+    const img=ctx.createImageData(canvas.width,canvas.height);
+    const lap=(gr,idx,x,y)=>gr[((y-1+H)%H)*W+x]+gr[((y+1)%H)*W+x]+gr[y*W+(x-1+W)%W]+gr[y*W+(x+1)%W]-4*gr[idx];
+    add('slider',{label:'Feed',min:1,max:10,val:5,fn:v=>feed=v*.011});
+    add('slider',{label:'Kill',min:1,max:10,val:6,fn:v=>kill=v*.010+.05});
+    add('btn',{label:'Réensemencer',ghost:true,fn:seed});
+    add('btn',{label:'Preset Zèbre',ghost:true,fn:()=>{feed=.037;kill=.06;seed();}});
+    add('btn',{label:'Preset Léopard',ghost:true,fn:()=>{feed=.04;kill=.067;seed();}});
+    function loop(){
+      for(let s=0;s<8;s++){
+        for(let y=0;y<H;y++)for(let x=0;x<W;x++){
+          const idx=y*W+x,a=A[idx],b=B[idx],abb=a*b*b;
+          NA[idx]=Math.max(0,Math.min(1,a+(dA*lap(A,idx,x,y)-abb+feed*(1-a))*.5));
+          NB[idx]=Math.max(0,Math.min(1,b+(dB*lap(B,idx,x,y)+abb-(kill+feed)*b)*.5));
+        }
+        A.set(NA);B.set(NB);
+      }
+      const CW=canvas.width,CH=canvas.height;
+      for(let y=0;y<CH;y++)for(let x=0;x<CW;x++){
+        const sx=Math.floor(x/2),sy=Math.floor(y/2),v=A[sy*W+sx],bv=B[sy*W+sx];
+        const idx=(y*CW+x)*4;
+        img.data[idx]=Math.floor(v*232);img.data[idx+1]=Math.floor(v*150+bv*50);img.data[idx+2]=Math.floor(v*40+bv*100);img.data[idx+3]=255;
+      }
+      ctx.putImageData(img,0,0);
+      raf=requestAnimationFrame(loop);
+    }
+    loop();
+  }
+};
+EXPS.turing={tag:'Biologie · Morphogenèse Chimique',title:'Motifs de Turing (Réaction-Diffusion)',hint:'Les presets Zèbre/Léopard reproduisent les motifs réels',info:'<strong>Alan Turing</strong> (1952) proposa que les motifs biologiques émergent de deux substances chimiques en compétition : un <em>activateur</em> (se stimule localement) et un <em>inhibiteur</em> (le supprime à distance). Ce système "réaction-diffusion" génère spontanément des rayures, des taches et des labyrinthes selon les paramètres Feed (apport d\'activateur) et Kill (élimination de l\'inhibiteur). Des études récentes ont confirmé ce mécanisme dans les doigts de souris et les dents de requins.',setup:turing.setup};
+
+/* ─────────────────────────────────────
+   11. SORT
+───────────────────────────────────── */
+const sort = {
+  preview(c,g){
+    g.fillStyle='#080810';g.fillRect(0,0,c.width,c.height);
+    const N=40,arr=Array.from({length:N},(_,i)=>i+1).sort(()=>Math.random()-.5);
+    arr.forEach((v,i)=>{const t=v/N;g.fillStyle=`hsl(${t*60+10},70%,${40+t*30}%)`;g.fillRect(i*(c.width/N),c.height*(1-v/N),c.width/N-1,c.height*v/N);});
+  },
+  setup(canvas,ctx,add){
+    const W=canvas.width,H=canvas.height,N=100;
+    let arr=shuffle(),algo='bubble',running=false,gen=null;
+    function shuffle(){return Array.from({length:N},(_,i)=>i+1).sort(()=>Math.random()-.5);}
+    function drawArr(a,hi=[]){
+      ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);
+      const bw=(W-20)/N;
+      a.forEach((v,i)=>{const t=v/N;ctx.fillStyle=hi.includes(i)?'#fff':`hsl(${t*60+10},70%,${40+t*30}%)`;const bh=(v/N)*H*.9;ctx.fillRect(10+i*bw,H-bh,bw-1,bh);});
+    }
+    function*bubbleGen(a){for(let i=0;i<a.length;i++)for(let j=0;j<a.length-i-1;j++){if(a[j]>a[j+1])[a[j],a[j+1]]=[a[j+1],a[j]];yield{a:[...a],hi:[j,j+1]};}}
+    function*quickGen(a,lo,hi){if(lo>=hi)return;let piv=a[hi],i=lo-1;for(let j=lo;j<hi;j++){if(a[j]<=piv){i++;[a[i],a[j]]=[a[j],a[i]];}yield{a:[...a],hi:[i,j,hi]};}[a[i+1],a[hi]]=[a[hi],a[i+1]];yield{a:[...a],hi:[i+1]};yield*quickGen(a,lo,i);yield*quickGen(a,i+2,hi);}
+    function*mergeGen(a,s=0){if(a.length<=1)return;const m=Math.floor(a.length/2),L=a.slice(0,m),R=a.slice(m);yield*mergeGen(L,s);yield*mergeGen(R,s+m);let i=0,j=0,k=s;while(i<L.length&&j<R.length){if(L[i]<=R[j])arr[k]=L[i++];else arr[k]=R[j++];k++;yield{a:[...arr],hi:[k-1]};}while(i<L.length){arr[k++]=L[i++];yield{a:[...arr],hi:[k-1]};}while(j<R.length){arr[k++]=R[j++];yield{a:[...arr],hi:[k-1]};}}
+    add('btn',{label:'▶ Lancer',fn:()=>{if(running)return;arr=shuffle();running=true;const a=[...arr];gen=algo==='bubble'?bubbleGen(a):algo==='quick'?quickGen(a,0,N-1):mergeGen(a);run();}});
+    add('btn',{label:'Bubble',ghost:true,fn:()=>algo='bubble'});
+    add('btn',{label:'Quick',ghost:true,fn:()=>algo='quick'});
+    add('btn',{label:'Merge',ghost:true,fn:()=>algo='merge'});
+    add('btn',{label:'Mélanger',ghost:true,fn:()=>{arr=shuffle();drawArr(arr);}});
+    function run(){if(!gen)return;let r;for(let s=0;s<4;s++)r=gen.next();if(!r.done){drawArr(r.value.a,r.value.hi||[]);raf=requestAnimationFrame(run);}else{running=false;drawArr(arr);}}
+    drawArr(arr);
+  }
+};
+EXPS.sort={tag:'Informatique · Algorithmique',title:'Algorithmes de Tri',hint:'Choisissez un algorithme puis cliquez Lancer',info:'<strong>Les algorithmes de tri</strong> illustrent des paradigmes fondamentaux : Bubble Sort (O(n²)) compare et échange des éléments adjacents ; Quick Sort (O(n log n) moyen, O(n²) pire cas) divise autour d\'un pivot ; Merge Sort (O(n log n) garanti) fusionne des sous-listes triées. La visualisation révèle leurs "empreintes" caractéristiques : les vagues de Bubble, les strates de Quick, les colonnes de Merge.',setup:sort.setup};
+
+/* ─────────────────────────────────────
+   12. LISSAJOUS
+───────────────────────────────────── */
+const lissajous = {
+  preview(c,g){
+    g.fillStyle='#080810';g.fillRect(0,0,c.width,c.height);
+    g.strokeStyle='#d63f0e';g.lineWidth=1.5;g.beginPath();
+    const cx=c.width/2,cy=c.height/2,A=cx*.85,B=cy*.85;
+    for(let t=0;t<Math.PI*2*5;t+=.01){const x=cx+A*Math.sin(3*t+Math.PI/4),y=cy+B*Math.sin(2*t);t<.01?g.moveTo(x,y):g.lineTo(x,y);}
+    g.stroke();
+  },
+  setup(canvas,ctx,add){
+    const W=canvas.width,H=canvas.height;
+    let fx=3,fy=2,phase=Math.PI/4,speed=1,trail=[],t=0;
+    add('slider',{label:'Fréq. X',min:1,max:10,val:fx,fn:v=>{fx=v;trail=[];}});
+    add('slider',{label:'Fréq. Y',min:1,max:10,val:fy,fn:v=>{fy=v;trail=[];}});
+    add('slider',{label:'Phase',min:0,max:100,val:25,fn:v=>{phase=v/100*Math.PI*2;trail=[];}});
+    add('btn',{label:'3:2',ghost:true,fn:()=>{fx=3;fy=2;phase=Math.PI/4;trail=[];}});
+    add('btn',{label:'5:4',ghost:true,fn:()=>{fx=5;fy=4;phase=Math.PI/3;trail=[];}});
+    add('btn',{label:'7:3',ghost:true,fn:()=>{fx=7;fy=3;phase=Math.PI/2;trail=[];}});
+    function loop(){
+      ctx.fillStyle='rgba(8,8,16,.06)';ctx.fillRect(0,0,W,H);
+      const A=W*.42,B=H*.42,cx=W/2,cy=H/2;
+      t+=.012*speed;
+      const x=cx+A*Math.sin(fx*t+phase),y=cy+B*Math.sin(fy*t);
+      trail.push({x,y});if(trail.length>1200)trail.shift();
+      if(trail.length>1){
+        ctx.beginPath();
+        trail.forEach(({x:px,y:py},i)=>{const a=i/trail.length;ctx.strokeStyle=`hsl(${a*60+10},85%,${50+a*20}%)`;ctx.lineWidth=a*2;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
+        ctx.stroke();
+      }
+      ctx.fillStyle='white';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
+      raf=requestAnimationFrame(loop);
+    }
+    ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);loop();
+  }
+};
+EXPS.lissajous={tag:'Mathématiques · Géométrie Harmonique',title:'Courbes de Lissajous',hint:'Modifiez les fréquences pour changer la figure',info:'<strong>Les figures de Lissajous</strong> (Jules Antoine Lissajous, 1857) sont les trajectoires paramétriques x=A·sin(at+δ), y=B·sin(bt). Quand a/b est rationnel, la courbe est fermée. En musique, les rapports 2:1 (octave), 3:2 (quinte), 4:3 (quarte) correspondent à des consonances précises — les oscilloscopes utilisent ces figures pour accorder des instruments. Une relation directe entre mathématiques, physique et musique.',setup:lissajous.setup};
+
+/* ─────────────────────────────────────
+   13. RANDOM WALK
+───────────────────────────────────── */
+const walk = {
+  preview(c,g){
+    g.fillStyle='#080810';g.fillRect(0,0,c.width,c.height);
+    const N=40,cx=c.width/2,cy=c.height/2;
+    for(let i=0;i<N;i++){
+      let x=cx,y=cy;g.strokeStyle=`hsl(${i*9},70%,55%)`;g.lineWidth=.6;g.beginPath();g.moveTo(x,y);
+      for(let s=0;s<80;s++){const a=Math.random()*Math.PI*2;x+=Math.cos(a)*4;y+=Math.sin(a)*4;g.lineTo(x,y);}g.stroke();
+    }
+  },
+  setup(canvas,ctx,add){
+    const W=canvas.width,H=canvas.height;
+    let walkers=[],N=80,step=3,running=true;
+    function init(){walkers=Array.from({length:N},(_,i)=>({x:W/2,y:H/2,trail:[],hue:i*4.5}));}
+    init();
+    add('slider',{label:'Marcheurs',min:10,max:200,val:80,fn:v=>{N=v;init();}});
+    add('slider',{label:'Pas',min:1,max:10,val:3,fn:v=>step=v});
+    add('btn',{label:'Reset',ghost:true,fn:()=>{init();ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);}});
+    function loop(){
+      ctx.fillStyle='rgba(8,8,16,.04)';ctx.fillRect(0,0,W,H);
+      walkers.forEach(w=>{
+        const a=Math.random()*Math.PI*2;
+        w.x+=Math.cos(a)*step;w.y+=Math.sin(a)*step;
+        if(w.x<0)w.x=W;if(w.x>W)w.x=0;if(w.y<0)w.y=H;if(w.y>H)w.y=0;
+        w.trail.push({x:w.x,y:w.y});if(w.trail.length>150)w.trail.shift();
+        if(w.trail.length>1){
+          const last=w.trail.length-1;
+          ctx.strokeStyle=`hsla(${w.hue},70%,60%,.5)`;ctx.lineWidth=.8;
+          ctx.beginPath();ctx.moveTo(w.trail[last-1].x,w.trail[last-1].y);ctx.lineTo(w.x,w.y);ctx.stroke();
+        }
+      });
+      // Distribution histogram
+      const bins=new Array(20).fill(0);
+      walkers.forEach(w=>{const b=Math.min(19,Math.floor((w.x/W)*20));bins[b]++;});
+      const maxB=Math.max(...bins);
+      bins.forEach((b,i)=>{
+        const bh=(b/maxB)*H*.2;
+        ctx.fillStyle=`rgba(214,63,14,.4)`;
+        ctx.fillRect(i*(W/20),H-bh,W/20-1,bh);
+      });
+      raf=requestAnimationFrame(loop);
+    }
+    ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);loop();
+  }
+};
+EXPS.walk={tag:'Mathématiques · Probabilités',title:'Marche Aléatoire et Diffusion',hint:'L\'histogramme rouge montre la distribution émergente',info:'<strong>La marche aléatoire</strong> modélise le mouvement brownien (Einstein, 1905), la diffusion moléculaire, les marchés financiers et la dispersion d\'une tache d\'encre dans l\'eau. Malgré le hasard pur de chaque pas, la distribution des positions converge vers une gaussienne (courbe en cloche) — illustration directe du <em>théorème central limite</em>, fondement de toute la statistique.',setup:walk.setup};
+
+/* ─────────────────────────────────────
+   14. WOLFRAM RULE 110
+───────────────────────────────────── */
+const wolfram = {
+  preview(c,g){
+    g.fillStyle='#080810';g.fillRect(0,0,c.width,c.height);
+    const W=c.width,H=c.height,S=2,cols=Math.floor(W/S),rows=Math.floor(H/S);
+    let row=new Uint8Array(cols);row[Math.floor(cols/2)]=1;
+    const rule110=[0,1,1,1,0,1,1,0];
+    for(let r=0;r<rows;r++){
+      for(let c2=0;c2<cols;c2++)if(row[c2]){g.fillStyle='#e09030';g.fillRect(c2*S,r*S,S,S);}
+      const next=new Uint8Array(cols);
+      for(let c2=0;c2<cols;c2++){const l=row[(c2-1+cols)%cols],m=row[c2],ri2=row[(c2+1)%cols];next[c2]=rule110[l*4+m*2+ri2];}
+      row=next;
+    }
+  },
+  setup(canvas,ctx,add){
+    const W=canvas.width,H=canvas.height;
+    let S=2,ruleN=110,currentRow=0;
+    const cols=Math.floor(W/S),rows=Math.floor(H/S);
+    let row=new Uint8Array(cols),rows_data=[];
+    function getRule(n){return Array.from({length:8},(_,i)=>((n>>i)&1));}
+    function init(){currentRow=0;rows_data=[];row=new Uint8Array(cols);row[Math.floor(cols/2)]=1;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);}
+    init();
+    add('slider',{label:'Règle #',min:0,max:255,val:110,fn:v=>{ruleN=v;init();}});
+    add('btn',{label:'Règle 110',ghost:true,fn:()=>{ruleN=110;init();}});
+    add('btn',{label:'Règle 90',ghost:true,fn:()=>{ruleN=90;init();}});
+    add('btn',{label:'Règle 30',ghost:true,fn:()=>{ruleN=30;init();}});
+    add('btn',{label:'Reset',ghost:true,fn:init});
+    function loop(){
+      if(currentRow>=rows){ctx.fillStyle='rgba(8,8,16,.003)';ctx.fillRect(0,0,W,H);currentRow=0;row=new Uint8Array(cols);row[Math.floor(cols/2)]=1;}
+      const rule=getRule(ruleN);
+      for(let s=0;s<3;s++){
+        for(let c2=0;c2<cols;c2++)if(row[c2]){ctx.fillStyle='#e09030';ctx.fillRect(c2*S,currentRow*S,S,S);}
+        const next=new Uint8Array(cols);
+        for(let c2=0;c2<cols;c2++){const l=row[(c2-1+cols)%cols],m=row[c2],ri2=row[(c2+1)%cols];next[c2]=rule[l*4+m*2+ri2];}
+        row=next;currentRow++;
+        if(currentRow>=rows)break;
+      }
+      document.getElementById('canvas-info')&&(document.getElementById('canvas-info').textContent=`Règle ${ruleN} — génération ${currentRow}`);
+      raf=requestAnimationFrame(loop);
+    }
+    loop();
+  }
+};
+EXPS.wolfram={tag:'Informatique · Automates 1D de Wolfram',title:'Automate Cellulaire — Règle 110',hint:'Chaque ligne = une génération. Gauche → droite : temps',info:'<strong>Les automates cellulaires élémentaires</strong> (Stephen Wolfram, 1983) sont des rangées de cellules binaires évoluant selon 256 règles possibles (8 voisinages possibles → 2^8 = 256 règles). La <em>Règle 110</em> a été prouvée Turing-complète en 2004 : elle peut simuler n\'importe quel calcul. La Règle 30 est utilisée comme générateur pseudo-aléatoire dans Mathematica. La Règle 90 produit le triangle de Sierpinski.',setup:wolfram.setup};
+
+/* ══════════════════════════════════════
+   ROUTING — History API SPA
+   Chaque expérience et catégorie a sa propre URL canonique,
+   ses propres meta <title> / description / og:*, et son
+   BreadcrumbList schema.org injecté dynamiquement.
+══════════════════════════════════════ */
+
+const ROUTE_META = {
+  'experience/mandelbrot':      { id:'mandelbrot',  cat:'math',    title:'Ensemble de Mandelbrot',          desc:'Zoomez dans la frontière fractale infinie du plan complexe. Explorez les auto-similarités de l\'ensemble de Mandelbrot en temps réel.' },
+  'experience/julia':           { id:'julia',       cat:'math',    title:'Ensemble de Julia',               desc:'Faites varier le paramètre complexe c et regardez la fractale de Julia se métamorphoser instantanément sous votre souris.' },
+  'experience/conway':          { id:'conway',      cat:'biology', title:'Jeu de la Vie de Conway',         desc:'Quatre règles, une complexité infinie. Explorez cet automate cellulaire fondateur de la biologie théorique et de la computation.' },
+  'experience/langton':         { id:'langton',     cat:'cs',      title:'Fourmi de Langton',               desc:'Une fourmi, deux règles. Après 10 000 pas chaotiques, elle construit spontanément une autoroute périodique — l\'ordre émergent en action.' },
+  'experience/fourier':         { id:'fourier',     cat:'physics', title:'Synthèse de Fourier',             desc:'Superposez des sinusoïdes et reconstruisez n\'importe quelle forme. Visualisez le théorème de Fourier qui fonde le son numérique et l\'IRM.' },
+  'experience/vagues-interference':{ id:'waves',   cat:'physics', title:'Vagues et Interférence',          desc:'Ajoutez des sources d\'ondes et observez les zones d\'interférence constructive et destructive — le principe de Huygens visualisé.' },
+  'experience/gravite-particules':{ id:'particles', cat:'physics', title:'Gravité et Particules',           desc:'Simulation n-corps newtonienne interactive. Créez des orbites, des systèmes binaires et des éjections hyperboliques en temps réel.' },
+  'experience/pendule-double':  { id:'pendulum',   cat:'chaos',   title:'Pendule Double',                  desc:'Deux trajectoires quasi-identiques divergent totalement. Le pendule double illustre le chaos déterministe et l\'effet papillon.' },
+  'experience/lorenz':          { id:'lorenz',      cat:'chaos',   title:'Attracteur de Lorenz',            desc:'Le modèle météorologique de 1963 qui a fondé la théorie du chaos. Regardez deux trajectoires irrémédiablement diverger sur l\'attracteur étrange.' },
+  'experience/turing':          { id:'turing',      cat:'biology', title:'Motifs de Turing',                desc:'La réaction-diffusion d\'Alan Turing explique les rayures du zèbre et les taches du guépard. Générez vos propres motifs biologiques.' },
+  'experience/algorithmes-tri': { id:'sort',        cat:'cs',      title:'Algorithmes de Tri',              desc:'Visualisez Bubble Sort, Quick Sort et Merge Sort en parallèle. Comparez leurs empreintes caractéristiques sur les mêmes données.' },
+  'experience/lissajous':       { id:'lissajous',   cat:'math',    title:'Courbes de Lissajous',            desc:'Deux oscillations perpendiculaires dessinent des figures harmoniques. Explorez les liens entre géométrie, physique et musique.' },
+  'experience/marche-aleatoire':{ id:'walk',        cat:'math',    title:'Marche Aléatoire et Diffusion',   desc:'Observez le mouvement brownien et le théorème central limite en direct. L\'ordre statistique émerge du hasard pur.' },
+  'experience/wolfram-110':     { id:'wolfram',     cat:'cs',      title:'Automate Cellulaire — Règle 110', desc:'L\'automate cellulaire 1D de Wolfram, prouvé Turing-complet en 2004. Explorez les 256 règles et leurs comportements émergents.' },
+  'categorie/mathematiques':    { filter:'math',    title:'Expériences Mathématiques',                      desc:'Fractales, géométrie harmonique, probabilités : explorez les 5 expériences mathématiques interactives de Nexploria.' },
+  'categorie/physique':         { filter:'physics', title:'Expériences de Physique',                        desc:'Ondes, gravité, mécanique newtonienne : explorez les expériences de physique interactives de Nexploria.' },
+  'categorie/biologie':         { filter:'biology', title:'Expériences de Biologie',                        desc:'Automates cellulaires, morphogenèse : explorez comment la complexité biologique émerge de règles simples.' },
+  'categorie/informatique':     { filter:'cs',      title:'Expériences d\'Informatique',                    desc:'Algorithmes de tri, automates de Wolfram, fourmi de Langton : explorez les fondements visuels de l\'informatique.' },
+  'categorie/chaos':            { filter:'chaos',   title:'Expériences sur le Chaos',                       desc:'Attracteur de Lorenz, pendule double : visualisez la théorie du chaos et la sensibilité aux conditions initiales.' },
+};
+
+const RELATED = {
+  mandelbrot: ['julia','lorenz','walk'],
+  julia:      ['mandelbrot','lorenz','lissajous'],
+  conway:     ['langton','wolfram','turing'],
+  langton:    ['conway','wolfram','sort'],
+  fourier:    ['waves','lissajous','particles'],
+  waves:      ['fourier','particles','lissajous'],
+  particles:  ['pendulum','lorenz','waves'],
+  pendulum:   ['lorenz','particles','walk'],
+  lorenz:     ['pendulum','julia','mandelbrot'],
+  turing:     ['conway','langton','walk'],
+  sort:       ['wolfram','langton','conway'],
+  lissajous:  ['fourier','waves','julia'],
+  walk:       ['particles','turing','lorenz'],
+  wolfram:    ['conway','langton','sort'],
+};
+
+const EXP_SLUGS = {
+  mandelbrot:'experience/mandelbrot', julia:'experience/julia', conway:'experience/conway',
+  langton:'experience/langton', fourier:'experience/fourier', waves:'experience/vagues-interference',
+  particles:'experience/gravite-particules', pendulum:'experience/pendule-double',
+  lorenz:'experience/lorenz', turing:'experience/turing', sort:'experience/algorithmes-tri',
+  lissajous:'experience/lissajous', walk:'experience/marche-aleatoire', wolfram:'experience/wolfram-110',
+};
+
+// ── Dynamic meta injection ──
+function setMeta(title, desc, url) {
+  document.title = title + ' — Nexploria';
+  document.querySelector('meta[name="description"]').content = desc;
+  document.querySelector('meta[property="og:title"]').content = title + ' — Nexploria';
+  document.querySelector('meta[property="og:description"]').content = desc;
+  document.querySelector('meta[property="og:url"]').content = 'https://nexploria.science/' + url;
+  document.querySelector('link[rel="canonical"]').href = 'https://nexploria.science/' + (url || '');
+}
+
+function resetMeta() {
+  document.title = 'Nexploria — Laboratoire de Science Interactive';
+  document.querySelector('meta[name="description"]').content = 'Nexploria : explorez 14 expériences scientifiques interactives — fractales de Mandelbrot, automates cellulaires, pendule chaotique, réaction-diffusion, ondes de Fourier, attracteur étrange et bien plus.';
+  document.querySelector('meta[property="og:title"]').content = 'Nexploria — Laboratoire de Science Interactive';
+  document.querySelector('meta[property="og:url"]').content = 'https://nexploria.science/';
+  document.querySelector('link[rel="canonical"]').href = 'https://nexploria.science/';
+}
+
+// ── BreadcrumbList schema injection ──
+let breadcrumbEl = null;
+function setBreadcrumb(items) {
+  if (breadcrumbEl) breadcrumbEl.remove();
+  breadcrumbEl = document.createElement('script');
+  breadcrumbEl.type = 'application/ld+json';
+  breadcrumbEl.textContent = JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Nexploria', item: 'https://nexploria.science/' },
+      ...items.map((it, i) => ({ '@type': 'ListItem', position: i + 2, name: it.name, item: 'https://nexploria.science/' + it.path }))
+    ]
+  });
+  document.head.appendChild(breadcrumbEl);
+}
+
+function clearBreadcrumb() { if (breadcrumbEl) { breadcrumbEl.remove(); breadcrumbEl = null; } }
+
+// ── Router ──
+function route(path, push = true) {
+  const clean = path.replace(/^\//, '').replace(/\/$/, '');
+
+  if (push) history.pushState({ path: clean }, '', '/' + clean);
+
+  const meta = ROUTE_META[clean];
+  if (!meta) { resetMeta(); clearBreadcrumb(); return; }
+
+  // Category page
+  if (clean.startsWith('categorie/')) {
+    setMeta(meta.title, meta.desc, clean);
+    setBreadcrumb([{ name: meta.title, path: clean }]);
+    // Activate filter chip
+    chips.forEach(ch => { ch.classList.toggle('active', ch.dataset.filter === meta.filter); });
+    activeFilter = meta.filter;
+    applyFilters();
+    document.getElementById('experiences').scrollIntoView({ behavior: 'smooth' });
+    return;
+  }
+
+  // Experiment page
+  if (clean.startsWith('experience/') && meta.id) {
+    setMeta(meta.title, meta.desc, clean);
+    const exp = EXPS[meta.id];
+    setBreadcrumb([
+      { name: 'Expériences', path: '#experiences' },
+      { name: meta.title, path: clean }
+    ]);
+    // Inject related panel into modal before opening
+    openExp(meta.id);
+    injectRelatedPanel(meta.id);
+  }
+}
+
+// ── Related experiments panel ──
+function injectRelatedPanel(id) {
+  const existing = document.getElementById('related-panel');
+  if (existing) existing.remove();
+  const ids = (RELATED[id] || []).slice(0, 3);
+  if (!ids.length) return;
+  const panel = document.createElement('div');
+  panel.id = 'related-panel';
+  panel.style.cssText = 'margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border)';
+  panel.innerHTML = `<div style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.14em;text-transform:uppercase;color:var(--muted);margin-bottom:0.75rem">Expériences liées</div>
+  <div style="display:flex;gap:0.75rem;flex-wrap:wrap">${ids.map(rid => {
+    const slug = EXP_SLUGS[rid];
+    const rm = ROUTE_META[slug];
+    return `<button onclick="closeModal();setTimeout(()=>route('/${slug}'),80)" style="background:var(--bg2);border:1px solid var(--border);padding:0.45rem 0.85rem;border-radius:var(--radius);font-family:var(--mono);font-size:0.68rem;letter-spacing:0.05em;cursor:pointer;color:var(--ink);transition:background 0.15s" onmouseover="this.style.background='var(--bg3)'" onmouseout="this.style.background='var(--bg2)'">${rm ? rm.title : rid}</button>`;
+  }).join('')}</div>`;
+  document.getElementById('exp-info').after(panel);
+}
+
+// ── Share button — injected into every modal open ──
+const origOpenExp = openExp;
+openExp = function(id) {
+  origOpenExp(id);
+  // Add share + permalink row
+  const existing = document.getElementById('share-row');
+  if (existing) existing.remove();
+  const slug = EXP_SLUGS[id];
+  if (!slug) return;
+  const row = document.createElement('div');
+  row.id = 'share-row';
+  row.style.cssText = 'display:flex;align-items:center;gap:0.5rem;margin-bottom:1rem';
+  const url = 'https://nexploria.science/' + slug;
+  row.innerHTML = `
+    <span style="font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase">Lien :</span>
+    <code style="font-family:var(--mono);font-size:0.7rem;color:var(--muted);background:var(--bg2);padding:2px 8px;border-radius:var(--radius);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${url}</code>
+    <button id="copy-btn" style="background:var(--bg2);border:1px solid var(--border);padding:0.3rem 0.7rem;border-radius:var(--radius);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.08em;cursor:pointer;color:var(--ink);white-space:nowrap;transition:background 0.15s" onclick="navigator.clipboard.writeText('${url}').then(()=>{this.textContent='✓ Copié';setTimeout(()=>this.textContent='Copier',1800)})">Copier</button>`;
+  document.getElementById('exp-controls').before(row);
+  // Also update URL bar
+  if (!history.state || history.state.path !== slug) {
+    history.pushState({ path: slug }, '', '/' + slug);
+    const meta = ROUTE_META[slug];
+    if (meta) setMeta(meta.title, meta.desc, slug);
+  }
+};
+
+// Restore URL when modal closes
+const origClose = closeModal;
+closeModal = function() {
+  origClose();
+  resetMeta(); clearBreadcrumb();
+  const existing = document.getElementById('related-panel');
+  if (existing) existing.remove();
+  const shareRow = document.getElementById('share-row');
+  if (shareRow) shareRow.remove();
+  if (history.state && history.state.path && history.state.path !== '') {
+    history.pushState({}, '', '/');
+  }
+};
+
+// ── popstate (back/forward) ──
+window.addEventListener('popstate', e => {
+  const path = e.state && e.state.path ? e.state.path : '';
+  if (!path) { closeModal(); resetMeta(); return; }
+  route(path, false);
+});
+
+// ── Deep-link on initial load (incl. 404.html redirect fallback) ──
+(function () {
+  // Cas : arrivée via 404.html qui a mis le path en sessionStorage
+  const stored = sessionStorage.getItem('redirect');
+  if (stored) { sessionStorage.removeItem('redirect'); route(stored.replace(/^\//, ''), false); return; }
+  // Cas : URL directe type /experience/mandelbrot
+  const path = location.pathname.replace(/^\//, '').replace(/\/$/, '');
+  if (path && ROUTE_META[path]) route(path, false);
+})();
+
+// ── Keyboard shortcut: "/" focuses search ──
+document.addEventListener('keydown', e => {
+  if (e.key === '/' && document.activeElement.tagName !== 'INPUT') {
+    e.preventDefault();
+    document.getElementById('search-input').focus();
+  }
+});
+
+// ── Category chips update URL ──
+chips.forEach(ch => {
+  const orig = ch.onclick;
+  ch.addEventListener('click', () => {
+    const f = ch.dataset.filter;
+    if (f && f !== 'all') {
+      const catMap = { math:'mathematiques', physics:'physique', biology:'biologie', cs:'informatique', chaos:'chaos' };
+      if (catMap[f]) history.replaceState({ path: 'categorie/' + catMap[f] }, '', '/categorie/' + catMap[f]);
+    } else {
+      history.replaceState({}, '', '/');
+    }
+  });
+});
+
+</script>
+</body>
+</html>

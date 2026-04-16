@@ -1,0 +1,4 @@
+# Netlify SPA routing — toutes les routes renvoient vers index.html
+/experience/*    /index.html   200
+/categorie/*     /index.html   200
+/*               /index.html   404
