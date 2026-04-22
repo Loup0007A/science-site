@@ -1,8 +1,0 @@
-User-agent: *
-Allow: /
-Disallow:
-
-Sitemap: https://nexploria.science/sitemap.xml
-
-# Nexploria — Laboratoire Scientifique Interactif
-# https://nexploria.science
