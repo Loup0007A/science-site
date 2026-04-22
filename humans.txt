@@ -1,0 +1,32 @@
+/* TEAM */
+Projet: Nexploria — Laboratoire de Science Interactive
+Contact: hello [at] nexploria.science
+Site: https://nexploria.science/
+
+/* TECHNOLOGIE */
+Langage: HTML5, CSS3, JavaScript (ES2022)
+Rendu: Canvas API 2D, requestAnimationFrame
+Polices: IBM Plex Mono, Syne, Instrument Sans — Google Fonts
+Hébergement: Netlify
+Aucun framework. Aucun tracker. Aucune dépendance externe.
+
+/* EXPÉRIENCES */
+14 simulations scientifiques interactives :
+  — Ensemble de Mandelbrot (Benoît Mandelbrot, 1980)
+  — Ensemble de Julia
+  — Jeu de la Vie (John H. Conway, 1970)
+  — Fourmi de Langton (Christopher Langton, 1986)
+  — Synthèse de Fourier (Joseph Fourier, 1822)
+  — Vagues et Interférence (Christiaan Huygens / Thomas Young, 1801)
+  — Gravité et Particules (Isaac Newton)
+  — Pendule Double (Henri Poincaré)
+  — Attracteur de Lorenz (Edward Lorenz, 1963)
+  — Motifs de Turing / Réaction-Diffusion (Alan Turing, 1952)
+  — Visualisation des Algorithmes de Tri
+  — Courbes de Lissajous (Jules Antoine Lissajous, 1857)
+  — Marche Aléatoire / Diffusion Brownienne (Albert Einstein, 1905)
+  — Automate Cellulaire Règle 110 (Stephen Wolfram, 1983)
+
+/* À PROPOS */
+Nexploria est né de la conviction que la science
+se comprend mieux en la manipulant qu'en la lisant.

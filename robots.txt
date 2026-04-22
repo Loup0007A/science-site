@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemap principal
+Sitemap: https://nexploria-2.netlify.app/sitemap.xml
+
+# Nexploria — Laboratoire Scientifique Interactif
+# https://nexploria-2.netlify.app/
+# Contact: hello@nexploria.science

@@ -1,0 +1,7 @@
+# Nexploria — Netlify SPA routing
+# Toutes les routes expériences et catégories → index.html (200 = pas de redirect visible)
+/experience/*    /index.html   200
+/categorie/*     /index.html   200
+
+# Fallback 404 design personnalisé
+/*               /404.html     404

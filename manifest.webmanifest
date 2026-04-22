@@ -1,0 +1,26 @@
+{
+  "name": "Nexploria — Laboratoire de Science Interactive",
+  "short_name": "Nexploria",
+  "description": "14 expériences scientifiques interactives : fractales, chaos, ondes, morphogenèse. Dans votre navigateur, sans installation.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f2ed",
+  "theme_color": "#0a0a0f",
+  "lang": "fr",
+  "orientation": "any",
+  "categories": ["education", "science"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Mandelbrot",  "url": "/experience/mandelbrot",       "description": "Explorer la fractale de Mandelbrot" },
+    { "name": "Conway",      "url": "/experience/conway",           "description": "Jeu de la Vie de Conway" },
+    { "name": "Lorenz",      "url": "/experience/lorenz",           "description": "Attracteur de Lorenz" },
+    { "name": "Fourier",     "url": "/experience/fourier",          "description": "Synthèse de Fourier" }
+  ],
+  "screenshots": [
+    { "src": "/screenshot-wide.png",   "sizes": "1280x720", "type": "image/png", "form_factor": "wide" },
+    { "src": "/screenshot-narrow.png", "sizes": "390x844",  "type": "image/png", "form_factor": "narrow" }
+  ]
+}
