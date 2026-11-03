@@ -1,17 +1,17 @@
 /* TEAM */
 Projet: Nexploria — Laboratoire de Science Interactive
 Contact: hello [at] nexploria.science
-Site: https://nexploria.science/
+Site: https://nexploria-2.netlify.app/
 
 /* TECHNOLOGIE */
 Langage: HTML5, CSS3, JavaScript (ES2022)
 Rendu: Canvas API 2D, requestAnimationFrame
-Polices: IBM Plex Mono, Syne, Instrument Sans — Google Fonts
+Polices: IBM Plex Mono, Syne, Instrument Sans — auto-hébergées (licence SIL OFL, voir /fonts)
 Hébergement: Netlify
 Aucun framework. Aucun tracker. Aucune dépendance externe.
 
 /* EXPÉRIENCES */
-14 simulations scientifiques interactives :
+100 simulations scientifiques interactives, dont :
   — Ensemble de Mandelbrot (Benoît Mandelbrot, 1980)
   — Ensemble de Julia
   — Jeu de la Vie (John H. Conway, 1970)

@@ -1,0 +1,5 @@
+# Configuration Netlify
+[build]
+  publish = "."
+  # Recalcule les empreintes SHA-256 des scripts inline et réécrit _headers (CSP stricte).
+  command = "node scripts/build-headers.mjs"

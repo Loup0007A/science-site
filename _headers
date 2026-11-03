@@ -1,0 +1,13 @@
+# Fichier généré par scripts/build-headers.mjs — ne pas modifier à la main.
+# Pour le régénérer après avoir modifié un script inline : node scripts/build-headers.mjs
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'sha256-tkIG4TN98vrAmeRADC69nplYSODsps6yKKeB4PIc6g0=' 'sha256-cmgl0Jm5bSfbDu/HuABFC/p+NzN/wsyIVMI4/l0AMoY=' 'strict-dynamic' 'unsafe-inline' https:; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'; require-trusted-types-for 'script'; trusted-types nexploria nexploria-loader
+  Cross-Origin-Opener-Policy: same-origin
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable

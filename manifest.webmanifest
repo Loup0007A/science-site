@@ -1,26 +1,110 @@
 {
   "name": "Nexploria — Laboratoire de Science Interactive",
   "short_name": "Nexploria",
-  "description": "14 expériences scientifiques interactives : fractales, chaos, ondes, morphogenèse. Dans votre navigateur, sans installation.",
+  "description": "100 expériences scientifiques interactives : fractales, chaos, ondes, morphogenèse. Dans votre navigateur, sans installation.",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#f4f2ed",
-  "theme_color": "#0a0a0f",
+  "theme_color": "#f4f2ed",
   "lang": "fr",
+  "dir": "ltr",
   "orientation": "any",
-  "categories": ["education", "science"],
+  "categories": [
+    "education",
+    "science"
+  ],
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ],
   "shortcuts": [
-    { "name": "Mandelbrot",  "url": "/experience/mandelbrot",       "description": "Explorer la fractale de Mandelbrot" },
-    { "name": "Conway",      "url": "/experience/conway",           "description": "Jeu de la Vie de Conway" },
-    { "name": "Lorenz",      "url": "/experience/lorenz",           "description": "Attracteur de Lorenz" },
-    { "name": "Fourier",     "url": "/experience/fourier",          "description": "Synthèse de Fourier" }
+    {
+      "name": "Mandelbrot",
+      "url": "/experience/mandelbrot",
+      "description": "Explorer la fractale de Mandelbrot",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Conway",
+      "url": "/experience/conway",
+      "description": "Jeu de la Vie de Conway",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Lorenz",
+      "url": "/experience/lorenz",
+      "description": "Attracteur de Lorenz",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Fourier",
+      "url": "/experience/fourier",
+      "description": "Synthèse de Fourier",
+      "icons": [
+        {
+          "src": "/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    }
   ],
   "screenshots": [
-    { "src": "/screenshot-wide.png",   "sizes": "1280x720", "type": "image/png", "form_factor": "wide" },
-    { "src": "/screenshot-narrow.png", "sizes": "390x844",  "type": "image/png", "form_factor": "narrow" }
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Accueil de Nexploria"
+    },
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Nexploria sur mobile"
+    }
   ]
 }
