@@ -27,7 +27,7 @@ const mandelbrot = {
     canvas.onmousemove = e => { if (!dragging) return; cx -= (e.clientX - lx) / zoom; cy -= (e.clientY - ly) / zoom; lx = e.clientX; ly = e.clientY; draw(); };
     canvas.onwheel = e => { e.preventDefault(); const f = e.deltaY < 0 ? 1.3 : 0.77; const mx = (e.offsetX - canvas.width / 2) / zoom, my = (e.offsetY - canvas.height / 2) / zoom; zoom *= f; cx += mx * (1 - 1 / f); cy += my * (1 - 1 / f); draw(); };
     add('btn', { label: 'Reset', ghost: true, fn: () => { zoom = 200; cx = -0.5; cy = 0; draw(); } });
-    add('slider', { label: 'Itérations', min: 40, max: 500, val: maxIter, fn: v => { maxIter = v; draw(); } });
+    add('slider', { label: 'Itérations', min: 40, max: 500, val: maxIter, get:()=>maxIter,fn: v => { maxIter = v; draw(); } });
     add('btn', { label: 'Mini Mandelbrot', ghost: true, fn: () => { cx = -1.749; cy = 0; zoom = 4000; draw(); } });
     add('btn', { label: 'Spirale', ghost: true, fn: () => { cx = -0.7269; cy = 0.1889; zoom = 8000; draw(); } });
     function draw() {
@@ -72,7 +72,7 @@ const julia = {
       ci = (e.offsetY / canvas.offsetHeight) * 4 - 2;
       draw();
     };
-    add('slider', { label: 'Itérations', min: 30, max: 300, val: maxIter, fn: v => { maxIter = v; draw(); } });
+    add('slider', { label: 'Itérations', min: 30, max: 300, val: maxIter, get:()=>maxIter,fn: v => { maxIter = v; draw(); } });
     add('btn', { label: 'Dragon', ghost: true, fn: () => { cr = -0.7; ci = 0.27; draw(); } });
     add('btn', { label: 'Dentelle', ghost: true, fn: () => { cr = -0.4; ci = 0.6; draw(); } });
     add('btn', { label: 'Lapin', ghost: true, fn: () => { cr = -0.123; ci = 0.745; draw(); } });
@@ -106,7 +106,7 @@ const conway = {
   },
   setup(canvas, ctx, add) {
     const S = 8, cols = Math.floor(canvas.width / S), rows = Math.floor(canvas.height / S);
-    let grid = rand(), running = true, interval = 80;
+    let grid = rand(), running = true, interval = Math.floor(1000 / 12);
     function rand() { return Array.from({ length: rows }, () => Array.from({ length: cols }, () => Math.random() < .25 ? 1 : 0)); }
     function empty() { return Array.from({ length: rows }, () => new Array(cols).fill(0)); }
     canvas.onclick = e => { const col = Math.min(cols - 1, Math.floor(e.offsetX / canvas.offsetWidth * cols)), row = Math.min(rows - 1, Math.floor(e.offsetY / canvas.offsetHeight * rows)); grid[row][col] ^= 1; draw(); };
@@ -116,7 +116,7 @@ const conway = {
     add('btn', { label: 'Glider', ghost: true, fn: () => { grid = empty(); [[1,0],[2,1],[0,2],[1,2],[2,2]].forEach(([dc,dr]) => { grid[10+dr][10+dc] = 1; }); draw(); } });
     add('btn', { label: 'Pulsar', ghost: true, fn: () => { grid = empty(); const r0 = Math.floor(rows / 2) - 6, c0 = Math.floor(cols / 2) - 6; for (const a of [0, 5, 7, 12]) for (const b of [2, 3, 4, 8, 9, 10]) { grid[r0 + a][c0 + b] = 1; grid[r0 + b][c0 + a] = 1; } draw(); } });
     add('btn', { label: 'Canon à planeurs', ghost: true, fn: () => { grid = empty(); const g = [[5,1],[5,2],[6,1],[6,2],[5,11],[6,11],[7,11],[4,12],[8,12],[3,13],[9,13],[3,14],[9,14],[6,15],[4,16],[8,16],[5,17],[6,17],[7,17],[6,18],[3,21],[4,21],[5,21],[3,22],[4,22],[5,22],[2,23],[6,23],[1,25],[2,25],[6,25],[7,25],[3,35],[4,35],[3,36],[4,36]]; g.forEach(([r, c]) => { if (r + 2 < rows && c + 2 < cols) grid[r + 2][c + 2] = 1; }); draw(); } });
-    add('slider', { label: 'Vitesse', min: 1, max: 60, val: 12, fn: v => interval = Math.floor(1000 / v) });
+    add('slider', { label: 'Vitesse', min: 1, max: 60, val: 12, get:()=>Math.round(1000/interval),fn: v => interval = Math.floor(1000 / v) });
     function step() {
       const next = empty();
       for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
@@ -173,7 +173,7 @@ const langton = {
     const playBtn = add('btn', { label: '⏸ Pause', fn: () => { running = !running; playBtn.textContent = running ? '⏸ Pause' : '▶ Play'; if (running) loop(); } });
     add('btn', { label: 'Reset', ghost: true, fn: () => { grid.fill(0); ax = Math.floor(cols/2); ay = Math.floor(rows/2); dir = 0; steps = 0; draw(); } });
     add('btn', { label: '+1000 étapes', ghost: true, fn: () => { step(1000); draw(); } });
-    add('slider', { label: 'Pas / image', min: 1, max: 200, val: speed, fn: v => speed = v });
+    add('slider', { label: 'Pas / image', min: 1, max: 200, val: speed, get:()=>speed,fn: v => speed = v });
     function loop() { if (!running) return; step(speed); draw(); raf = expRAF(loop); }
     loop();
   }
@@ -205,8 +205,8 @@ const fourier = {
       saw: { label: 'en dents de scie', terms: n => Array.from({ length: n }, (_, k) => [k + 1, (k % 2 ? -2 : 2) / (Math.PI * (k + 1))]), target: u => (((u + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI) / Math.PI },
       tri: { label: 'triangulaire', terms: n => Array.from({ length: n }, (_, k) => [2 * k + 1, (k % 2 ? -8 : 8) / (Math.PI * Math.PI * (2 * k + 1) ** 2)]), target: u => 2 / Math.PI * Math.asin(Math.sin(u)) },
     };
-    add('slider', { label: 'Harmoniques', min: 1, max: 30, val: harmonics, fn: v => harmonics = v });
-    add('slider', { label: 'Vitesse', min: 1, max: 10, val: speed, fn: v => speed = v });
+    add('slider', { label: 'Harmoniques', min: 1, max: 30, val: harmonics, get:()=>harmonics,fn: v => harmonics = v });
+    add('slider', { label: 'Vitesse', min: 1, max: 10, val: speed, get:()=>speed,fn: v => speed = v });
     const btns = {};
     const pick = w => { wave = w; history.length = 0; for (const k in btns) btns[k].classList.toggle('ghost', k !== w); };
     btns.square = add('btn', { label: 'Carrée', fn: () => pick('square') });
@@ -256,8 +256,8 @@ const waves = {
   setup(canvas, ctx, add) {
     let t = 0, f1 = 1, f2 = 1, sources = [{ x: canvas.width*.35, y: canvas.height*.5 }, { x: canvas.width*.65, y: canvas.height*.5 }];
     canvas.onclick = e => { if (sources.length < 4) { sources.push({ x: e.offsetX / canvas.offsetWidth * canvas.width, y: e.offsetY / canvas.offsetHeight * canvas.height }); } else { sources = sources.slice(1); sources.push({ x: e.offsetX / canvas.offsetWidth * canvas.width, y: e.offsetY / canvas.offsetHeight * canvas.height }); } };
-    add('slider', { label: 'Fréq. 1', min: 1, max: 5, val: 1, fn: v => f1 = v });
-    add('slider', { label: 'Fréq. 2', min: 1, max: 5, val: 1, fn: v => f2 = v });
+    add('slider', { label: 'Fréq. 1', min: 1, max: 5, val: 1, get:()=>f1,fn: v => f1 = v });
+    add('slider', { label: 'Fréq. 2', min: 1, max: 5, val: 1, get:()=>f2,fn: v => f2 = v });
     add('btn', { label: 'Reset sources', ghost: true, fn: () => { sources = [{ x: canvas.width*.35, y: canvas.height*.5 }, { x: canvas.width*.65, y: canvas.height*.5 }]; } });
     const img = ctx.createImageData(canvas.width, canvas.height);
     function loop() {
@@ -303,7 +303,7 @@ const particles = {
     canvas.onclick = e => spawn(e.offsetX / canvas.offsetWidth * W, e.offsetY / canvas.offsetHeight * H);
     add('btn', { label: 'Galaxie', fn: galaxy });
     add('btn', { label: 'Big Bang', ghost: true, fn: bigBang });
-    add('slider', { label: 'Gravité', min: 100, max: 1500, val: 500, fn: v => G = v });
+    add('slider', { label: 'Gravité', min: 100, max: 1500, val: 500, get:()=>G,fn: v => G = v });
     ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, W, H);
     function loop() {
       const n = pts.length;
@@ -352,7 +352,7 @@ const pendulum = {
     reset();
     add('btn', { label: 'Reset', fn: reset });
     add('btn', { label: 'Petites oscillations', ghost: true, fn: () => { P = [{ s: [.3, .3, 0, 0], trail: [], color: '#9b85f5' }, { s: [.301, .3, 0, 0], trail: [], color: '#f06040' }]; } });
-    add('slider', { label: 'Gravité', min: 1, max: 20, val: 10, fn: v => g_ = v * .981 });
+    add('slider', { label: 'Gravité', min: 1, max: 20, val: 10, get:()=>g_/.981,fn: v => g_ = v * .981 });
     const pos = s => { const x1 = cx + sc * Math.sin(s[0]), y1 = cy + sc * Math.cos(s[0]); return [x1, y1, x1 + sc * Math.sin(s[1]), y1 + sc * Math.cos(s[1])]; };
     function loop() {
       for (const p of P) { for (let i = 0; i < 8; i++) p.s = rk4(p.s, 1 / 480); const [, , x2, y2] = pos(p.s); p.trail.push(x2, y2); if (p.trail.length > 1200) p.trail.splice(0, 2); }
@@ -394,8 +394,8 @@ const lorenz = {
     function int_(p){const d=lz(p);return{x:p.x+d.x*dt,y:p.y+d.y*dt,z:p.z+d.z*dt}}
     const proj=p=>({x:W*.5+p.x*Math.min(W,H*1.8)*.016,y:H*.96-p.z*H*.0185}); // z ∈ [0,50] : tout l'attracteur reste dans le cadre
     ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);
-    add('slider',{label:'σ',min:5,max:20,val:10,fn:v=>{sigma=v;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);step=0;}});
-    add('slider',{label:'ρ',min:10,max:50,val:28,fn:v=>{rho=v;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);step=0;}});
+    add('slider',{label:'σ',min:5,max:20,val:10,get:()=>sigma,fn:v=>{sigma=v;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);step=0;}});
+    add('slider',{label:'ρ',min:10,max:50,val:28,get:()=>rho,fn:v=>{rho=v;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);step=0;}});
     add('btn',{label:'Reset',ghost:true,fn:()=>{p1={x:.1,y:0,z:0};p2={x:.1001,y:0,z:0};step=0;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);}});
     function loop(){
       for(let s=0;s<5;s++){
@@ -432,9 +432,9 @@ const turing = {
     const NA=new Float32Array(W*H),NB=new Float32Array(W*H);
     const img=ctx.createImageData(canvas.width,canvas.height);
     const lap=(gr,idx,x,y)=>gr[((y-1+H)%H)*W+x]+gr[((y+1)%H)*W+x]+gr[y*W+(x-1+W)%W]+gr[y*W+(x+1)%W]-4*gr[idx];
-    const fS=add('slider',{label:'Feed ×1000',min:10,max:80,val:55,fn:v=>feed=v/1000});
-    const kS=add('slider',{label:'Kill ×1000',min:40,max:70,val:62,fn:v=>kill=v/1000});
-    const setFK=(f,k)=>{feed=f;kill=k;fS.value=Math.round(f*1000);kS.value=Math.round(k*1000);fS.nextSibling.textContent=fS.value;kS.nextSibling.textContent=kS.value;seed()};
+    const fS=add('slider',{label:'Feed ×1000',min:10,max:80,val:55,get:()=>feed*1000,fn:v=>feed=v/1000});
+    const kS=add('slider',{label:'Kill ×1000',min:40,max:70,val:62,get:()=>kill*1000,fn:v=>kill=v/1000});
+    const setFK=(f,k)=>{feed=f;kill=k;seed()};
     add('btn',{label:'Réensemencer',ghost:true,fn:seed});
     add('btn',{label:'Zèbre (rayures)',ghost:true,fn:()=>setFK(.029,.057)});
     add('btn',{label:'Léopard (taches)',ghost:true,fn:()=>setFK(.035,.065)});
@@ -516,11 +516,11 @@ const lissajous = {
     let fx=3,fy=2,phase=Math.PI/4,speed=3,t=0;
     const gcd=(a,b)=>b?gcd(b,a%b):a;
     const NAMES={'1:1':'unisson','2:1':'octave','3:2':'quinte juste','4:3':'quarte juste','5:4':'tierce majeure','6:5':'tierce mineure','5:3':'sixte majeure','8:5':'sixte mineure','9:8':'seconde majeure','3:1':'douzième','5:2':'dixième majeure'};
-    const fxS=add('slider',{label:'Fréq. X',min:1,max:10,val:fx,fn:v=>fx=v});
-    const fyS=add('slider',{label:'Fréq. Y',min:1,max:10,val:fy,fn:v=>fy=v});
-    const phS=add('slider',{label:'Phase (%)',min:0,max:100,val:12,fn:v=>phase=v/100*Math.PI*2});
-    add('slider',{label:'Vitesse',min:1,max:10,val:speed,fn:v=>speed=v});
-    const preset=(a,b,p)=>{fx=a;fy=b;phase=p;fxS.value=a;fyS.value=b;phS.value=Math.round(p/(Math.PI*2)*100);[fxS,fyS,phS].forEach(s=>s.nextSibling.textContent=s.value)};
+    const fxS=add('slider',{label:'Fréq. X',min:1,max:10,val:fx,get:()=>fx,fn:v=>fx=v});
+    const fyS=add('slider',{label:'Fréq. Y',min:1,max:10,val:fy,get:()=>fy,fn:v=>fy=v});
+    const phS=add('slider',{label:'Phase (°)',min:0,max:360,step:5,val:45,get:()=>phase*180/Math.PI,fn:v=>phase=v*Math.PI/180});
+    add('slider',{label:'Vitesse',min:1,max:10,val:speed,get:()=>speed,fn:v=>speed=v});
+    const preset=(a,b,p)=>{fx=a;fy=b;phase=p};
     add('btn',{label:'3:2',ghost:true,fn:()=>preset(3,2,Math.PI/4)});
     add('btn',{label:'5:4',ghost:true,fn:()=>preset(5,4,Math.PI/3)});
     add('btn',{label:'7:3',ghost:true,fn:()=>preset(7,3,Math.PI/2)});
@@ -559,8 +559,8 @@ const walk = {
     let walkers=[],N=400,step=3,n=0;
     function init(){walkers=Array.from({length:N},(_,i)=>({x:cx,y:cy,hue:i/N*300}));n=0;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H)}
     init();
-    add('slider',{label:'Marcheurs',min:50,max:1500,val:N,fn:v=>{N=v;init()}});
-    add('slider',{label:'Pas (px)',min:1,max:8,val:step,fn:v=>{step=v;init()}});
+    add('slider',{label:'Marcheurs',min:50,max:1500,val:N,get:()=>N,fn:v=>{N=v;init()}});
+    add('slider',{label:'Pas (px)',min:1,max:8,val:step,get:()=>step,fn:v=>{step=v;init()}});
     add('btn',{label:'Reset',ghost:true,fn:init});
     const BINS=61,bins=new Float32Array(BINS);
     function loop(){
@@ -608,7 +608,7 @@ const wolfram = {
     function getRule(n){return Array.from({length:8},(_,i)=>((n>>i)&1));}
     function init(){currentRow=0;rows_data=[];row=new Uint8Array(cols);row[Math.floor(cols/2)]=1;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);}
     init();
-    add('slider',{label:'Règle #',min:0,max:255,val:110,fn:v=>{ruleN=v;init();}});
+    add('slider',{label:'Règle #',min:0,max:255,val:110,get:()=>ruleN,fn:v=>{ruleN=v;init();}});
     add('btn',{label:'Règle 110',ghost:true,fn:()=>{ruleN=110;init();}});
     add('btn',{label:'Règle 90',ghost:true,fn:()=>{ruleN=90;init();}});
     add('btn',{label:'Règle 30',ghost:true,fn:()=>{ruleN=30;init();}});
