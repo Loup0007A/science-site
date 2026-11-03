@@ -139,6 +139,114 @@ function renderScaled(c,g,S,fill){const w=Math.max(1,Math.ceil(c.width/S)),h=Mat
 // Tas de sable abélien : on dépose tous les grains d'un coup puis on stabilise avec une pile (résultat identique, bien plus rapide)
 function sandpileStabilize(grid,W,H){const st=[];for(let i=0;i<grid.length;i++)if(grid[i]>=4)st.push(i);while(st.length){const i=st.pop(),x=i%W,y=(i/W)|0;if(x<1||y<1||x>=W-1||y>=H-1||grid[i]<4)continue;const q=grid[i]>>2;grid[i]-=q*4;for(const j of [i-1,i+1,i-W,i+W]){grid[j]+=q;if(grid[j]>=4)st.push(j)}}}
 
+// Attracteur étrange : intégration RK4, cadrage automatique sur l'attracteur (après le transitoire)
+// et deux trajectoires très proches pour montrer la sensibilité aux conditions initiales.
+// o = { deriv([x,y,z]) → [dx,dy,dz], p0, dt, steps, proj(p) → [u,v], colors:[c1,c2], eps }
+function attractor(canvas, ctx, o) {
+  const W = canvas.width, H = canvas.height;
+  let p1, p2, steps = 0, fit, diverged = false;
+  const rk4 = (p, h) => {
+    const f = o.deriv;
+    const k1 = f(p), a = p.map((v, i) => v + k1[i] * h / 2);
+    const k2 = f(a), b = p.map((v, i) => v + k2[i] * h / 2);
+    const k3 = f(b), c = p.map((v, i) => v + k3[i] * h);
+    const k4 = f(c);
+    return p.map((v, i) => v + (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]) * h / 6);
+  };
+  const ok = p => p.every(v => Number.isFinite(v) && Math.abs(v) < 1e6);
+  function reset() {
+    diverged = false; steps = 0;
+    let p = o.p0.slice();
+    for (let i = 0; i < 2000 && ok(p); i++) p = rk4(p, o.dt);
+    let u0 = Infinity, u1 = -Infinity, v0 = Infinity, v1 = -Infinity, q = p.slice();
+    for (let i = 0; i < 8000 && ok(q); i++) {
+      q = rk4(q, o.dt);
+      const [u, v] = o.proj(q);
+      if (u < u0) u0 = u; if (u > u1) u1 = u; if (v < v0) v0 = v; if (v > v1) v1 = v;
+    }
+    if (!ok(p) || !ok(q) || !Number.isFinite(u1 - u0)) { diverged = true; fit = { s: 1, cu: 0, cv: 0 }; }
+    else {
+      const du = Math.max(u1 - u0, 1e-3), dv = Math.max(v1 - v0, 1e-3);
+      fit = { s: Math.min(W * .9 / du, H * .86 / dv), cu: (u0 + u1) / 2, cv: (v0 + v1) / 2 };
+    }
+    p1 = p; p2 = p.map((v, i) => i === 0 ? v + (o.eps || 1e-3) : v);
+    ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, W, H);
+  }
+  const scr = q => { const [u, v] = o.proj(q); return [W / 2 + (u - fit.cu) * fit.s, H / 2 - (v - fit.cv) * fit.s]; };
+  function frame() {
+    if (diverged) return;
+    const n = o.steps || 20;
+    if (steps > 40000) { ctx.fillStyle = 'rgba(8,8,16,.015)'; ctx.fillRect(0, 0, W, H); }
+    ctx.lineWidth = 1.1; ctx.globalAlpha = .8;
+    for (const which of [0, 1]) {
+      let p = which ? p2 : p1;
+      ctx.strokeStyle = o.colors[which];
+      ctx.beginPath();
+      let [x, y] = scr(p); ctx.moveTo(x, y);
+      for (let i = 0; i < n; i++) { p = rk4(p, o.dt); [x, y] = scr(p); ctx.lineTo(x, y); }
+      ctx.stroke();
+      if (which) p2 = p; else p1 = p;
+    }
+    ctx.globalAlpha = 1;
+    steps += n;
+    if (!ok(p1) || !ok(p2)) diverged = true;
+  }
+  return {
+    reset, frame,
+    get steps() { return steps; },
+    get diverged() { return diverged; },
+    get separation() { return Math.hypot(...p1.map((v, i) => v - p2[i])); },
+  };
+}
+
+// Charges (ou pôles) ponctuelles : carte du potentiel, équipotentielles et lignes de champ.
+// charges = [{x, y, q}] en pixels ; o = { lines, map, posColor, negColor }
+function chargeField(canvas, ctx, charges, o = {}) {
+  const W = canvas.width, H = canvas.height;
+  const pot = (x, y) => { let V = 0; for (const c of charges) V += c.q / Math.max(3, Math.hypot(x - c.x, y - c.y)); return V; };
+  if (o.map !== false) {
+    renderScaled(canvas, ctx, 2, (d, w, h) => {
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+        const V = pot(x * 2 + 1, y * 2 + 1), t = Math.tanh(V * 25), i = (y * w + x) * 4;
+        const band = Math.abs(V * 120) > .5 && Math.abs(((V * 120) % 1 + 1) % 1 - .5) > .46 ? 26 : 0; // équipotentielles
+        if (t > 0) { d[i] = 8 + t * 190 + band; d[i + 1] = 8 + t * 50 + band; d[i + 2] = 16 + t * 20 + band; }
+        else { d[i] = 8 - t * 30 + band; d[i + 1] = 8 - t * 80 + band; d[i + 2] = 16 - t * 200 + band; }
+        d[i + 3] = 255;
+      }
+    });
+  } else { ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, W, H); }
+  if (o.lines !== false && charges.length) {
+    const E = (x, y) => { let ex = 0, ey = 0; for (const c of charges) { const dx = x - c.x, dy = y - c.y, r2 = dx * dx + dy * dy + 1, r = Math.sqrt(r2); ex += c.q * dx / (r2 * r); ey += c.q * dy / (r2 * r); } return [ex, ey]; };
+    const hasPos = charges.some(c => c.q > 0);
+    const sources = charges.filter(c => hasPos ? c.q > 0 : c.q < 0), dir = hasPos ? 1 : -1;
+    ctx.strokeStyle = 'rgba(240,237,230,.6)'; ctx.lineWidth = 1;
+    for (const s of sources) {
+      const nLines = 14 * Math.abs(s.q);
+      for (let k = 0; k < nLines; k++) {
+        const a = (k + .5) / nLines * Math.PI * 2;
+        let x = s.x + Math.cos(a) * 8, y = s.y + Math.sin(a) * 8;
+        ctx.beginPath(); ctx.moveTo(x, y);
+        for (let st = 0; st < 1600; st++) {
+          const [ex, ey] = E(x, y), m = Math.hypot(ex, ey);
+          if (!m) break;
+          x += dir * ex / m * 2.5; y += dir * ey / m * 2.5;
+          ctx.lineTo(x, y);
+          if (x < -40 || y < -40 || x > W + 40 || y > H + 40) break;
+          if (charges.some(c => c !== s && Math.sign(c.q) !== Math.sign(s.q) && Math.hypot(x - c.x, y - c.y) < 7)) break;
+        }
+        ctx.stroke();
+      }
+    }
+  }
+  for (const c of charges) {
+    ctx.beginPath(); ctx.arc(c.x, c.y, 10, 0, Math.PI * 2);
+    ctx.fillStyle = c.q > 0 ? (o.posColor || '#d63f0e') : (o.negColor || '#4080e0'); ctx.fill();
+    ctx.font = 'bold 13px monospace'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText(c.label || (c.q > 0 ? '+' : '−'), c.x, c.y + 1);
+  }
+  ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic';
+}
+
 /* ══════════════════════════════════════════════════════════
    INTERFACE — thème, recherche, aperçus, modale, routage
    (placé après les définitions : EXPS est complet ici)
