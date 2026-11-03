@@ -73,6 +73,24 @@ function stopExperiment() {
 //  CONTRÔLES (boutons / curseurs)
 // ══════════════════════════════════════
 let ctrlSeq = 0;
+// Après un préréglage (bouton), chaque curseur relit la valeur réelle de son paramètre
+// grâce à sa fonction get() : l'affichage reste toujours fidèle à la simulation.
+function syncSliders(bar) {
+  bar.querySelectorAll('input[type=range]').forEach(inp => {
+    if (!inp._get || document.activeElement === inp && inp._dragging) return;
+    let v;
+    try { v = inp._get(); } catch (e) { return; }
+    if (typeof v !== 'number' || !Number.isFinite(v)) return;
+    const before = inp.value;
+    inp.value = v; // le navigateur borne et arrondit au pas du curseur
+    const out = inp.nextElementSibling;
+    if (out) out.textContent = inp.value;
+    if (inp.value !== before) {
+      const g = inp.closest('.ctrl-group');
+      if (g) { g.classList.remove('synced'); void g.offsetWidth; g.classList.add('synced'); }
+    }
+  });
+}
 function addCtrl(bar, type, opts) {
   if (type === 'btn') {
     const b = document.createElement('button');
@@ -81,6 +99,7 @@ function addCtrl(bar, type, opts) {
     b.textContent = opts.label;
     b.addEventListener('click', () => {
       try { opts.fn(); } catch (err) { console.error(err); }
+      syncSliders(bar);
     });
     if (opts.id) b.id = opts.id;
     bar.appendChild(b);
@@ -94,6 +113,9 @@ function addCtrl(bar, type, opts) {
     inp.type = 'range'; inp.id = id;
     inp.min = opts.min; inp.max = opts.max; inp.step = opts.step || 1; inp.value = opts.val;
     const val = document.createElement('output'); val.className = 'ctrl-val'; val.htmlFor = id; val.textContent = opts.val;
+    if (typeof opts.get === 'function') inp._get = opts.get;
+    inp.addEventListener('pointerdown', () => { inp._dragging = true; });
+    inp.addEventListener('pointerup', () => { inp._dragging = false; });
     // Les calculs lourds (bruit de Perlin, fractales…) ne sont relancés qu'une fois par image,
     // avec la dernière valeur : le curseur reste fluide même si le rendu prend du temps.
     let pending = false;

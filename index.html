@@ -502,6 +502,9 @@ footer a:hover{color:var(--red-text)}
 .ctrl-val{
   font-family:var(--mono);font-size:0.7rem;color:var(--ink);min-width:28px;
 }
+/* Signal discret quand un préréglage modifie la valeur d'un curseur */
+.ctrl-group.synced .ctrl-val{animation:ctrlSynced .9s ease-out}
+@keyframes ctrlSynced{from{opacity:.25}to{opacity:1}}
 input[type=range]{
   -webkit-appearance:none;height:3px;background:var(--border);
   border-radius:2px;outline:none;width:90px;
