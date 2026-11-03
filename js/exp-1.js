@@ -106,15 +106,16 @@ const conway = {
   },
   setup(canvas, ctx, add) {
     const S = 8, cols = Math.floor(canvas.width / S), rows = Math.floor(canvas.height / S);
-    let grid = rand(), running = false, interval = 80;
+    let grid = rand(), running = true, interval = 80;
     function rand() { return Array.from({ length: rows }, () => Array.from({ length: cols }, () => Math.random() < .25 ? 1 : 0)); }
     function empty() { return Array.from({ length: rows }, () => new Array(cols).fill(0)); }
     canvas.onclick = e => { const col = Math.min(cols - 1, Math.floor(e.offsetX / canvas.offsetWidth * cols)), row = Math.min(rows - 1, Math.floor(e.offsetY / canvas.offsetHeight * rows)); grid[row][col] ^= 1; draw(); };
-    const playBtn = add('btn', { label: '▶ Play', fn: () => { running = !running; playBtn.textContent = running ? '⏸ Pause' : '▶ Play'; if (running) loop(); } });
-    add('btn', { label: 'Reset', ghost: true, fn: () => { grid = rand(); draw(); } });
+    const playBtn = add('btn', { label: '⏸ Pause', fn: () => { running = !running; playBtn.textContent = running ? '⏸ Pause' : '▶ Play'; if (running) loop(); } });
+    add('btn', { label: 'Aléatoire', ghost: true, fn: () => { grid = rand(); draw(); } });
     add('btn', { label: 'Vider', ghost: true, fn: () => { grid = empty(); draw(); } });
     add('btn', { label: 'Glider', ghost: true, fn: () => { grid = empty(); [[1,0],[2,1],[0,2],[1,2],[2,2]].forEach(([dc,dr]) => { grid[10+dr][10+dc] = 1; }); draw(); } });
-    add('btn', { label: 'Pulsar', ghost: true, fn: () => { grid = empty(); const p=[[2,4],[3,4],[4,4],[8,4],[9,4],[10,4],[2,9],[3,9],[4,9],[8,9],[9,9],[10,9],[2,14],[3,14],[4,14],[8,14],[9,14],[10,14]]; p.forEach(([r,c])=>{ if(r<rows&&c<cols) grid[r][c]=1; }); draw(); } });
+    add('btn', { label: 'Pulsar', ghost: true, fn: () => { grid = empty(); const r0 = Math.floor(rows / 2) - 6, c0 = Math.floor(cols / 2) - 6; for (const a of [0, 5, 7, 12]) for (const b of [2, 3, 4, 8, 9, 10]) { grid[r0 + a][c0 + b] = 1; grid[r0 + b][c0 + a] = 1; } draw(); } });
+    add('btn', { label: 'Canon à planeurs', ghost: true, fn: () => { grid = empty(); const g = [[5,1],[5,2],[6,1],[6,2],[5,11],[6,11],[7,11],[4,12],[8,12],[3,13],[9,13],[3,14],[9,14],[6,15],[4,16],[8,16],[5,17],[6,17],[7,17],[6,18],[3,21],[4,21],[5,21],[3,22],[4,22],[5,22],[2,23],[6,23],[1,25],[2,25],[6,25],[7,25],[3,35],[4,35],[3,36],[4,36]]; g.forEach(([r, c]) => { if (r + 2 < rows && c + 2 < cols) grid[r + 2][c + 2] = 1; }); draw(); } });
     add('slider', { label: 'Vitesse', min: 1, max: 60, val: 12, fn: v => interval = Math.floor(1000 / v) });
     function step() {
       const next = empty();
@@ -132,7 +133,7 @@ const conway = {
     }
     let last = 0;
     function loop(ts = 0) { if (!running) return; if (ts - last > interval) { step(); draw(); last = ts; } raf = expRAF(loop); }
-    draw();
+    draw(); loop();
   }
 };
 EXPS.conway = { tag: 'Biologie · Automates Cellulaires', title: 'Jeu de la Vie de Conway', hint: 'Cliquez sur le canvas pour dessiner des cellules', info: '<strong>Le Jeu de la Vie</strong> (John H. Conway, 1970) est un automate cellulaire à 4 règles : une cellule vivante avec 2 ou 3 voisins survit ; avec moins de 2 elle meurt d\'isolement ; avec plus de 3 elle meurt de surpopulation ; une cellule morte avec exactement 3 voisins naît. Ces règles minimales génèrent des oscillateurs, des vaisseaux, des générateurs de gliders — un modèle fondamental en biologie théorique et en théorie de la computation.', setup: conway.setup };
@@ -150,7 +151,7 @@ const langton = {
   setup(canvas, ctx, add) {
     const S = 4, cols = Math.floor(canvas.width / S), rows = Math.floor(canvas.height / S);
     const grid = new Uint8Array(cols * rows);
-    let ax = Math.floor(cols / 2), ay = Math.floor(rows / 2), dir = 0, running = false, steps = 0, speed = 100;
+    let ax = Math.floor(cols / 2), ay = Math.floor(rows / 2), dir = 0, running = true, steps = 0, speed = 60;
     const DIRS = [[0,-1],[1,0],[0,1],[-1,0]];
     function step(n=1) {
       for (let i = 0; i < n; i++) {
@@ -169,12 +170,12 @@ const langton = {
       ctx.fillStyle = '#ff4040'; ctx.fillRect(ax * S - 1, ay * S - 1, S + 2, S + 2);
       document.getElementById('canvas-info') && (document.getElementById('canvas-info').textContent = `Étape : ${steps.toLocaleString()}`);
     }
-    const playBtn = add('btn', { label: '▶ Play', fn: () => { running = !running; playBtn.textContent = running ? '⏸ Pause' : '▶ Play'; if (running) loop(); } });
+    const playBtn = add('btn', { label: '⏸ Pause', fn: () => { running = !running; playBtn.textContent = running ? '⏸ Pause' : '▶ Play'; if (running) loop(); } });
     add('btn', { label: 'Reset', ghost: true, fn: () => { grid.fill(0); ax = Math.floor(cols/2); ay = Math.floor(rows/2); dir = 0; steps = 0; draw(); } });
     add('btn', { label: '+1000 étapes', ghost: true, fn: () => { step(1000); draw(); } });
-    add('slider', { label: 'Vitesse', min: 1, max: 50, val: 10, fn: v => speed = v });
+    add('slider', { label: 'Pas / image', min: 1, max: 200, val: speed, fn: v => speed = v });
     function loop() { if (!running) return; step(speed); draw(); raf = expRAF(loop); }
-    draw();
+    loop();
   }
 };
 EXPS.langton = { tag: 'Informatique · Automates', title: 'Fourmi de Langton', hint: 'La fourmi rouge suit ses règles simples', info: '<strong>La fourmi de Langton</strong> (1986) obéit à deux règles : sur une case blanche, tourner à droite, la peindre en noir et avancer ; sur une case noire, tourner à gauche, la peindre en blanc et avancer. Après ~10 000 pas de chaos apparent, la fourmi construit spontanément une <em>autoroute</em> périodique se prolongeant indéfiniment. Ce comportement émergent est un des plus étonnants exemples d\'ordre naissant du désordre.', setup: langton.setup };
@@ -197,34 +198,45 @@ const fourier = {
     });
   },
   setup(canvas, ctx, add) {
-    let harmonics = 7, speed = .6, t = 0; const history = [];
-    add('slider', { label: 'Harmoniques', min: 1, max: 25, val: harmonics, fn: v => { harmonics = v; history.length = 0; } });
-    add('slider', { label: 'Vitesse', min: 1, max: 10, val: 3, fn: v => speed = v * .2 });
+    const W = canvas.width, H = canvas.height, A = H * .27, cx0 = W * .2, cy = H / 2, x0 = W * .44;
+    let harmonics = 7, speed = 3, t = 0, wave = 'square'; const history = [];
+    const WAVES = {
+      square: { label: 'carrée', terms: n => Array.from({ length: n }, (_, k) => [2 * k + 1, 4 / (Math.PI * (2 * k + 1))]), target: u => Math.sign(Math.sin(u)) },
+      saw: { label: 'en dents de scie', terms: n => Array.from({ length: n }, (_, k) => [k + 1, (k % 2 ? -2 : 2) / (Math.PI * (k + 1))]), target: u => (((u + Math.PI) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI) - Math.PI) / Math.PI },
+      tri: { label: 'triangulaire', terms: n => Array.from({ length: n }, (_, k) => [2 * k + 1, (k % 2 ? -8 : 8) / (Math.PI * Math.PI * (2 * k + 1) ** 2)]), target: u => 2 / Math.PI * Math.asin(Math.sin(u)) },
+    };
+    add('slider', { label: 'Harmoniques', min: 1, max: 30, val: harmonics, fn: v => harmonics = v });
+    add('slider', { label: 'Vitesse', min: 1, max: 10, val: speed, fn: v => speed = v });
+    const btns = {};
+    const pick = w => { wave = w; history.length = 0; for (const k in btns) btns[k].classList.toggle('ghost', k !== w); };
+    btns.square = add('btn', { label: 'Carrée', fn: () => pick('square') });
+    btns.saw = add('btn', { label: 'Dent de scie', ghost: true, fn: () => pick('saw') });
+    btns.tri = add('btn', { label: 'Triangle', ghost: true, fn: () => pick('tri') });
+    const dT = () => .012 * speed;
     function loop() {
-      const W = canvas.width, H = canvas.height;
-      ctx.fillStyle = 'rgba(8,8,16,.12)'; ctx.fillRect(0, 0, W, H);
-      let cx = W * .22, cy = H / 2;
-      for (let k = 0; k < harmonics; k++) {
-        const n = 2 * k + 1, r = (4 / Math.PI) * (1 / n) * H * .35;
-        const angle = n * t * speed;
-        const nx = cx + r * Math.cos(angle), ny = cy + r * Math.sin(angle);
-        ctx.strokeStyle = `rgba(214,63,14,${.55 - k * .015})`; ctx.lineWidth = .7;
-        ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
-        ctx.strokeStyle = 'rgba(214,63,14,.8)'; ctx.lineWidth = 1;
-        ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(nx, ny); ctx.stroke();
-        cx = nx; cy = ny;
+      ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, W, H);
+      const W8 = WAVES[wave], terms = W8.terms(harmonics);
+      let x = cx0, y = cy;
+      for (const [n, c] of terms) {
+        const r = Math.abs(c) * A, ang = n * t + (c < 0 ? Math.PI : 0);
+        const nx = x + r * Math.cos(ang), ny = y - r * Math.sin(ang);
+        ctx.strokeStyle = 'rgba(240,96,64,.35)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = 'rgba(240,237,230,.8)'; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(nx, ny); ctx.stroke();
+        x = nx; y = ny;
       }
-      history.unshift(cy); if (history.length > W * .6) history.pop();
-      ctx.strokeStyle = 'rgba(240,237,230,.2)'; ctx.lineWidth = .5;
-      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(W * .38, history[0]); ctx.stroke();
-      ctx.strokeStyle = '#d63f0e'; ctx.lineWidth = 2; ctx.beginPath();
-      history.forEach((y, i) => { const x = W * .38 + i; i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); }); ctx.stroke();
-      t += .016; raf = expRAF(loop);
+      history.unshift(y); if (history.length > W - x0 - 10) history.pop();
+      ctx.strokeStyle = 'rgba(240,237,230,.35)'; ctx.setLineDash([4, 4]); ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x0, y); ctx.stroke(); ctx.setLineDash([]);
+      ctx.strokeStyle = 'rgba(155,133,245,.55)'; ctx.lineWidth = 1.2; ctx.beginPath();
+      for (let i = 0; i < W - x0 - 10; i++) { const Y = cy - A * W8.target(t - i * dT()); i ? ctx.lineTo(x0 + i, Y) : ctx.moveTo(x0, Y); } ctx.stroke();
+      ctx.strokeStyle = '#f06040'; ctx.lineWidth = 2.2; ctx.beginPath(); history.forEach((Y, i) => { i ? ctx.lineTo(x0 + i, Y) : ctx.moveTo(x0, Y); }); ctx.stroke();
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(x, y, 3.5, 0, Math.PI * 2); ctx.fill();
+      const ci = document.getElementById('canvas-info'); if (ci) ci.textContent = `Onde ${W8.label} — ${harmonics} harmonique(s) (rouge) · cible (violet)`;
+      t += dT(); raf = expRAF(loop);
     }
-    ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, canvas.width, canvas.height); loop();
+    loop();
   }
 };
-EXPS.fourier = { tag: 'Physique · Analyse Harmonique', title: 'Synthèse de Fourier', hint: 'Augmentez les harmoniques pour approcher une onde carrée parfaite', info: '<strong>La série de Fourier</strong> (Joseph Fourier, 1822) montre que toute fonction périodique est une somme infinie de sinusoïdes. En ajoutant des harmoniques impaires (fréquences 1, 3, 5…), on approche progressivement une onde carrée. Plus on ajoute de termes, plus la forme est précise — mais les oscillations de Gibbs persistent aux discontinuités. Ce théorème fonde le traitement du signal, la musique numérique et l\'analyse spectrale.', setup: fourier.setup };
+EXPS.fourier = { tag: 'Physique · Analyse Harmonique', title: 'Synthèse de Fourier', hint: '', info: '<strong>La série de Fourier</strong> (Joseph Fourier, 1822) montre que toute fonction périodique est une somme infinie de sinusoïdes. En ajoutant des harmoniques impaires (fréquences 1, 3, 5…), on approche progressivement une onde carrée. Plus on ajoute de termes, plus la forme est précise — mais les oscillations de Gibbs persistent aux discontinuités. Ce théorème fonde le traitement du signal, la musique numérique et l\'analyse spectrale.', setup: fourier.setup };
 
 /* ─────────────────────────────────────
    6. WAVE INTERFERENCE
@@ -274,32 +286,43 @@ const particles = {
     for (let i = 0; i < 60; i++) { g.fillStyle = `rgba(214,63,14,${Math.random()*.7+.2})`; g.beginPath(); g.arc(Math.random()*c.width, Math.random()*c.height, Math.random()*2.5+.5, 0, Math.PI*2); g.fill(); }
   },
   setup(canvas, ctx, add) {
-    const W = canvas.width, H = canvas.height;
-    let pts = [], G = 500;
-    function spawn(x, y, n=5) { for (let i=0;i<n;i++) { const a=Math.random()*Math.PI*2, s=Math.random()*.6; pts.push({x:x+Math.random()*12-6,y:y+Math.random()*12-6,vx:Math.cos(a)*s,vy:Math.sin(a)*s,m:Math.random()*2+.5,hue:Math.random()*60+10}); } }
-    for (let i=0;i<80;i++) spawn(W/2+Math.random()*180-90,H/2+Math.random()*180-90,1);
-    canvas.onclick = e => spawn(e.offsetX/canvas.offsetWidth*W,e.offsetY/canvas.offsetHeight*H,8);
-    add('btn', { label: 'Big Bang', fn: () => { pts=[]; for(let i=0;i<120;i++) spawn(W/2+Math.random()*20-10,H/2+Math.random()*20-10,1); } });
-    add('btn', { label: 'Reset', ghost: true, fn: () => { pts=[]; for(let i=0;i<80;i++) spawn(W/2+Math.random()*180-90,H/2+Math.random()*180-90,1); } });
-    add('slider', { label: 'Gravité', min: 100, max: 2000, val: 500, fn: v => G=v });
-    function loop() {
-      ctx.fillStyle = 'rgba(8,8,16,.14)'; ctx.fillRect(0,0,W,H);
-      for (let i=0;i<pts.length;i++) {
-        let ax=0,ay=0;
-        for (let j=0;j<pts.length;j++) { if(i===j) continue; const dx=pts[j].x-pts[i].x,dy=pts[j].y-pts[i].y,d=Math.max(Math.sqrt(dx*dx+dy*dy),5),f=G*pts[j].m/(d*d); ax+=f*dx/d; ay+=f*dy/d; }
-        pts[i].vx=(pts[i].vx+ax*.016)*.985; pts[i].vy=(pts[i].vy+ay*.016)*.985;
-        pts[i].x+=pts[i].vx; pts[i].y+=pts[i].vy;
-        if(pts[i].x<0)pts[i].x=W; if(pts[i].x>W)pts[i].x=0;
-        if(pts[i].y<0)pts[i].y=H; if(pts[i].y>H)pts[i].y=0;
-        ctx.fillStyle=`hsl(${pts[i].hue},80%,60%)`; ctx.beginPath(); ctx.arc(pts[i].x,pts[i].y,pts[i].m*1.4,0,Math.PI*2); ctx.fill();
+    const W = canvas.width, H = canvas.height, S = .016, EPS2 = 120;
+    let pts = [], G = 500, M0 = 0;
+    function galaxy() {
+      pts = []; M0 = 60; const R = Math.min(W, H) * .42;
+      pts.push({ x: W / 2, y: H / 2, vx: 0, vy: 0, m: M0, hue: 45, core: true });
+      for (let i = 0; i < 180; i++) {
+        const r = 25 + Math.pow(Math.random(), .8) * R, a = Math.random() * Math.PI * 2, m = .3 + Math.random() * 1.2;
+        const enc = M0 + 180 * .9 * Math.min(1, (r / R) ** 2), v = Math.sqrt(G * S * enc / Math.sqrt(r * r + EPS2)) * .95;
+        pts.push({ x: W / 2 + r * Math.cos(a), y: H / 2 + r * Math.sin(a), vx: -v * Math.sin(a), vy: v * Math.cos(a), m, hue: 10 + Math.random() * 50 });
       }
-      if(pts.length>250) pts=pts.slice(-250);
+    }
+    function bigBang() { pts = []; M0 = 0; for (let i = 0; i < 200; i++) { const a = Math.random() * Math.PI * 2, s = Math.random() * 2.2; pts.push({ x: W / 2 + Math.cos(a) * 4, y: H / 2 + Math.sin(a) * 4, vx: Math.cos(a) * s, vy: Math.sin(a) * s, m: .4 + Math.random() * 1.4, hue: 10 + Math.random() * 50 }); } }
+    function spawn(x, y) { for (let i = 0; i < 12; i++) { const a = Math.random() * Math.PI * 2, r = Math.random() * 14; pts.push({ x: x + Math.cos(a) * r, y: y + Math.sin(a) * r, vx: 0, vy: 0, m: .5 + Math.random(), hue: 180 + Math.random() * 40 }); } if (pts.length > 320) pts.splice(1, pts.length - 320); }
+    galaxy();
+    canvas.onclick = e => spawn(e.offsetX / canvas.offsetWidth * W, e.offsetY / canvas.offsetHeight * H);
+    add('btn', { label: 'Galaxie', fn: galaxy });
+    add('btn', { label: 'Big Bang', ghost: true, fn: bigBang });
+    add('slider', { label: 'Gravité', min: 100, max: 1500, val: 500, fn: v => G = v });
+    ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, W, H);
+    function loop() {
+      const n = pts.length;
+      for (let i = 0; i < n; i++) { const p = pts[i]; p.ax = 0; p.ay = 0; }
+      for (let i = 0; i < n; i++) { const p = pts[i]; for (let j = i + 1; j < n; j++) { const o = pts[j], dx = o.x - p.x, dy = o.y - p.y, r2 = dx * dx + dy * dy + EPS2, f = G * S / (r2 * Math.sqrt(r2)); p.ax += f * o.m * dx; p.ay += f * o.m * dy; o.ax -= f * p.m * dx; o.ay -= f * p.m * dy; } }
+      ctx.fillStyle = 'rgba(8,8,16,.2)'; ctx.fillRect(0, 0, W, H);
+      for (const p of pts) {
+        if (p.core) { ctx.fillStyle = 'rgba(255,220,120,.25)'; ctx.beginPath(); ctx.arc(p.x, p.y, 14, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = '#ffe9a0'; ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, Math.PI * 2); ctx.fill(); continue; }
+        p.vx += p.ax; p.vy += p.ay; p.x += p.vx; p.y += p.vy;
+        if (p.x < 0 || p.x > W) { p.vx *= -.6; p.x = Math.max(0, Math.min(W, p.x)); }
+        if (p.y < 0 || p.y > H) { p.vy *= -.6; p.y = Math.max(0, Math.min(H, p.y)); }
+        ctx.fillStyle = `hsl(${p.hue},85%,62%)`; ctx.beginPath(); ctx.arc(p.x, p.y, .8 + p.m * 1.2, 0, Math.PI * 2); ctx.fill();
+      }
       raf = expRAF(loop);
     }
-    ctx.fillStyle='#080810'; ctx.fillRect(0,0,W,H); loop();
+    loop();
   }
 };
-EXPS.particles = { tag: 'Physique · Mécanique Newtonienne', title: 'Gravité et Particules', hint: 'Cliquez sur le canvas pour ajouter un amas de masse', info: '<strong>La simulation n-corps</strong> calcule l\'attraction gravitationnelle de chaque particule sur toutes les autres (F = Gm₁m₂/r²). Cette méthode exacte, dite de force brute O(n²), est identique aux simulations utilisées pour modéliser la formation des galaxies. À grande échelle, on l\'optimise avec l\'algorithme de Barnes-Hut.', setup: particles.setup };
+EXPS.particles = { tag: 'Physique · Mécanique Newtonienne', title: 'Gravité et Particules', hint: 'Cliquez pour ajouter un amas de masse', info: '<strong>La simulation n-corps</strong> calcule l\'attraction gravitationnelle de chaque particule sur toutes les autres (F = Gm₁m₂/r²). Cette méthode exacte, dite de force brute O(n²), est identique aux simulations utilisées pour modéliser la formation des galaxies. À grande échelle, on l\'optimise avec l\'algorithme de Barnes-Hut.', setup: particles.setup };
 
 /* ─────────────────────────────────────
    8. DOUBLE PENDULUM
@@ -315,41 +338,40 @@ const pendulum = {
     });
   },
   setup(canvas, ctx, add) {
-    const W = canvas.width, H = canvas.height;
-    let L1=H*.28,L2=H*.22,M1=10,M2=8,g_=9.81,dt=.016;
-    let pends = [
-      {a1:Math.PI/2,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#5230cc'},
-      {a1:Math.PI/2+.001,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#d63f0e'}
-    ];
-    function step(p) {
-      const num1=-(g_*(2*M1+M2)*Math.sin(p.a1)-M2*g_*Math.sin(p.a1-2*p.a2)-2*Math.sin(p.a1-p.a2)*M2*(p.v2*p.v2*L2+p.v1*p.v1*L1*Math.cos(p.a1-p.a2)));
-      const den1=L1*(2*M1+M2-M2*Math.cos(2*p.a1-2*p.a2));
-      const num2=2*Math.sin(p.a1-p.a2)*((M1+M2)*p.v1*p.v1*L1+g_*(M1+M2)*Math.cos(p.a1)+M2*p.v2*p.v2*L2*Math.cos(p.a1-p.a2));
-      const den2=L2*(2*M1+M2-M2*Math.cos(2*p.a1-2*p.a2));
-      p.v1+=dt*(num1/den1); p.v2+=dt*(num2/den2); p.a1+=dt*p.v1; p.a2+=dt*p.v2;
+    const W = canvas.width, H = canvas.height, cx = W / 2, cy = H / 2, sc = Math.min(H * .23, W * .23);
+    let g_ = 9.81, P = [];
+    const L1 = 1, L2 = 1, M1 = 1, M2 = 1;
+    function deriv([a1, a2, w1, w2]) {
+      const d = a1 - a2, den = 2 * M1 + M2 - M2 * Math.cos(2 * d);
+      const dw1 = (-g_ * (2 * M1 + M2) * Math.sin(a1) - M2 * g_ * Math.sin(a1 - 2 * a2) - 2 * Math.sin(d) * M2 * (w2 * w2 * L2 + w1 * w1 * L1 * Math.cos(d))) / (L1 * den);
+      const dw2 = (2 * Math.sin(d) * (w1 * w1 * L1 * (M1 + M2) + g_ * (M1 + M2) * Math.cos(a1) + w2 * w2 * L2 * M2 * Math.cos(d))) / (L2 * den);
+      return [w1, w2, dw1, dw2];
     }
-    const cx=W/2,cy=H*.22;
+    function rk4(s, h) { const k1 = deriv(s), k2 = deriv(s.map((v, i) => v + k1[i] * h / 2)), k3 = deriv(s.map((v, i) => v + k2[i] * h / 2)), k4 = deriv(s.map((v, i) => v + k3[i] * h)); return s.map((v, i) => v + (k1[i] + 2 * k2[i] + 2 * k3[i] + k4[i]) * h / 6); }
+    function reset() { P = [{ s: [2.2, 2.6, 0, 0], trail: [], color: '#9b85f5' }, { s: [2.2 + .001, 2.6, 0, 0], trail: [], color: '#f06040' }]; }
+    reset();
+    add('btn', { label: 'Reset', fn: reset });
+    add('btn', { label: 'Petites oscillations', ghost: true, fn: () => { P = [{ s: [.3, .3, 0, 0], trail: [], color: '#9b85f5' }, { s: [.301, .3, 0, 0], trail: [], color: '#f06040' }]; } });
+    add('slider', { label: 'Gravité', min: 1, max: 20, val: 10, fn: v => g_ = v * .981 });
+    const pos = s => { const x1 = cx + sc * Math.sin(s[0]), y1 = cy + sc * Math.cos(s[0]); return [x1, y1, x1 + sc * Math.sin(s[1]), y1 + sc * Math.cos(s[1])]; };
     function loop() {
-      ctx.fillStyle='rgba(8,8,16,.08)'; ctx.fillRect(0,0,W,H);
-      pends.forEach(p => {
-        for(let i=0;i<3;i++) step(p);
-        const x1=cx+L1*Math.sin(p.a1),y1=cy+L1*Math.cos(p.a1);
-        const x2=x1+L2*Math.sin(p.a2),y2=y1+L2*Math.cos(p.a2);
-        p.trail.push({x:x2,y:y2}); if(p.trail.length>800) p.trail.shift();
-        if(p.trail.length>1){
-          ctx.strokeStyle=p.color; ctx.lineWidth=0.8; ctx.beginPath();
-          p.trail.forEach(({x,y},i)=>i===0?ctx.moveTo(x,y):ctx.lineTo(x,y)); ctx.stroke();
-        }
-        ctx.strokeStyle='rgba(240,237,230,.4)'; ctx.lineWidth=1.5;
-        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
-        ctx.fillStyle='rgba(240,237,230,.8)'; ctx.beginPath(); ctx.arc(x1,y1,5,0,Math.PI*2); ctx.fill();
-        ctx.fillStyle=p.color; ctx.beginPath(); ctx.arc(x2,y2,7,0,Math.PI*2); ctx.fill();
-      });
+      for (const p of P) { for (let i = 0; i < 8; i++) p.s = rk4(p.s, 1 / 480); const [, , x2, y2] = pos(p.s); p.trail.push(x2, y2); if (p.trail.length > 1200) p.trail.splice(0, 2); }
+      ctx.fillStyle = '#080810'; ctx.fillRect(0, 0, W, H);
+      for (const p of P) {
+        const n = p.trail.length / 2, B = 8;
+        for (let k = 0; k < B; k++) { ctx.strokeStyle = p.color; ctx.globalAlpha = (k + 1) / B * .7; ctx.lineWidth = 1.4; ctx.beginPath(); const i0 = Math.floor(k * n / B), i1 = Math.floor((k + 1) * n / B); for (let i = i0; i <= Math.min(n - 1, i1); i++) { const x = p.trail[2 * i], y = p.trail[2 * i + 1]; i === i0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y); } ctx.stroke(); }
+        ctx.globalAlpha = 1;
+        const [x1, y1, x2, y2] = pos(p.s);
+        ctx.strokeStyle = 'rgba(240,237,230,.6)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+        ctx.fillStyle = 'rgba(240,237,230,.9)'; ctx.beginPath(); ctx.arc(x1, y1, 5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = p.color; ctx.beginPath(); ctx.arc(x2, y2, 8, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(cx, cy, 3, 0, Math.PI * 2); ctx.fill();
+      const d = Math.abs(P[0].s[1] - P[1].s[1]) * 180 / Math.PI, ci = document.getElementById('canvas-info');
+      if (ci) ci.textContent = `Écart entre les deux pendules : ${d < .1 ? d.toFixed(4) : d.toFixed(1)}°`;
       raf = expRAF(loop);
     }
-    add('btn', { label: 'Reset', fn: () => { pends = [{a1:Math.PI/2,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#5230cc'},{a1:Math.PI/2+.001,a2:Math.PI/2,v1:0,v2:0,trail:[],color:'#d63f0e'}]; } });
-    add('slider', { label: 'Gravité', min: 1, max: 20, val: 9, fn: v => g_=v });
-    ctx.fillStyle='#080810'; ctx.fillRect(0,0,W,H); loop();
+    loop();
   }
 };
 EXPS.pendulum = { tag: 'Physique · Systèmes Chaotiques', title: 'Pendule Double', hint: 'Les deux couleurs représentent des conditions initiales quasi-identiques', info: '<strong>Le pendule double</strong> est l\'exemple le plus pédagogique du chaos déterministe. Les deux pendules (violet et rouge) partagent des conditions initiales différant de 0.001 radian. Leurs trajectoires, d\'abord identiques, divergent exponentiellement — leur séparation croit selon e^(λt), où λ est l\'exposant de Lyapunov. Ce modèle illustre pourquoi les prédictions à long terme sont impossibles en présence de chaos.', setup: pendulum.setup };
@@ -404,23 +426,25 @@ const turing = {
   setup(canvas,ctx,add){
     const W=Math.floor(canvas.width/2),H=Math.floor(canvas.height/2);
     let A=new Float32Array(W*H).fill(1),B=new Float32Array(W*H);
-    let dA=1.0,dB=.5,feed=.055,kill=.062;
+    let dA=.2,dB=.1,feed=.055,kill=.062;
     function seed(){A.fill(1);B.fill(0);for(let i=0;i<25;i++){const cx=Math.floor(Math.random()*W),cy=Math.floor(Math.random()*H);for(let dy=-5;dy<=5;dy++)for(let dx=-5;dx<=5;dx++){const idx=((cy+dy+H)%H)*W+((cx+dx+W)%W);B[idx]=1;A[idx]=0;}}}
     seed();
     const NA=new Float32Array(W*H),NB=new Float32Array(W*H);
     const img=ctx.createImageData(canvas.width,canvas.height);
     const lap=(gr,idx,x,y)=>gr[((y-1+H)%H)*W+x]+gr[((y+1)%H)*W+x]+gr[y*W+(x-1+W)%W]+gr[y*W+(x+1)%W]-4*gr[idx];
-    add('slider',{label:'Feed',min:1,max:10,val:5,fn:v=>feed=v*.011});
-    add('slider',{label:'Kill',min:1,max:10,val:6,fn:v=>kill=v*.010+.05});
+    const fS=add('slider',{label:'Feed ×1000',min:10,max:80,val:55,fn:v=>feed=v/1000});
+    const kS=add('slider',{label:'Kill ×1000',min:40,max:70,val:62,fn:v=>kill=v/1000});
+    const setFK=(f,k)=>{feed=f;kill=k;fS.value=Math.round(f*1000);kS.value=Math.round(k*1000);fS.nextSibling.textContent=fS.value;kS.nextSibling.textContent=kS.value;seed()};
     add('btn',{label:'Réensemencer',ghost:true,fn:seed});
-    add('btn',{label:'Preset Zèbre',ghost:true,fn:()=>{feed=.037;kill=.06;seed();}});
-    add('btn',{label:'Preset Léopard',ghost:true,fn:()=>{feed=.04;kill=.067;seed();}});
+    add('btn',{label:'Zèbre (rayures)',ghost:true,fn:()=>setFK(.029,.057)});
+    add('btn',{label:'Léopard (taches)',ghost:true,fn:()=>setFK(.035,.065)});
+    add('btn',{label:'Corail',ghost:true,fn:()=>setFK(.0545,.062)});
     function loop(){
-      for(let s=0;s<8;s++){
+      for(let s=0;s<14;s++){
         for(let y=0;y<H;y++)for(let x=0;x<W;x++){
           const idx=y*W+x,a=A[idx],b=B[idx],abb=a*b*b;
-          NA[idx]=Math.max(0,Math.min(1,a+(dA*lap(A,idx,x,y)-abb+feed*(1-a))*.5));
-          NB[idx]=Math.max(0,Math.min(1,b+(dB*lap(B,idx,x,y)+abb-(kill+feed)*b)*.5));
+          NA[idx]=Math.max(0,Math.min(1,a+dA*lap(A,idx,x,y)-abb+feed*(1-a)));
+          NB[idx]=Math.max(0,Math.min(1,b+dB*lap(B,idx,x,y)+abb-(kill+feed)*b));
         }
         A.set(NA);B.set(NB);
       }
@@ -449,26 +473,32 @@ const sort = {
   },
   setup(canvas,ctx,add){
     const W=canvas.width,H=canvas.height,N=100;
-    let arr=shuffle(),algo='bubble',running=false,gen=null;
-    function shuffle(){return Array.from({length:N},(_,i)=>i+1).sort(()=>Math.random()-.5);}
-    function drawArr(a,hi=[]){
+    const NAMES={bubble:'Bubble Sort',quick:'Quick Sort',merge:'Merge Sort'};
+    let arr=shuffle(),algo='bubble',gen=null,ops=0,state='prêt — cliquez sur Lancer';
+    function shuffle(){const a=Array.from({length:N},(_,i)=>i+1);for(let i=N-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+    function drawArr(hi=[]){
       ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);
       const bw=(W-20)/N;
-      a.forEach((v,i)=>{const t=v/N;ctx.fillStyle=hi.includes(i)?'#fff':`hsl(${t*60+10},70%,${40+t*30}%)`;const bh=(v/N)*H*.9;ctx.fillRect(10+i*bw,H-bh,bw-1,bh);});
+      arr.forEach((v,i)=>{const t=v/N;ctx.fillStyle=hi.includes(i)?'#fff':`hsl(${t*60+10},70%,${40+t*30}%)`;const bh=(v/N)*H*.9;ctx.fillRect(10+i*bw,H-bh,bw-1,bh);});
     }
-    function*bubbleGen(a){for(let i=0;i<a.length;i++)for(let j=0;j<a.length-i-1;j++){if(a[j]>a[j+1])[a[j],a[j+1]]=[a[j+1],a[j]];yield{a:[...a],hi:[j,j+1]};}}
-    function*quickGen(a,lo,hi){if(lo>=hi)return;let piv=a[hi],i=lo-1;for(let j=lo;j<hi;j++){if(a[j]<=piv){i++;[a[i],a[j]]=[a[j],a[i]];}yield{a:[...a],hi:[i,j,hi]};}[a[i+1],a[hi]]=[a[hi],a[i+1]];yield{a:[...a],hi:[i+1]};yield*quickGen(a,lo,i);yield*quickGen(a,i+2,hi);}
-    function*mergeGen(a,s=0){if(a.length<=1)return;const m=Math.floor(a.length/2),L=a.slice(0,m),R=a.slice(m);yield*mergeGen(L,s);yield*mergeGen(R,s+m);let i=0,j=0,k=s;while(i<L.length&&j<R.length){if(L[i]<=R[j])arr[k]=L[i++];else arr[k]=R[j++];k++;yield{a:[...arr],hi:[k-1]};}while(i<L.length){arr[k++]=L[i++];yield{a:[...arr],hi:[k-1]};}while(j<R.length){arr[k++]=R[j++];yield{a:[...arr],hi:[k-1]};}}
-    add('btn',{label:'▶ Lancer',fn:()=>{if(running)return;arr=shuffle();running=true;const a=[...arr];gen=algo==='bubble'?bubbleGen(a):algo==='quick'?quickGen(a,0,N-1):mergeGen(a);run();}});
-    add('btn',{label:'Bubble',ghost:true,fn:()=>algo='bubble'});
-    add('btn',{label:'Quick',ghost:true,fn:()=>algo='quick'});
-    add('btn',{label:'Merge',ghost:true,fn:()=>algo='merge'});
-    add('btn',{label:'Mélanger',ghost:true,fn:()=>{arr=shuffle();drawArr(arr);}});
-    function run(){if(!gen)return;let r;for(let s=0;s<4;s++)r=gen.next();if(!r.done){drawArr(r.value.a,r.value.hi||[]);raf=expRAF(run);}else{running=false;drawArr(arr);}}
-    drawArr(arr);
+    function info(){const ci=document.getElementById('canvas-info');if(ci)ci.textContent=`${NAMES[algo]} — ${state}${ops?` — ${ops.toLocaleString()} opérations`:''}`}
+    function*bubbleGen(a){for(let i=0;i<a.length;i++){let swapped=false;for(let j=0;j<a.length-i-1;j++){if(a[j]>a[j+1]){[a[j],a[j+1]]=[a[j+1],a[j]];swapped=true}yield[j,j+1]}if(!swapped)return}}
+    function*quickGen(a,lo,hi){if(lo>=hi)return;const piv=a[hi];let i=lo-1;for(let j=lo;j<hi;j++){if(a[j]<=piv){i++;[a[i],a[j]]=[a[j],a[i]]}yield[i,j,hi]}[a[i+1],a[hi]]=[a[hi],a[i+1]];yield[i+1];yield*quickGen(a,lo,i);yield*quickGen(a,i+2,hi)}
+    // Tri fusion en place : chaque moitié est triée dans le tableau lui-même avant la fusion
+    function*mergeGen(a,lo,hi){if(hi<=lo)return;const m=(lo+hi)>>1;yield*mergeGen(a,lo,m);yield*mergeGen(a,m+1,hi);const L=a.slice(lo,m+1),R=a.slice(m+1,hi+1);let i=0,j=0,k=lo;while(i<L.length&&j<R.length){a[k++]=L[i]<=R[j]?L[i++]:R[j++];yield[k-1]}while(i<L.length){a[k++]=L[i++];yield[k-1]}while(j<R.length){a[k++]=R[j++];yield[k-1]}}
+    function start(){arr=shuffle();ops=0;state='en cours…';gen=algo==='bubble'?bubbleGen(arr):algo==='quick'?quickGen(arr,0,N-1):mergeGen(arr,0,N-1);run()}
+    function run(){if(!gen)return;let r,last;const perFrame=algo==='bubble'?14:4;for(let s=0;s<perFrame;s++){r=gen.next();if(r.done)break;last=r.value;ops++}if(!r.done){drawArr(last);info();raf=expRAF(run)}else{gen=null;state='trié ✓';drawArr();info()}}
+    const btns={};
+    function select(a){algo=a;gen=null;ops=0;state='prêt — cliquez sur Lancer';for(const k in btns){btns[k].classList.toggle('ghost',k!==a);btns[k].setAttribute('aria-pressed',String(k===a))}drawArr();info()}
+    add('btn',{label:'▶ Lancer',fn:start});
+    btns.bubble=add('btn',{label:'Bubble',fn:()=>select('bubble')});
+    btns.quick=add('btn',{label:'Quick',ghost:true,fn:()=>select('quick')});
+    btns.merge=add('btn',{label:'Merge',ghost:true,fn:()=>select('merge')});
+    add('btn',{label:'Mélanger',ghost:true,fn:()=>{gen=null;arr=shuffle();ops=0;state='prêt — cliquez sur Lancer';drawArr();info()}});
+    select('bubble');
   }
 };
-EXPS.sort={tag:'Informatique · Algorithmique',title:'Algorithmes de Tri',hint:'Choisissez un algorithme puis cliquez Lancer',info:'<strong>Les algorithmes de tri</strong> illustrent des paradigmes fondamentaux : Bubble Sort (O(n²)) compare et échange des éléments adjacents ; Quick Sort (O(n log n) moyen, O(n²) pire cas) divise autour d\'un pivot ; Merge Sort (O(n log n) garanti) fusionne des sous-listes triées. La visualisation révèle leurs "empreintes" caractéristiques : les vagues de Bubble, les strates de Quick, les colonnes de Merge.',setup:sort.setup};
+EXPS.sort={tag:'Informatique · Algorithmique',title:'Algorithmes de Tri',hint:'',info:'<strong>Les algorithmes de tri</strong> illustrent des paradigmes fondamentaux : Bubble Sort (O(n²)) compare et échange des éléments adjacents ; Quick Sort (O(n log n) moyen, O(n²) pire cas) divise autour d\'un pivot ; Merge Sort (O(n log n) garanti) fusionne des sous-listes triées. La visualisation révèle leurs "empreintes" caractéristiques : les vagues de Bubble, les strates de Quick, les colonnes de Merge.',setup:sort.setup};
 
 /* ─────────────────────────────────────
    12. LISSAJOUS
@@ -482,32 +512,35 @@ const lissajous = {
     g.stroke();
   },
   setup(canvas,ctx,add){
-    const W=canvas.width,H=canvas.height;
-    let fx=3,fy=2,phase=Math.PI/4,speed=1,trail=[],t=0;
-    add('slider',{label:'Fréq. X',min:1,max:10,val:fx,fn:v=>{fx=v;trail=[];}});
-    add('slider',{label:'Fréq. Y',min:1,max:10,val:fy,fn:v=>{fy=v;trail=[];}});
-    add('slider',{label:'Phase',min:0,max:100,val:25,fn:v=>{phase=v/100*Math.PI*2;trail=[];}});
-    add('btn',{label:'3:2',ghost:true,fn:()=>{fx=3;fy=2;phase=Math.PI/4;trail=[];}});
-    add('btn',{label:'5:4',ghost:true,fn:()=>{fx=5;fy=4;phase=Math.PI/3;trail=[];}});
-    add('btn',{label:'7:3',ghost:true,fn:()=>{fx=7;fy=3;phase=Math.PI/2;trail=[];}});
+    const W=canvas.width,H=canvas.height,cx=W/2,cy=H/2,A=W*.42,B=H*.42;
+    let fx=3,fy=2,phase=Math.PI/4,speed=3,t=0;
+    const gcd=(a,b)=>b?gcd(b,a%b):a;
+    const NAMES={'1:1':'unisson','2:1':'octave','3:2':'quinte juste','4:3':'quarte juste','5:4':'tierce majeure','6:5':'tierce mineure','5:3':'sixte majeure','8:5':'sixte mineure','9:8':'seconde majeure','3:1':'douzième','5:2':'dixième majeure'};
+    const fxS=add('slider',{label:'Fréq. X',min:1,max:10,val:fx,fn:v=>fx=v});
+    const fyS=add('slider',{label:'Fréq. Y',min:1,max:10,val:fy,fn:v=>fy=v});
+    const phS=add('slider',{label:'Phase (%)',min:0,max:100,val:12,fn:v=>phase=v/100*Math.PI*2});
+    add('slider',{label:'Vitesse',min:1,max:10,val:speed,fn:v=>speed=v});
+    const preset=(a,b,p)=>{fx=a;fy=b;phase=p;fxS.value=a;fyS.value=b;phS.value=Math.round(p/(Math.PI*2)*100);[fxS,fyS,phS].forEach(s=>s.nextSibling.textContent=s.value)};
+    add('btn',{label:'3:2',ghost:true,fn:()=>preset(3,2,Math.PI/4)});
+    add('btn',{label:'5:4',ghost:true,fn:()=>preset(5,4,Math.PI/3)});
+    add('btn',{label:'7:3',ghost:true,fn:()=>preset(7,3,Math.PI/2)});
+    const P=(u)=>[cx+A*Math.sin(fx*u+phase),cy+B*Math.sin(fy*u)];
     function loop(){
-      ctx.fillStyle='rgba(8,8,16,.06)';ctx.fillRect(0,0,W,H);
-      const A=W*.42,B=H*.42,cx=W/2,cy=H/2;
-      t+=.012*speed;
-      const x=cx+A*Math.sin(fx*t+phase),y=cy+B*Math.sin(fy*t);
-      trail.push({x,y});if(trail.length>1200)trail.shift();
-      if(trail.length>1){
-        ctx.beginPath();
-        trail.forEach(({x:px,y:py},i)=>{const a=i/trail.length;ctx.strokeStyle=`hsl(${a*60+10},85%,${50+a*20}%)`;ctx.lineWidth=a*2;i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});
-        ctx.stroke();
-      }
-      ctx.fillStyle='white';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill();
-      raf=expRAF(loop);
+      const g=gcd(fx,fy),period=Math.PI*2/g;
+      ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);
+      ctx.strokeStyle='rgba(240,237,230,.16)';ctx.lineWidth=1;ctx.beginPath();
+      for(let i=0;i<=1600;i++){const[x,y]=P(i/1600*period);i?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke();
+      const span=period*.45,BK=20;
+      for(let k=0;k<BK;k++){ctx.strokeStyle=`hsl(${15+k*2.5},90%,${40+k*1.6}%)`;ctx.globalAlpha=(k+1)/BK;ctx.lineWidth=.6+k/BK*2.2;ctx.beginPath();for(let j=0;j<=12;j++){const u=t-span+span*(k+j/12)/BK;const[x,y]=P(u);j?ctx.lineTo(x,y):ctx.moveTo(x,y)}ctx.stroke()}
+      ctx.globalAlpha=1;const[x,y]=P(t);ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,5,0,Math.PI*2);ctx.fill();
+      const a=fx/g,b=fy/g,key=Math.max(a,b)+':'+Math.min(a,b),ci=document.getElementById('canvas-info');
+      if(ci)ci.textContent=`Rapport ${a}:${b}${NAMES[key]?' — '+NAMES[key]:''}`;
+      t+=.006*speed;raf=expRAF(loop);
     }
-    ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);loop();
+    loop();
   }
 };
-EXPS.lissajous={tag:'Mathématiques · Géométrie Harmonique',title:'Courbes de Lissajous',hint:'Modifiez les fréquences pour changer la figure',info:'<strong>Les figures de Lissajous</strong> (Jules Antoine Lissajous, 1857) sont les trajectoires paramétriques x=A·sin(at+δ), y=B·sin(bt). Quand a/b est rationnel, la courbe est fermée. En musique, les rapports 2:1 (octave), 3:2 (quinte), 4:3 (quarte) correspondent à des consonances précises — les oscilloscopes utilisent ces figures pour accorder des instruments. Une relation directe entre mathématiques, physique et musique.',setup:lissajous.setup};
+EXPS.lissajous={tag:'Mathématiques · Géométrie Harmonique',title:'Courbes de Lissajous',hint:'',info:'<strong>Les figures de Lissajous</strong> (Jules Antoine Lissajous, 1857) sont les trajectoires paramétriques x=A·sin(at+δ), y=B·sin(bt). Quand a/b est rationnel, la courbe est fermée. En musique, les rapports 2:1 (octave), 3:2 (quinte), 4:3 (quarte) correspondent à des consonances précises — les oscilloscopes utilisent ces figures pour accorder des instruments. Une relation directe entre mathématiques, physique et musique.',setup:lissajous.setup};
 
 /* ─────────────────────────────────────
    13. RANDOM WALK
@@ -522,41 +555,34 @@ const walk = {
     }
   },
   setup(canvas,ctx,add){
-    const W=canvas.width,H=canvas.height;
-    let walkers=[],N=80,step=3,running=true;
-    function init(){walkers=Array.from({length:N},(_,i)=>({x:W/2,y:H/2,trail:[],hue:i*4.5}));}
+    const W=canvas.width,H=canvas.height,cx=W/2,cy=H*.4;
+    let walkers=[],N=400,step=3,n=0;
+    function init(){walkers=Array.from({length:N},(_,i)=>({x:cx,y:cy,hue:i/N*300}));n=0;ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H)}
     init();
-    add('slider',{label:'Marcheurs',min:10,max:200,val:80,fn:v=>{N=v;init();}});
-    add('slider',{label:'Pas',min:1,max:10,val:3,fn:v=>step=v});
-    add('btn',{label:'Reset',ghost:true,fn:()=>{init();ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);}});
+    add('slider',{label:'Marcheurs',min:50,max:1500,val:N,fn:v=>{N=v;init()}});
+    add('slider',{label:'Pas (px)',min:1,max:8,val:step,fn:v=>{step=v;init()}});
+    add('btn',{label:'Reset',ghost:true,fn:init});
+    const BINS=61,bins=new Float32Array(BINS);
     function loop(){
-      ctx.fillStyle='rgba(8,8,16,.04)';ctx.fillRect(0,0,W,H);
-      walkers.forEach(w=>{
-        const a=Math.random()*Math.PI*2;
-        w.x+=Math.cos(a)*step;w.y+=Math.sin(a)*step;
-        if(w.x<0)w.x=W;if(w.x>W)w.x=0;if(w.y<0)w.y=H;if(w.y>H)w.y=0;
-        w.trail.push({x:w.x,y:w.y});if(w.trail.length>150)w.trail.shift();
-        if(w.trail.length>1){
-          const last=w.trail.length-1;
-          ctx.strokeStyle=`hsla(${w.hue},70%,60%,.5)`;ctx.lineWidth=.8;
-          ctx.beginPath();ctx.moveTo(w.trail[last-1].x,w.trail[last-1].y);ctx.lineTo(w.x,w.y);ctx.stroke();
-        }
-      });
-      // Distribution histogram
-      const bins=new Array(20).fill(0);
-      walkers.forEach(w=>{const b=Math.min(19,Math.floor((w.x/W)*20));bins[b]++;});
-      const maxB=Math.max(...bins);
-      bins.forEach((b,i)=>{
-        const bh=(b/maxB)*H*.2;
-        ctx.fillStyle=`rgba(214,63,14,.4)`;
-        ctx.fillRect(i*(W/20),H-bh,W/20-1,bh);
-      });
+      ctx.fillStyle='rgba(8,8,16,.06)';ctx.fillRect(0,0,W,H*.72);
+      ctx.lineWidth=1;
+      for(const w of walkers){const ox=w.x,oy=w.y;for(let s=0;s<3;s++){const a=Math.random()*Math.PI*2;w.x+=Math.cos(a)*step;w.y+=Math.sin(a)*step}if(oy<H*.72){ctx.strokeStyle=`hsla(${w.hue},75%,62%,.55)`;ctx.beginPath();ctx.moveTo(ox,oy);ctx.lineTo(w.x,Math.min(w.y,H*.72));ctx.stroke()}}
+      n+=3;
+      const sigma=step*Math.sqrt(n/2),range=4*Math.max(sigma,step);bins.fill(0);
+      for(const w of walkers){const b=Math.floor((w.x-cx+range)/(2*range)*BINS);if(b>=0&&b<BINS)bins[b]++}
+      const top=H*.74,hh=H*.24,bw=(W-40)/BINS,peak=N*(2*range/BINS)/(sigma*Math.sqrt(2*Math.PI));
+      const scale=hh*.9/Math.max(peak,1);
+      ctx.fillStyle='#080810';ctx.fillRect(0,top,W,H-top);
+      for(let i=0;i<BINS;i++){const h2=Math.min(hh,bins[i]*scale);ctx.fillStyle='rgba(240,96,64,.85)';ctx.fillRect(20+i*bw,H-h2,bw-1,h2)}
+      ctx.strokeStyle='#fff';ctx.lineWidth=1.6;ctx.beginPath();
+      for(let i=0;i<=200;i++){const xv=-range+2*range*i/200,g=peak*Math.exp(-xv*xv/(2*sigma*sigma));const X=20+(xv+range)/(2*range)*(W-40),Y=H-Math.min(hh,g*scale);i?ctx.lineTo(X,Y):ctx.moveTo(X,Y)}ctx.stroke();
+      const ci=document.getElementById('canvas-info');if(ci)ci.textContent=`${n} pas — histogramme des positions x (rouge) et loi normale prévue σ = s·√(n/2) = ${sigma.toFixed(0)} px (blanc)`;
       raf=expRAF(loop);
     }
-    ctx.fillStyle='#080810';ctx.fillRect(0,0,W,H);loop();
+    loop();
   }
 };
-EXPS.walk={tag:'Mathématiques · Probabilités',title:'Marche Aléatoire et Diffusion',hint:'L\'histogramme rouge montre la distribution émergente',info:'<strong>La marche aléatoire</strong> modélise le mouvement brownien (Einstein, 1905), la diffusion moléculaire, les marchés financiers et la dispersion d\'une tache d\'encre dans l\'eau. Malgré le hasard pur de chaque pas, la distribution des positions converge vers une gaussienne (courbe en cloche) — illustration directe du <em>théorème central limite</em>, fondement de toute la statistique.',setup:walk.setup};
+EXPS.walk={tag:'Mathématiques · Probabilités',title:'Marche Aléatoire et Diffusion',hint:'',info:'<strong>La marche aléatoire</strong> modélise le mouvement brownien (Einstein, 1905), la diffusion moléculaire, les marchés financiers et la dispersion d\'une tache d\'encre dans l\'eau. Malgré le hasard pur de chaque pas, la distribution des positions converge vers une gaussienne (courbe en cloche) — illustration directe du <em>théorème central limite</em>, fondement de toute la statistique.',setup:walk.setup};
 
 /* ─────────────────────────────────────
    14. WOLFRAM RULE 110
